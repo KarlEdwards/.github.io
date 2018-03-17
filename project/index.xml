@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Ultimate V Captioning</title>
+    <link>https://karledwards.github.io/project/</link>
+    <description>Recent content in Projects on Ultimate V Captioning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 14 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://karledwards.github.io/project/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Images Like This</title>
+      <link>https://karledwards.github.io/project/images-like-this/</link>
+      <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/project/images-like-this/</guid>
+      <description>The General Idea Given a set of images, find the ones that are most similar to a set of examples.
+More Specifically Given a dataset, comprising image features extracted using a pre-trained model, and given also the row identifiers for a subset of the data, representing the kind of images to find, create a TRAINING set of the specified rows and a TEST set of all remaining rows, then train a binary SVM classifier to identify images in the TEST set, which are similar to those in the TRAINING set.</description>
+    </item>
+    
+    <item>
+      <title>Large Integer Multiplication</title>
+      <link>https://karledwards.github.io/project/large-integer-multiplication/</link>
+      <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/project/large-integer-multiplication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photogrammetric Potsherd Profile</title>
+      <link>https://karledwards.github.io/project/photogrammetric-potsherd/</link>
+      <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/project/photogrammetric-potsherd/</guid>
+      <description>The General Idea Make photogrammetry readily accessible to archaeologists through open source computational archaeology.
+More Specifically This project describes in some detail the steps to photograph a potsherd and generate a mathematical model from the resulting images, and, in much less detail, suggests how to automatically measure the object represented by the model. The R source code is available on github and an R package will be available soon. A number of simplifying assumptions accelerated this initial draft.</description>
+    </item>
+    
+    <item>
+      <title>A Plain Markdown Post</title>
+      <link>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</link>
+      <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
+      
+      <guid>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</guid>
+      <description>Summary
+Example of a Plain Markdown post and how Plain Markdown differs from R Markdown
+ one two three four five six  This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
+ You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
+    </item>
+    
+    <item>
+      <title>Deep Learning</title>
+      <link>https://karledwards.github.io/project/deep-learning/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/project/deep-learning/</guid>
+      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus.</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</guid>
+      <description>A Plain Markdown Post       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs &amp;&amp; document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .</description>
+    </item>
+    
+  </channel>
+</rss>

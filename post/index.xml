@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Posts on Ultimate V Captioning</title>
+    <link>https://karledwards.github.io/post/</link>
+    <description>Recent content in Posts on Ultimate V Captioning</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Thu, 15 Mar 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="https://karledwards.github.io/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About the Blog...</title>
+      <link>https://karledwards.github.io/post/about-the-blog-rmd/</link>
+      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/post/about-the-blog-rmd/</guid>
+      <description>Getting Started I began by trying to follow the instructions from these resources:
+ Blogging with R Markdown, by Kevin Wong http://kevinfw.com/post/blogging-with-r-markdown/ Building a Blog with Blogdown and GitHub, by Tyler Clavelle https://tclavelle.github.io/blog/blogdown_github/ Announcing Blogdown, by Yihui Xie https://blog.rstudio.com/2017/09/11/announcing-blogdown/, along with https://github.com/rstudio/blogdown Blogging with Rmarkdown, knitr, and Jekyll, by Brendan Rocks, https://www.r-bloggers.com/blogging-with-rmarkdown-knitr-and-jekyll/ Happy Git and GitHub for the useR, by Jennifer Bryan, https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user  After many false starts and nearly giving up, things finally started falling into place.</description>
+    </item>
+    
+    <item>
+      <title>R Example</title>
+      <link>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</guid>
+      <description>R Markdown  </description>
+    </item>
+    
+    <item>
+      <title>A Post with an image</title>
+      <link>https://karledwards.github.io/post/2015-01-01-post-with-image/</link>
+      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
+      
+      <guid>https://karledwards.github.io/post/2015-01-01-post-with-image/</guid>
+      <description>This post is about...</description>
+    </item>
+    
+    <item>
+      <title></title>
+      <link>https://karledwards.github.io/post/2018-03-15-about-the-blog-rmd/</link>
+      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/post/2018-03-15-about-the-blog-rmd/</guid>
+      <description>About the Blog…       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs &amp;&amp; document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .table th:not([align]) { text-align: left; }    .</description>
+    </item>
+    
+  </channel>
+</rss>
