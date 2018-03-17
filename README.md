@@ -1,2 +1,0 @@
-# .github.io
-blog content
