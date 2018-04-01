@@ -1,0 +1,80 @@
+
+## Additional Bibliography
+
+*** 
+
+### Evaluation
+
+* Lavie, M.D.A.: Meteor universal: Language specific translation evaluation for any target language. ACL 2014 p. 376 (2014)
+
+* Papineni, K., Roukos, S., Ward, T., Zhu, W.J.: BLEU: a method for automatic evaluation of machine translation. In: Proceedings of the Annual Meeting of the Association for Computational Linguistics (ACL) (2002)
+
+* Lin, C.Y.: Rouge: A package for automatic evaluation of summaries. In: Text Summarization Branches Out: Proceedings of the ACL-04 Workshop. pp. 74–81 (2004)
+
+### Obtaining training data
+
+* Torabi, A., Pal, C., Larochelle, H., Courville, A.: Using descriptive video services to create a large data source for video annotation research. arXiv:1503.01070v1 (2015)
+
+
+## Serena Yeung et al
+
+Every moment counts: dense detailed labeling of actions in complex videos (2015)
+
+End-to-end learning of action detection from frame glimpses in videos (2016)
+
+***
+
+# Tasks
+
+***
+
+## Extract frames from a video file
+Given a video file, start time, and duration, return a set of image files, each file representing a frame from the video. See [Practical VLC](https://github.com/Video-Captioning/Practical-VLC).
+
+## Find the people
+
+# Bibliography
+
+* Yeung, S., Russakovsky, O., Jin, N., Andriluka, M., Mori, G., Fei-Fei, L.: Every moment counts: dense detailed labeling of actions in complex videos (2015). arXiv preprint arXiv:1507.05738
+
+* Yeung, S., Russakovsky, O., Mori, G., Fei-Fei, L.: End-to-end learning of action detection from frame glimpses in videos. In: CVPR (2016)
+@article{yeung2015end,
+  title={End-to-end Learning of Action Detection from Frame Glimpses in Videos},
+  author={Yeung, Serena and Russakovsky, Olga and Mori, Greg and Fei-Fei, Li},
+  journal={arXiv preprint arXiv:1511.06984},
+  year={2015}
+}
+
+
+* Keras
+@misc{chollet2015keras,
+  title={Keras},
+  author={Chollet, Fran\c{c}ois and others},
+  year={2015},
+  publisher={GitHub},
+  howpublished={\url{https://github.com/keras-team/keras}},
+}
+
+Shih:
+
+* [181] M. Tavassolipour, M. Karimian, and S. Kasaei, “Event Detection and Summarization in Soccer Videos Using Bayesian Network and Copula,” IEEE Trans. Circuits Syst. Video Technol., vol. 24, no. 2, pp. 291–304, Feb. 2014.
+
+* [164] M. H. Kolekar and S. Sengupta, “Bayesian Network-Based Customized Highlight Generation for Broadcast Soccer Videos,” IEEE Trans. Broadcast., vol. 61, No. 2, pp.195–209, June 2015.
+
+* [246] K. Knauf, D. Memmert, and U. Brefeld, “Spatio-temporal Convolution Kernels,” Mach. Learn., vol. 102, pp. 247–273, 2016.
+
+
+***
+
+# Data Sources
+
+* Flickr8K, Flickr30K, and MSCOCO datasets contain 8,000, 31,000 and 123,000 images respectively and each is annotated with 5 sentences using Amazon Mechanical Turk.
+
+* MSVD, M-VAD, MPII Movie Description
+
+## Ideas
+
+1. [ ] Extract typical phrases used by commentators from game transcripts.
+
+***
+

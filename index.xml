@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Ultimate V Captioning on Ultimate V Captioning</title>
-    <link>https://karledwards.github.io/</link>
-    <description>Recent content in Ultimate V Captioning on Ultimate V Captioning</description>
+    <title>Unqualified Success on Unqualified Success</title>
+    <link>/</link>
+    <description>Recent content in Unqualified Success on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
@@ -11,11 +11,1002 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Ultimate Captioning Part 4</title>
+      <link>/post/ultimate-captioning-field-detector/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-field-detector/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 5</title>
+      <link>/post/ultimate-captioning-disc-detector/</link>
+      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-disc-detector/</guid>
+      <description>&lt;p&gt;Establish a baseline for disc detection.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Data&lt;/li&gt;
+&lt;li&gt;Calculation of HoGs using varying number of cells and bins&lt;/li&gt;
+&lt;li&gt;Clustering&lt;/li&gt;
+&lt;li&gt;Evaluation&lt;/li&gt;
+&lt;li&gt;Conclusion&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr /&gt;
+&lt;div id=&#34;overview&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Overview&lt;/h1&gt;
+&lt;div id=&#34;data-source&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Source&lt;/h2&gt;
+&lt;p&gt;3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;data-preparation&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data Preparation&lt;/h2&gt;
+&lt;p&gt;Partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. For example: 40% training&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd /Users/Karl/Dropbox/Projects/Video-Captioning
+sh ./partition_data_two_class.sh disc labeled_3471.txt 0.40
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;After partitioning the data, extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd ./disc40
+~/Dropbox/Projects/Video-Captioning/disc40
+sh ../hog.sh ../data/2_images/ 4 9
+sh ../hog.sh ../data/2_images/ 5 9
+sh ../hog.sh ../data/2_images/ 6 9
+sh ../hog.sh ../data/2_images/ 7 9
+sh ../hog.sh ../data/2_images/ 8 9
+sh ../hog.sh ../data/2_images/ 9 9&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Re-Partition the data, this time using 60% for training:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd /Users/Karl/Dropbox/Projects/Video-Captioning
+sh ./partition_data_two_class.sh disc labeled_3471.txt 0.60
+
+Once again extract HoG features using various numbers of cells and 9 bins:
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd ./disc60
+~/Dropbox/Projects/Video-Captioning/disc40
+sh ../hog.sh ../data/2_images/ 4 9
+sh ../hog.sh ../data/2_images/ 5 9
+sh ../hog.sh ../data/2_images/ 6 9
+sh ../hog.sh ../data/2_images/ 7 9
+sh ../hog.sh ../data/2_images/ 8 9
+sh ../hog.sh ../data/2_images/ 9 9&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# R linear_SVM.R
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells4_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells5_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells6_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells7_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells8_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells9_bins9/&amp;#39; )), times=1L )
+
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells4_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells5_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells6_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells7_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells8_bins9/&amp;#39; )), times=1L )
+microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#39; )), times=1L )
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;results&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Results&lt;/h1&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr class=&#34;header&#34;&gt;
+&lt;th&gt;AUC&lt;/th&gt;
+&lt;th&gt;F1-Score&lt;/th&gt;
+&lt;th align=&#34;right&#34;&gt;Seconds&lt;/th&gt;
+&lt;th&gt;PctTrain&lt;/th&gt;
+&lt;th&gt;Cells&lt;/th&gt;
+&lt;th&gt;Bins&lt;/th&gt;
+&lt;th&gt;Accuracy&lt;/th&gt;
+&lt;th&gt;Precision&lt;/th&gt;
+&lt;th&gt;Recall&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;69&lt;/td&gt;
+&lt;td&gt;54&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;112&lt;/td&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;90&lt;/td&gt;
+&lt;td&gt;88&lt;/td&gt;
+&lt;td&gt;39&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;62&lt;/td&gt;
+&lt;td&gt;38&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;216&lt;/td&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;7&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;62&lt;/td&gt;
+&lt;td&gt;91&lt;/td&gt;
+&lt;td&gt;24&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;62&lt;/td&gt;
+&lt;td&gt;37&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;154&lt;/td&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;8&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;88&lt;/td&gt;
+&lt;td&gt;86&lt;/td&gt;
+&lt;td&gt;23&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;35&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;76&lt;/td&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;6&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;88&lt;/td&gt;
+&lt;td&gt;88&lt;/td&gt;
+&lt;td&gt;21&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;odd&#34;&gt;
+&lt;td&gt;56&lt;/td&gt;
+&lt;td&gt;22&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;92&lt;/td&gt;
+&lt;td&gt;40&lt;/td&gt;
+&lt;td&gt;5&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;87&lt;/td&gt;
+&lt;td&gt;95&lt;/td&gt;
+&lt;td&gt;12&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&#34;even&#34;&gt;
+&lt;td&gt;53&lt;/td&gt;
+&lt;td&gt;13&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;24&lt;/td&gt;
+&lt;td&gt;60&lt;/td&gt;
+&lt;td&gt;4&lt;/td&gt;
+&lt;td&gt;9&lt;/td&gt;
+&lt;td&gt;86&lt;/td&gt;
+&lt;td&gt;88&lt;/td&gt;
+&lt;td&gt;07&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 3</title>
+      <link>/post/ultimate-captioning-scorecard/</link>
+      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-scorecard/</guid>
+      <description>
+
+&lt;p&gt;What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. I will use HoG, with cells in {1,4,9,16} and bins in {5, 9}, to establish a baseline for disc detection.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;p&gt;Identify images depicting the field. Assume that the largest green region in the picture is the field.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Extract field marks from images depicting the field as follows (Field segmentation):&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;apply a Gaussian-Laplacian edge detector for picking line marks
+
+&lt;ul&gt;
+&lt;li&gt;remove lines whose colors are not white&lt;/li&gt;
+&lt;li&gt;perform a thinning operation&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;edge trimming for patching up broken edges&lt;/li&gt;
+&lt;li&gt;recognize line marks&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Establish team colors by looking for distinct peaks in the color histogram and trying to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game.&lt;/p&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;toolbox&#34;&gt;Toolbox&lt;/h1&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; checked disabled class=&#34;task-list-item&#34;&gt; Extract image files from video file(s)&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Determine the top N colors present in an image
+
+&lt;ul&gt;
+&lt;li&gt;by pixel area&lt;/li&gt;
+&lt;li&gt;where color is defined in broad categories: red/green/blue/yellow/white&lt;/li&gt;
+&lt;li&gt;---&lt;/li&gt;
+&lt;/ul&gt;&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Extract field lines from images&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h1 id=&#34;scorecard&#34;&gt;Scorecard&lt;/h1&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Task&lt;/th&gt;
+&lt;th&gt;Approach&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Results&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Player Identification&lt;/td&gt;
+&lt;td&gt;Semantic Segmentation&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Player Identification&lt;/td&gt;
+&lt;td&gt;Instance Segmentation&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Disc Trajectory Tracking&lt;/td&gt;
+&lt;td&gt;Sparse Optical Flow&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Field Identification&lt;/td&gt;
+&lt;td&gt;Color Histogram, HoG&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Player Action&lt;/td&gt;
+&lt;td&gt;Stance Classification&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Pull Identification&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Interpret Scene&lt;/td&gt;
+&lt;td&gt;Content Pyramid:  raw data -&amp;gt; named subjects and objects, interacting in context -&amp;gt; understanding -&amp;gt; transcript.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Interpret Scene&lt;/td&gt;
+&lt;td&gt;disc-centric features -&amp;gt; disc activities(throw, catch) -&amp;gt; descriptions; learn to predict ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Interpret Scene&lt;/td&gt;
+&lt;td&gt;collect domain-specific descriptions of important activities at various levels of detail; develop a robust disc detector, since in this domain, the disc is central to the game.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td&gt;Implement the method of Schindler and Van Gool, a two-path model, the first path filters images at multiple scales and orientations while the second path calculates optical flow on multiple scales, directions, and speeds. The paths are combined eventually into a vector of 1000 features.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td&gt;use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td&gt;regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call &lt;strong&gt;&lt;em&gt;stick&lt;/em&gt;&lt;/strong&gt;ness, &lt;strong&gt;&lt;em&gt;plate&lt;/em&gt;&lt;/strong&gt;ness, and &lt;strong&gt;&lt;em&gt;ball&lt;/em&gt;&lt;/strong&gt;ness. Using these, and others, they produce a vector of 280 features&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td&gt;extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features, representing essential motion, independent of who performs it&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Extract Jersey Numbers&lt;/td&gt;
+&lt;td&gt;one class per number&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Identify images depicting the field&lt;/td&gt;
+&lt;td&gt;the largest green region in the picture is assumed to be the field&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Extract field marks from images depicting the field&lt;/td&gt;
+&lt;td&gt;Field segmentation: (1) apply a Gaussian-Laplacian edge detector for picking line marks, remove lines whose colors are not white, and perform a thinning operation; (2) edge trimming for patching up broken edges; (3) recognize line marks.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Identify images depicting the disc&lt;/td&gt;
+&lt;td&gt;The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Establish team colors&lt;/td&gt;
+&lt;td&gt;look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Describe the action in a brief sequence of video frames&lt;/td&gt;
+&lt;td&gt;The main idea is that &lt;em&gt;verbs&lt;/em&gt; characterize interaction; participants, shapes, colors, sizes, and textures are irrelevant to action. Only after the action has been identified can these other details be used to add richness to the description. They use a limited vocabulary of 118 words, comprising 48 verbs, 24 nouns, 8 prepositions, along with other parts of speech, listed below, to generate video descriptions.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;general, &lt;em&gt;broad-coverage&lt;/em&gt;, activity recognition&lt;/td&gt;
+&lt;td&gt;start with subject/verb/object triplets taken from natural language descriptions of videos. Create object descriptors based on Deformable Parts Models. Combine information from both object and activity features using a non-linear SVM&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Sparse Object Stitching&lt;/td&gt;
+&lt;td&gt;identify the main idea from the first few images. Consider each subsequent image, adding additional ideas or concepts when the main idea identified from the current image is sufficiently different&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Annotate images with keywords&lt;/td&gt;
+&lt;td&gt;employ a low level multimodal latent topic model for initial keyword annotation&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Annotate images associated with concept change&lt;/td&gt;
+&lt;td&gt;use a middle level concept detectors&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Annotate short sequences&lt;/td&gt;
+&lt;td&gt;use a high level module to produce final lingual descriptions by stitching concepts to a tripartite template graph&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Generate captions&lt;/td&gt;
+&lt;td&gt;using a combination of still frame features and dynamic motion-based features with a soft-attention mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td&gt;&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;; The middle level is a top-down approach that detects concepts sparsely throughout the video, matches them over time, which we call stitching, and relates them to a tripartite template graph for generating language output; The tripartite template graph takes the form (human) subject/tool/object. For a given domain, each such  triplet instantiates a manually created template, such as “⟨subject⟩ is cleaning ⟨object⟩ with ⟨tool⟩.” ||&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 2</title>
+      <link>/post/ultimate-captioning-approaches/</link>
+      <pubDate>Sun, 18 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-approaches/</guid>
+      <description>
+
+&lt;p&gt;How have others approached this problem? What are the key challenges in the field of video captioning? How can we decompose the problem to facilitate solution by parts? How can we leverage the work of others to save time and produce a better solution? What is most interesting, and how do people describe it? How many frames needed to determine action? Using descriptive video services to create a large data source for video annotation research.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Where to Look For Ideas&lt;/li&gt;
+&lt;li&gt;What is most interesting, and how do people describe it?&lt;/li&gt;
+&lt;li&gt;How many frames needed to determine action?&lt;/li&gt;
+&lt;li&gt;Parts of the game&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Separating action from the individual performing it&lt;/li&gt;
+&lt;li&gt;Dimensionality reduction&lt;/li&gt;
+&lt;li&gt;Separating action from the individual performing it&lt;/li&gt;
+&lt;li&gt;Unsupervised Discovery of Action Classes&lt;/li&gt;
+&lt;li&gt;Active Learning to Accelerate Labeling of Training Data&lt;/li&gt;
+&lt;li&gt;Using descriptive video services&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;describing-key-moments-from-an-ultimate-championship-tournament&#34;&gt;Describing Key Moments From An Ultimate Championship Tournament&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;related-work&#34;&gt;Related Work&lt;/h1&gt;
+
+&lt;h2 id=&#34;where-to-look-for-ideas&#34;&gt;Where to Look For Ideas&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In, &lt;strong&gt;A Survey on Content-aware Video Analysis for Sports&lt;/strong&gt;, &lt;em&gt;Huang-Chia Shih&lt;/em&gt; introduces the the concept of the content pyramid, reviews the state-of-the-art for content hierarchies, and concludes with a discussion of remaining challenges in video analysis.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;The &lt;em&gt;content pyramid&lt;/em&gt; is presented as an alternative to the spatiotemporal approach, using semantic reasoning to reach more meaningful awareness of video content. From &lt;em&gt;video clips&lt;/em&gt;, we extract &lt;em&gt;objects&lt;/em&gt;, from which we infer &lt;em&gt;events&lt;/em&gt;, about which we draw &lt;em&gt;conclusions&lt;/em&gt;. Similarly, &lt;em&gt;raw data&lt;/em&gt; become &lt;em&gt;named subjects and objects&lt;/em&gt;; subjects interacting with objects in context lead to &lt;em&gt;understanding&lt;/em&gt;; translating that understanding into text produces a &lt;em&gt;transcript&lt;/em&gt;.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;for-a-given-domain-what-is-most-interesting-and-how-do-people-describe-it&#34;&gt;For a given domain, what is most interesting, and how do people describe it?&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Coherent multi-sentence video description with variable level of detail&lt;/strong&gt;, &lt;em&gt;Rohrbach&lt;/em&gt; et. al. (2014) collect and analyze a video description corpus of three levels of detail in order to understand the difference between more detailed and less detailed descriptions. They find that inferring the high level topic helps to ensure consistency across sentences, and that hand-centric features help to improve the visual recognition of object manipulation activities, which leads to corresponding improvements in the resulting descriptions. They use a two-step approach, learning first to predict a &lt;em&gt;semantic representation&lt;/em&gt;, for example, ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model. They claim that human judges rate their multi-sentence descriptions as more readable, correct, and relevant than related work.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In their application domain of cooking activities, it is important to describe all handled objects, so &lt;em&gt;Senina, Rohrbach, et. al.&lt;/em&gt;, in their paper, &lt;strong&gt;Coherent Multi-Sentence Video Description with Variable Level of Detail&lt;/strong&gt;, develop a robust hand detector, based on deformable part models, and extract color SIFT features in the vicinity of detected hands in order to facilitate the recognition of manipulated objects. They ask individuals to describe each cooking video with a single sentence, then with three to five sentences, and finally, with up to fifteen sentences, and then analyze which aspects of the video are verbalized in each case.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;[x] Something to try: collect domain-specific descriptions of important activities at various levels of detail; develop a robust disc detector, since in this domain, the disc is central to the game.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;what-is-the-minimum-number-of-frames-needed-in-order-to-determine-action&#34;&gt;What is the minimum number of frames needed in order to determine action&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Action Snippets: How Many Frames Does Human Action Recognition Require?&lt;/strong&gt;, &lt;em&gt;Schindler and Van Gool&lt;/em&gt; found that 1 to 7 frames usually suffice. In their two-path model, the first path filters images at multiple scales and orientations while the second path calculates optical flow on multiple scales, directions, and speeds. The paths are combined eventually into a vector of 1000 features.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Unsupervised Discovery of Action Classes&lt;/strong&gt;, &lt;em&gt;Wang et. al.&lt;/em&gt; use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Action as Space-Time Shapes&lt;/strong&gt;, &lt;em&gt;Blank, Gorelick, et. al.&lt;/em&gt; regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call &lt;strong&gt;&lt;em&gt;stick&lt;/em&gt;&lt;/strong&gt;ness, &lt;strong&gt;&lt;em&gt;plate&lt;/em&gt;&lt;/strong&gt;ness, and &lt;strong&gt;&lt;em&gt;ball&lt;/em&gt;&lt;/strong&gt;ness. Using these, and others, they produce a vector of 280 features.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Chaotic Invariants for Human Action Recognition&lt;/strong&gt;, &lt;em&gt;Ali, Basharat, and Shar&lt;/em&gt; use a method I envision as stick-figure flow. They have produced a set of 81 videos, comprising 9 actors performing 9 actions. They extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features. Their method is robust in that it finds the essential motion, independent of who performs it.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;jersey-number-extraction&#34;&gt;Jersey Number Extraction&lt;/h2&gt;
+
+&lt;p&gt;In &lt;strong&gt;Soccer Jersey Number Recognition Using Convolutional Neural Networks&lt;/strong&gt;, &lt;em&gt;Gerke and Müller&lt;/em&gt; find that a  holistic approach of one class per number performed better than one class per digit and that deep learning approaches yield quite good results even with smaller datasets.&lt;/p&gt;
+
+&lt;h2 id=&#34;event-detection&#34;&gt;Event Detection&lt;/h2&gt;
+
+&lt;p&gt;In, &lt;strong&gt;An Overview of Automatic Event Detection in Soccer Matches&lt;/strong&gt;, &lt;em&gt;de Sousa Júnior&lt;/em&gt; et. al. (2011) describe several relevant topics, including ball tracking, player tracking, kick detection, goal detection.&lt;/p&gt;
+
+&lt;p&gt;In, &lt;strong&gt;Automatic parsing of tv soccer programs&lt;/strong&gt;, &lt;em&gt;Chuan&lt;/em&gt; uses an &lt;em&gt;a priori&lt;/em&gt; model with four components: (1) field, (2) ball, (3) players, and (4) motion. The largest green region in the picture is assumed to be the field. Field segmentation is a three-step process: (1) apply a Gaussian-Laplacian edge detector for picking line marks, remove lines whose colors are not white, and perform a thinning operation; (2) edge trimming for patching up broken edges; (3) recognize line marks. The ball is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular. To identify players, they look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game. Motion: Look for corresponding pixels in consecutive frames.&lt;/p&gt;
+
+&lt;p&gt;In, &lt;strong&gt;Where are the ball and players? soccer game analysis with color based tracking and image mosaic&lt;/strong&gt;, &lt;em&gt;Seo et. al.&lt;/em&gt; take a sophisticated approach translating images into a field model, using feature points when the center circle is visible and using image-based mosaicking otherwise.&lt;/p&gt;
+
+&lt;h2 id=&#34;who-did-what-to-whom&#34;&gt;Who Did What To Whom?&lt;/h2&gt;
+
+&lt;h3 id=&#34;also-when-where-and-how&#34;&gt;Also: When, Where, and How?&lt;/h3&gt;
+
+&lt;p&gt;In, &lt;strong&gt;Video in sentences out&lt;/strong&gt;, &lt;em&gt;Barbu&lt;/em&gt; et. al. (2015), describe an approach deeply rooted in formal semantics--&lt;em&gt;Meaning&lt;/em&gt; is viewed as a relation between language and external reality, formalized in terms of reference, truth, possible worlds, etc. They criticize spatiotemporal-bags-of-words and similar approaches, claiming that these methods obtain  high accuracy for the wrong reasons, for example, associating &lt;em&gt;diving&lt;/em&gt; with the blue of the pool, rather than the motion of the actor. The main idea is that &lt;em&gt;verbs&lt;/em&gt; characterize interaction; participants, shapes, colors, sizes, and textures are irrelevant to action. Only after the action has been identified can these other details be used to add richness to the description. They use a limited vocabulary of 118 words, comprising 48 verbs, 24 nouns, 8 prepositions, along with other parts of speech, listed below, to generate video descriptions.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Part of Speech&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Members&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;verbs&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;approached, arrived, attached, bounced, buried, carried, caught, chased, closed, collided, digging, dropped, entered, exchanged, exited, fell, fled, flew, followed, gave, got, had, handed, hauled, held, hit, jumped, kicked, left, lifted, moved, opened, passed, picked, pushed, put, raised, ran, received, replaced, snatched, stopped, threw, took, touched, turned, walked, went&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;nouns&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;bag, ball, bench, bicycle, box, cage, car, cart, chair, dog, door, ladder, left, mailbox, microwave, motorcycle, object, person, right, skateboard, SUV, table, tripod, truck&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;adjectives&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;big, black, blue, cardboard, crouched, green, narrow, other, pink, prone, red, short, small, tall, teal, toy, upright, white, wide, yellow&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;prepositions&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;above, because, below, from, of, over, to, with&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;lexical PPs&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;downward, leftward, rightward, upward&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;determiners&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;an, some, that, the&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;particles&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;away, down, up&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;pronouns&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;itself, something, themselves&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;adverbs&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;quickly, slowly&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;auxiliary&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;was&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;coordination&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;and&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; checked disabled class=&#34;task-list-item&#34;&gt; Something to try: implement their approach with a domain-specific vocabulary--ultimate verbs (pull, sky, huck, layout, etc) and ultimate nouns (disc, end-zone, defender, ...)&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;active-learning-to-accelerate-labeling-of-training-data&#34;&gt;Active Learning to Accelerate Labeling of Training Data&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In, &lt;strong&gt;Learning Active Learning from Data&lt;/strong&gt;, &lt;em&gt;Konyushkova, Raphael, and Fua&lt;/em&gt; take an iterative and adaptive approach for deciding which datapoints should be annotated next, instead of asking experts to annotate all the data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In &lt;strong&gt;Recognizing and describing arbitrary activities using semantic hierarchies and zero-shoot recognition&lt;/strong&gt;, Guadarrama et al &lt;strong&gt;2013&lt;/strong&gt;, attempt to perform general, &lt;em&gt;broad-coverage&lt;/em&gt;, activity recognition, beginning with subject/verb/object triplets taken from natural language descriptions of videos. Their method does not require training videos of the exact activity. If it cannot find an accurate prediction for a pre-trained model, it finds a less specific answer that is also plausible. The semantic hierarchies learned from the data help to choose an appropriate level of generalization. They create object descriptors based on Deformable Parts Models. Their classifiers use a non-linear SVM to combine information from both object and activity features.&lt;/p&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; I think this is too complex, and tries to be more general than needed for the specific problem I&#39;m trying to solve.&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;in &lt;strong&gt;A Thousand Frames in Just a Few Words: Lingual Description of Videos through Latent Topics and Sparse Object Stitching&lt;/strong&gt;, &lt;em&gt;Das&lt;/em&gt; et al 2013, employ a low level multimodal latent topic model for initial keyword annotation, a middle level of concept detectors, and a high level module to produce final lingual descriptions.&lt;/p&gt;
+
+&lt;p&gt;The middle level is a top-down approach that detects concepts sparsely throughout the video, matches them over time, which we call stitching, and relates them to a tripartite template graph for generating language output.&lt;/p&gt;
+
+&lt;p&gt;&lt;em&gt;Sparse Object Stitching&lt;/em&gt; identifies the main idea from the first few images. As it considers each subsequent image, it adds additional ideas or concepts when the main idea identified from the current image is sufficiently different. So, for example, in a video showing a person, who grasps a bowl and then stirs its contents with a spoon, the sparse objects might be person, bowl, spoon.&lt;/p&gt;
+
+&lt;p&gt;The tripartite template graph takes the form (human) subject/tool/object. For a given domain, each such  triplet instantiates a manually created template, such as “⟨subject⟩ is cleaning ⟨object⟩ with ⟨tool⟩.”&lt;/p&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; In the Ultimate Captioning domain, there are few tools available for populating the tripartite templates--subjects might include: player, defender, observer, fan, commentator; objects might include: disc, ?, ?; but tool?&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In &lt;strong&gt;Sequence to sequence – video to text&lt;/strong&gt;, &lt;em&gt;Venugopalan&lt;/em&gt; et al 2015 use an end-to-end-trainable model, incorporating both intensity and optical flow inputs. Their approach requires neither an attention mechanism nor domain-specific template.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Their implementation, based Caffe, is available at &lt;a href=&#34;https://github.com/vsubhashini/caffe/tree/recurrent/examples/s2vt&#34; target=&#34;_blank&#34;&gt;https://github.com/vsubhashini/caffe/tree/recurrent/examples/s2vt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;In &lt;strong&gt;Describing videos by exploiting temporal structure&lt;/strong&gt;, Yao et al 2015 use a combination of still frame features and dynamic motion-based features for caption generation. They introduce a &lt;em&gt;soft-attention&lt;/em&gt; mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.  Soft-attention depends both on the video representation and previous RNN state, dynamically changing through time.&lt;/p&gt;
+
+&lt;p&gt;They use a pre-trained convolutional neural network (2-D ConvNet) as well as a 3-dimensional, spatio-temporal convolutional neural network (3-D ConvNet: 2 spacial dimensions + 1 temporal dimension), pre-trained on activity-recognition datasets.&lt;/p&gt;
+
+&lt;p&gt;They point out that certain actions are inextricably dynamic. For example, given an image of a player holding a disc, what action should we predict? Holding? That is not very interesting. Just caught? About to throw? About to drop? Motion from subsequent frames will be required in order to discern the action.&lt;/p&gt;
+
+&lt;h2 id=&#34;bibliography&#34;&gt;Bibliography&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;A Survey on Content-aware Video Analysis for Sports
+Huang-Chia Shih
+IEEE TRANSACTIONS ON CIRCUITS AND SYSTEMS FOR VIDEO TECHNOLOGY, VOL. 99, NO. 9, JANUARY 2017
+&lt;a href=&#34;https://arxiv.org/pdf/1703.01170.pdf&#34; target=&#34;_blank&#34;&gt;https://arxiv.org/pdf/1703.01170.pdf&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;S. Gerke and K. Müller, “Soccer Jersey Number Recognition Using Convolutional Neural Networks,” in Proc. IEEE Int’l Conf. Comput. Vis., 2015, pp. 17–24&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;S.F. de Sousa Júnior, A. de A. Araújo, and D. Menotti “An overview of automatic event detection in soccer matches,” in Proc. IEEE Workshop Applicant. Comput. Vis., 2011, pp. 31–38.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;@INPROCEEDINGS{484921,
+author={Yihong Gong and Lim Teck Sin and Chua Hock Chuan and Hongjiang Zhang and Masao Sakauchi},
+booktitle={Proceedings of the International Conference on Multimedia Computing and Systems},
+title={Automatic parsing of TV soccer programs},
+year={1995},
+volume={},
+number={},
+pages={167-174},
+keywords={grammars;image matching;interactive video;multimedia computing;sport;TV soccer programs;automatic parsing;ball;domain knowledge;football;general video images;motion vectors;play categories;players;soccer court;soccer program parsing;soccer video programs;video structure;Cameras;Computer networks;Electronics industry;High performance computing;Indexing;Industrial electronics;Information retrieval;Layout;TV;Tail},
+doi={10.1109/MMCS.1995.484921},
+ISSN={},
+month={May},}&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;From Y. Seo, S. Choi, H. Kim, and K.-S. Hong. Where are the ball and players? soccer game analysis with color based tracking and image mosaic. In IEEE International Conference on Image Analysis and Processing (ICIAP’97), volume II, pages 196–203, 1997: Field detection: peaks of the histograms of the RGB color space&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;@InProceedings{10.1007/3-540-63508-4_123,
+author=&amp;quot;Seo, Yongduek
+and Choi, Sunghoon
+and Kim, Hyunwoo
+and Hong, Ki-Sang&amp;quot;,
+editor=&amp;quot;Del Bimbo, Alberto&amp;quot;,
+title=&amp;quot;Where are the ball and players? Soccer game analysis with color-based tracking and image mosaick&amp;quot;,
+booktitle=&amp;quot;Image Analysis and Processing&amp;quot;,
+year=&amp;quot;1997&amp;quot;,
+publisher=&amp;quot;Springer Berlin Heidelberg&amp;quot;,
+address=&amp;quot;Berlin, Heidelberg&amp;quot;,
+pages=&amp;quot;196--203&amp;quot;,
+abstract=&amp;quot;Knowing the locations of the players and the ball on a ground field is important for soccer game analysis. Given an image sequence, we address three main problems: 1) ground field extraction, 2) player and ball tracking and team identification and 3) absolute player positioning. The region of ground field is extracted on the basis of color information, within which all the other processing is restricted. Players are tracked by template matching and Kalman filtering. Occlusion reasoning is done by color histogram back-projection. To find the location of a player, afield model is constructed and a transformation between the input image and the field model is computed using feature points. Otherwise, an image-based mosaicking technique is applied. Using this image-to-model transformation, the absolute positions and the trajectories of players on the field model are determined. We tested our method on real image sequences and the experimental results are given.&amp;quot;,
+isbn=&amp;quot;978-3-540-69586-8&amp;quot;
+}&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Barbu, A., Bridge, A., Burchill, Z., Coroian, D., Dickinson, S., Fidler, S., Michaux, A., Mussman, S., Narayanaswamy, S., Salvi, D., Schmidt, L., Shangguan, J., Siskind, J.M., Waggoner, J., Wang, S., Wei, J., Yin, Y., Zhang, Z.: Video in sentences out. In: Proceedings of the conference on Uncertainty in Artificial Intelligence (UAI) (2012)&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Rohrbach, A., Rohrbach, M., Qiu, W., Friedrich, A., Pinkal, M., Schiele, B.: Coherent multi-sentence video description with variable level of detail. In: Proceedings of the German Confeence on Pattern Recognition (GCPR) (2014)
+@article{DBLP:journals/corr/SeninaRQFAAPS14,
+author    = {Anna Senina and
+           Marcus Rohrbach and
+           Wei Qiu and
+           Annemarie Friedrich and
+           Sikandar Amin and
+           Mykhaylo Andriluka and
+           Manfred Pinkal and
+           Bernt Schiele},
+title     = {Coherent Multi-Sentence Video Description with Variable Level of Detail},
+journal   = {CoRR},
+volume    = {abs/1403.6173},
+year      = {2014},
+url       = {&lt;a href=&#34;http://arxiv.org/abs/1403.6173&#34; target=&#34;_blank&#34;&gt;http://arxiv.org/abs/1403.6173&lt;/a&gt;},
+archivePrefix = {arXiv},
+eprint    = {1403.6173},
+timestamp = {Wed, 07 Jun 2017 14:42:05 +0200},
+biburl    = {&lt;a href=&#34;https://dblp.org/rec/bib/journals/corr/SeninaRQFAAPS14&#34; target=&#34;_blank&#34;&gt;https://dblp.org/rec/bib/journals/corr/SeninaRQFAAPS14&lt;/a&gt;},
+bibsource = {dblp computer science bibliography, &lt;a href=&#34;https://dblp.org&#34; target=&#34;_blank&#34;&gt;https://dblp.org&lt;/a&gt;}
+}&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;{
+  @inproceedings{conf/cvpr/SchindlerG08,
+  added-at = {2014-07-31T00:00:00.000+0200},
+  author = {Schindler, Konrad and Gool, Luc J. Van},
+  biburl = {&lt;a href=&#34;https://www.bibsonomy.org/bibtex/2647a24279070de2435fbae897d160a0f/dblp&#34; target=&#34;_blank&#34;&gt;https://www.bibsonomy.org/bibtex/2647a24279070de2435fbae897d160a0f/dblp&lt;/a&gt;},
+  booktitle = {CVPR},
+  crossref = {conf/cvpr/2008},
+  ee = {&lt;a href=&#34;http://doi.ieeecomputersociety.org/10.1109/CVPR.2008.4587730&#34; target=&#34;_blank&#34;&gt;http://doi.ieeecomputersociety.org/10.1109/CVPR.2008.4587730&lt;/a&gt;},
+  interhash = {0528235b14d973656f1b2d645cb1309b},
+  intrahash = {647a24279070de2435fbae897d160a0f},
+  isbn = {978-1-4244-2242-5},
+  keywords = {dblp},
+  publisher = {IEEE Computer Society},
+  timestamp = {2015-04-28T16:36:53.000+0200},
+  title = {Action snippets: How many frames does human action recognition require?},
+  url = {&lt;a href=&#34;http://dblp.uni-trier.de/db/conf/cvpr/cvpr2008.html#SchindlerG08&#34; target=&#34;_blank&#34;&gt;http://dblp.uni-trier.de/db/conf/cvpr/cvpr2008.html#SchindlerG08&lt;/a&gt;},
+  year = 2008
+}&lt;/p&gt;
+
+&lt;p&gt;@article{Gorelick:2007:ASS:1313054.1313284,
+ author = {Gorelick, Lena and Blank, Moshe and Shechtman, Eli and Irani, Michal and Basri, Ronen},
+ title = {Actions As Space-Time Shapes},
+ journal = {IEEE Trans. Pattern Anal. Mach. Intell.},
+ issue_date = {December 2007},
+ volume = {29},
+ number = {12},
+ month = dec,
+ year = {2007},
+ issn = {0162-8828},
+ pages = {2247--2253},
+ numpages = {7},
+ url = {&lt;a href=&#34;http://dx.doi.org/10.1109/TPAMI.2007.70711&#34; target=&#34;_blank&#34;&gt;http://dx.doi.org/10.1109/TPAMI.2007.70711&lt;/a&gt;},
+ doi = {10.1109/TPAMI.2007.70711},
+ acmid = {1313284},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+ keywords = {Action representation, Action representation, action recognition, space-time analysis, shape analysis, poisson equation, action recognition, poisson equation, shape analysis, space-time analysis},
+}&lt;/p&gt;
+
+&lt;p&gt;{
+@INPROCEEDINGS{4409046,
+author={S. Ali and A. Basharat and M. Shah},
+booktitle={2007 IEEE 11th International Conference on Computer Vision},
+title={Chaotic Invariants for Human Action Recognition},
+year={2007},
+volume={},
+number={},
+pages={1-8},
+keywords={Lyapunov methods;correlation methods;image recognition;integral equations;Lyapunov exponent;chaotic invariants;chaotic system;correlation dimension;correlation integral;delay-embedding;feature vector;human action modelling;human action recognition;nonlinear dynamics;Biological system modeling;Chaos;Character recognition;Computer vision;Control systems;Feature extraction;Humans;Joints;Nonlinear dynamical systems;Stochastic systems},
+doi={10.1109/ICCV.2007.4409046},
+ISSN={1550-5499},
+month={Oct},}
+}&lt;/p&gt;
+
+&lt;p&gt;{
+@inproceedings{Wang:2006:UDA:1153171.1153644,
+ author = {Wang, Yang and Jiang, Hao and Drew, Mark S. and Li, Ze-Nian and Mori, Greg},
+ title = {Unsupervised Discovery of Action Classes},
+ booktitle = {Proceedings of the 2006 IEEE Computer Society Conference on Computer Vision and Pattern Recognition - Volume 2},
+ series = {CVPR &#39;06},
+ year = {2006},
+ isbn = {0-7695-2597-0},
+ pages = {1654--1661},
+ numpages = {8},
+ url = {&lt;a href=&#34;http://dx.doi.org/10.1109/CVPR.2006.321&#34; target=&#34;_blank&#34;&gt;http://dx.doi.org/10.1109/CVPR.2006.321&lt;/a&gt;},
+ doi = {10.1109/CVPR.2006.321},
+ acmid = {1153644},
+ publisher = {IEEE Computer Society},
+ address = {Washington, DC, USA},
+}&lt;/p&gt;
+
+&lt;p&gt;@article{DBLP:journals/corr/KonyushkovaSF17,
+  author    = {Ksenia Konyushkova and
+               Raphael Sznitman and
+               Pascal Fua},
+  title     = {Learning Active Learning from Real and Synthetic Data},
+  journal   = {CoRR},
+  volume    = {abs/1703.03365},
+  year      = {2017},
+  url       = {&lt;a href=&#34;http://arxiv.org/abs/1703.03365&#34; target=&#34;_blank&#34;&gt;http://arxiv.org/abs/1703.03365&lt;/a&gt;},
+  archivePrefix = {arXiv},
+  eprint    = {1703.03365},
+  timestamp = {Wed, 07 Jun 2017 14:40:25 +0200},
+  biburl    = {&lt;a href=&#34;https://dblp.org/rec/bib/journals/corr/KonyushkovaSF17&#34; target=&#34;_blank&#34;&gt;https://dblp.org/rec/bib/journals/corr/KonyushkovaSF17&lt;/a&gt;},
+  bibsource = {dblp computer science bibliography, &lt;a href=&#34;https://dblp.org&#34; target=&#34;_blank&#34;&gt;https://dblp.org&lt;/a&gt;}
+}&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Guadarrama,S.,Krishnamoorthy,N.,Malkarnenkar,G.,Venugopalan,S.,Mooney, R., Darrell, T., Saenko, K.: Youtube2text: Recognizing and describing arbitrary activities using semantic hierarchies and zero-shoot recognition. In: Proceedings of
+the IEEE International Conference on Computer Vision (ICCV) (2013)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Das, P., Xu, C., Doell, R., Corso, J.: Thousand frames in just a few words: Lingual description of videos through latent topics and sparse object stitching. In: Proceedings of the IEEE Conference on Computer Vision and Pattern Recognition (CVPR) (2013)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Venugopalan, S., Rohrbach, M., Donahue, J., Mooney, R., Darrell, T., Saenko, K.: Sequence to sequence – video to text. arXiv:1505.00487 (2015)&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Yao, L., Torabi, A., Cho, K., Ballas, N., Pal, C., Larochelle, H., Courville, A.: Describing videos by exploiting temporal structure. arXiv:1502.08029v4 (2015)&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 1</title>
+      <link>/post/ultimate-captioning-problem-rmd/</link>
+      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-problem-rmd/</guid>
+      <description>
+
+&lt;p&gt;Preparing a highlights video from raw footage is an intensely time-consuming endeavor. How can we choose the best 150 two-second plays from 10 or more hours of raw video? This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes potentially available sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;describing-key-moments-from-an-ultimate-championship-tournament&#34;&gt;Describing Key Moments From An Ultimate Championship Tournament&lt;/h2&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;what-is-ultimate&#34;&gt;What is Ultimate?&lt;/h1&gt;
+
+&lt;h2 id=&#34;overview&#34;&gt;Overview&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;According to the &lt;a href=&#34;https://www.usaultimate.org/resources/officiating/rules/11th_edition_rules.aspx&#34; target=&#34;_blank&#34;&gt;rules&lt;/a&gt; as described by USA Ultimate,&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;Ultimate is a non-contact disc sport played by two teams of seven players. The object of the game is to score goals. A goal is scored when a player catches any legal pass in the end zone that player is attacking. A player may not run while holding the disc. The disc is advanced by passing it to other players. The disc may be passed in any direction. Any time a pass is incomplete, a turnover occurs, resulting in an immediate change of the team in possession of the disc.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;h2 id=&#34;temporal-structure-of-a-game&#34;&gt;Temporal Structure of a Game&lt;/h2&gt;
+
+&lt;p&gt;The score begins at zero-zero. One team or the other scores one point at a time. The game concludes when a team accumulates the agreed number of points (typically 15) and leads by at least two points, or the time limit is reached. Major events pertaining to the game include the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Game not begun&lt;/li&gt;
+&lt;li&gt;First half
+
+&lt;ul&gt;
+&lt;li&gt;Playing&lt;/li&gt;
+&lt;li&gt;Not playing&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Half-time&lt;/li&gt;
+&lt;li&gt;Second half
+
+&lt;ul&gt;
+&lt;li&gt;Playing&lt;/li&gt;
+&lt;li&gt;Not playing&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Game over&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;temporal-structure-of-a-point&#34;&gt;Temporal Structure of a Point&lt;/h2&gt;
+
+&lt;p&gt;Players line up on the field, one team in each end-zone. When the defensive team signals readiness to begin, the offensive team throws the disc toward defensive team. This initial throw has a particular name: the &lt;em&gt;pull&lt;/em&gt;. While in possession of the disc, a player may not run, but must throw the disc. A team advances toward the end zone by completing a succession of passes. Required events pertaining to playing for a point include the following:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Players line up&lt;/li&gt;
+&lt;li&gt;Signal&lt;/li&gt;
+&lt;li&gt;Pull&lt;/li&gt;
+&lt;li&gt;Score&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Additional events, which may occur between Pull and Score:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Turnover
+
+&lt;ul&gt;
+&lt;li&gt;Disc lands on field&lt;/li&gt;
+&lt;li&gt;Defense blocks a pass&lt;/li&gt;
+&lt;li&gt;Defense intercepts a pass&lt;/li&gt;
+&lt;li&gt;Stall count reaches 10&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Injury&lt;/li&gt;
+&lt;li&gt;Foul&lt;/li&gt;
+&lt;li&gt;Time-out&lt;/li&gt;
+&lt;li&gt;Disc goes out of bounds&lt;/li&gt;
+&lt;li&gt;Offense completes a pass, not in end-zone&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;data-inventory&#34;&gt;Data Inventory&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;Potential sources of information are not limited to images from raw video files. In addition to raw footage, finished game videos, and finished highlight reels, there may also be audio or text from various sources.&lt;/p&gt;
+
+&lt;h2 id=&#34;images&#34;&gt;Images&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Video from one or more cameras, sometimes also slow-motion video&lt;/li&gt;
+&lt;li&gt;Team roster: player name, team, jersey number, image of the player&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;audio&#34;&gt;Audio&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Commentators describing play-by-play&lt;/li&gt;
+&lt;li&gt;Interviews&lt;/li&gt;
+&lt;li&gt;Crowd noise&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;text&#34;&gt;Text&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Contained within images
+
+&lt;ul&gt;
+&lt;li&gt;signs or banners, the scoreboard, field markers, and player numbers or names on jerseys&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;li&gt;Captions applied to video during a live stream or in post-game production.&lt;/li&gt;
+&lt;li&gt;Game description, for example, &lt;em&gt;Caltech vs. Stanford in semi-final at noon&lt;/em&gt;&lt;/li&gt;
+&lt;li&gt;Team background: name, jersey color, city of origin, seed, and standing for home and away team&lt;/li&gt;
+&lt;li&gt;Social Media -- Contemporaneous tweets typically mention scoring events and amazing plays&lt;/li&gt;
+&lt;li&gt;Descriptive Video Service (DVS) Founded in 1990, DVS® pioneered access to television for viewers who are blind or visually impaired. The service provides descriptive narration of key visual elements, which is then inserted within the natural pauses in dialogue to help low-vision viewers to better understand the story.&lt;/li&gt;
+&lt;li&gt;Transcribed text from announcer play-by-play.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;glossary&#34;&gt;Glossary&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;What do we mean by &lt;em&gt;Classification&lt;/em&gt;, &lt;em&gt;Detection&lt;/em&gt;, or &lt;em&gt;Captioning&lt;/em&gt;, in the context of video clips or still images?&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;Term&lt;/th&gt;
+&lt;th&gt;Description&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Image Classification&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Label each image with the class it represents, e.g., &lt;em&gt;&lt;strong&gt;this&lt;/strong&gt; image contains one or more objects of &lt;strong&gt;that&lt;/strong&gt; class&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Object Detection&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;e.g., &lt;em&gt;There is an object of &lt;strong&gt;this&lt;/strong&gt; class somewhere in this image&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Segmentation&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Identify classes of objects&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;...&lt;em&gt;semantic&lt;/em&gt; segmentation:&lt;/td&gt;
+&lt;td&gt;Label each pixel with the class of object it partially represents&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;...&lt;em&gt;instance&lt;/em&gt; segmentation:&lt;/td&gt;
+&lt;td&gt;Put a bounding box around each instance of a class of objects in an image&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Image Captioning&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Describe the contents or scene depicted in the image, sometimes with rich detail and coherent paragraphs, e.g., &lt;em&gt;a person standing&lt;/em&gt;, &lt;em&gt;player 23 collides in mid-air with a defender&lt;/em&gt;, &lt;em&gt;a fan wearing a blue shirt spills his beer&lt;/em&gt;, &lt;em&gt;defensive team waits in the end zone for the pull&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Video Classification&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Label video sequences or entire videos based on contents of images, e.g., * &lt;strong&gt;this&lt;/strong&gt; video or clip is about &lt;strong&gt;that&lt;/strong&gt; topic*, &lt;em&gt;this video is about ultimate&lt;/em&gt;, &lt;em&gt;this video is about basketball&lt;/em&gt;, &lt;em&gt;this video is an interview&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Video (Event) Detection&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Identify frame index and event, e.g., in frame &lt;em&gt;n&lt;/em&gt;... &lt;em&gt;a player catches the disc&lt;/em&gt;, &lt;em&gt;half-time begins&lt;/em&gt;, &lt;em&gt;the game ends&lt;/em&gt;, &lt;em&gt;the home team scores&lt;/em&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;&lt;strong&gt;Video Captioning&lt;/strong&gt;&lt;/td&gt;
+&lt;td&gt;Describe short video sequences in terms of dynamic information such as human actions&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;... example:&lt;/td&gt;
+&lt;td&gt;frames &lt;em&gt;m&lt;/em&gt; through &lt;em&gt;n&lt;/em&gt;: a player throws the disc&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;__Video Understanding&lt;/td&gt;
+&lt;td&gt;Reason about the consequences of events described in a video sequence&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td&gt;... example:&lt;/td&gt;
+&lt;td&gt;The home team relied on a zone-defense in the second half of the game&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;domain-specific-assumptions&#34;&gt;Domain-Specific Assumptions&lt;/h1&gt;
+
+&lt;hr /&gt;
+
+&lt;h2 id=&#34;score-vs-time&#34;&gt;Score vs. Time&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The score nearly always increases by exactly one point from beginning to end of game, with occasional exceptions for errors in reporting, when the score might jump by more than one point, or even decrease&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The shortest time from pull to score is roughly the time it takes a player to run the length of the field ( 64 meters ), so perhaps 20 seconds.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The mean time between scoring events might be more like 4 minutes, if one assumes a game of 120 minutes features 30 pulls.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;identification&#34;&gt;Identification&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Teams can be identified by jersey color&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Individual players can be identified by jersey color and number&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Official observers wear orange shirts with the word, &#39;observer&#39;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The disc is mostly white, and may contain a logo&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;what-is-most-interesting&#34;&gt;What is most interesting?&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Given an image containing a disc and an image &lt;em&gt;not&lt;/em&gt; containing a disc, the former is more likely to be interesting.&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>About the Blog...</title>
-      <link>https://karledwards.github.io/post/about-the-blog-rmd/</link>
+      <link>/post/about-the-blog-rmd/</link>
       <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/post/about-the-blog-rmd/</guid>
+      <guid>/post/about-the-blog-rmd/</guid>
       <description>
 
 &lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
@@ -204,10 +1195,10 @@
     
     <item>
       <title>Images Like This</title>
-      <link>https://karledwards.github.io/project/images-like-this/</link>
+      <link>/project/images-like-this/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/project/images-like-this/</guid>
+      <guid>/project/images-like-this/</guid>
       <description>
 
 &lt;h2 id=&#34;the-general-idea&#34;&gt;The General Idea&lt;/h2&gt;
@@ -226,20 +1217,20 @@
     
     <item>
       <title>Large Integer Multiplication</title>
-      <link>https://karledwards.github.io/project/large-integer-multiplication/</link>
+      <link>/project/large-integer-multiplication/</link>
       <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/project/large-integer-multiplication/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;https://karledwards.github.io/integer.png&#34; alt=&#34;integer&#34; /&gt;&lt;/p&gt;
+      <guid>/project/large-integer-multiplication/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;/integer.png&#34; alt=&#34;integer&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Photogrammetric Potsherd Profile</title>
-      <link>https://karledwards.github.io/project/photogrammetric-potsherd/</link>
+      <link>/project/photogrammetric-potsherd/</link>
       <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/project/photogrammetric-potsherd/</guid>
+      <guid>/project/photogrammetric-potsherd/</guid>
       <description>
 
 &lt;h2 id=&#34;the-general-idea&#34;&gt;The General Idea&lt;/h2&gt;
@@ -256,10 +1247,10 @@
     
     <item>
       <title>A Plain Markdown Post</title>
-      <link>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</link>
+      <link>/project/2017-09-09-example-plain-markdown/</link>
       <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
       
-      <guid>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</guid>
+      <guid>/project/2017-09-09-example-plain-markdown/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;Summary&lt;/p&gt;
@@ -312,10 +1303,10 @@
     
     <item>
       <title>Deep Learning</title>
-      <link>https://karledwards.github.io/project/deep-learning/</link>
+      <link>/project/deep-learning/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/project/deep-learning/</guid>
+      <guid>/project/deep-learning/</guid>
       <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
 
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
@@ -330,10 +1321,10 @@
     
     <item>
       <title>R Example</title>
-      <link>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</link>
+      <link>/post/2015-07-23-r-rmarkdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</guid>
+      <guid>/post/2015-07-23-r-rmarkdown/</guid>
       <description>&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;R Markdown&lt;/h1&gt;
 &lt;/div&gt;
@@ -341,23 +1332,11 @@
     </item>
     
     <item>
-      <title>A Post with an image</title>
-      <link>https://karledwards.github.io/post/2015-01-01-post-with-image/</link>
-      <pubDate>Thu, 01 Jan 2015 13:09:13 -0600</pubDate>
-      
-      <guid>https://karledwards.github.io/post/2015-01-01-post-with-image/</guid>
-      <description>&lt;p&gt;&lt;strong&gt;This&lt;/strong&gt; post is about...&lt;/p&gt;
-
-&lt;p&gt;&lt;img src=&#34;project/large-integer-multiplication/integer.png&#34; alt=&#34;This is an image&#34; /&gt;&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
       <title></title>
-      <link>https://karledwards.github.io/post/2018-03-15-about-the-blog-rmd/</link>
+      <link>/post/2018-03-15-about-the-blog-rmd/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/post/2018-03-15-about-the-blog-rmd/</guid>
+      <guid>/post/2018-03-15-about-the-blog-rmd/</guid>
       <description>&lt;!DOCTYPE html&gt;
 
 &lt;html xmlns=&#34;http://www.w3.org/1999/xhtml&#34;&gt;
@@ -659,10 +1638,10 @@ $(document).ready(function () {
     
     <item>
       <title></title>
-      <link>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</link>
+      <link>/project/2017-09-09-example-plain-markdown/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</guid>
+      <guid>/project/2017-09-09-example-plain-markdown/</guid>
       <description>&lt;!DOCTYPE html&gt;
 
 &lt;html xmlns=&#34;http://www.w3.org/1999/xhtml&#34;&gt;
