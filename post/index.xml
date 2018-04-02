@@ -49,7 +49,7 @@ cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.s
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-problem-rmd/</guid>
-      <description>Preparing a highlights video from raw footage is an intensely time-consuming endeavor. How can we choose the best 150 two-second plays from 10 or more hours of raw video? This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</description>
+      <description>How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</description>
     </item>
     
   </channel>

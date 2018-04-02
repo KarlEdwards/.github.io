@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="theme" content="hugo-academic">
+  <meta name="generator" content="Hugo 0.37" />
+  <meta name="author" content="Karl Edwards">
+
+  
+  
+  
+  
+    
+      
+    
+  
+  <meta name="description" content="How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.">
+
+  
+  <link rel="alternate" hreflang="en-us" href="/post/ultimate-captioning-problem-rmd/">
+
+  
+
+
+  
+
+  
+  
+  <meta name="theme-color" content="hsl(30, 90%, 68%)">
+  
+  
+  
+  
+    
+  
+  
+    
+    
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/zenburn.min.css">
+    
+  
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha512-6MXa8B6uaO18Hid6blRMetEIoPqHf7Ux1tnyIQdpt9qI5OACx7C+O3IVTr98vwGnlcg0LOLa02i9Y1HpVhlfiw==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/academicons/1.8.1/css/academicons.min.css" integrity="sha512-NThgw3XKQ1absAahW6to7Ey42uycrVvfNfyjqcFNgCmOCQ5AR4AO0SiXrN+8ZtYeappp56lk1WtvjVmEa+VR6A==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha512-SfTiTlX6kk+qitfevl/7LibUOeJWlt9rbyDn92a1DqWOw9vWG2MFoays0sgObmWazO5BQPiFucnnEAjpAB+/Sw==" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.css" integrity="sha256-ygkqlh3CYSUri3LhQxzdcm0n1EQvH2Y+U5S2idbLtxs=" crossorigin="anonymous">
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.css" integrity="sha512-M2wvCLH6DSRazYeZRIm1JnYyh22purTM+FDB5CsyxtQJYeKq83arPe5wgbNmcFXGqiSH2XR8dT/fJISVA1r/zQ==" crossorigin="anonymous">
+  
+  
+  
+  
+  <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700%7cRoboto:400,400italic,700%7cRoboto&#43;Mono">
+  
+  <link rel="stylesheet" href="/styles.css">
+  
+
+  
+
+  
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
+  
+
+  <link rel="manifest" href="/site.webmanifest">
+  <link rel="icon" type="image/png" href="/img/icon.png">
+  <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
+
+  <link rel="canonical" href="/post/ultimate-captioning-problem-rmd/">
+
+  <meta property="twitter:card" content="summary_large_image">
+  
+  <meta property="og:site_name" content="Unqualified Success">
+  <meta property="og:url" content="/post/ultimate-captioning-problem-rmd/">
+  <meta property="og:title" content="Ultimate Captioning Part 1 | Unqualified Success">
+  <meta property="og:description" content="How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions."><meta property="og:image" content="/img/frame_16831.png">
+  <meta property="og:locale" content="en-us">
+  
+  <meta property="article:published_time" content="2018-03-17T00:00:00&#43;00:00">
+  
+  <meta property="article:modified_time" content="2018-03-17T00:00:00&#43;00:00">
+  
+
+  
+
+  <title>Ultimate Captioning Part 1 | Unqualified Success</title>
+
+</head>
+<body id="top" data-spy="scroll" data-target="#toc" data-offset="71" class="dark">
+
+<nav class="navbar navbar-default navbar-fixed-top" id="navbar-main">
+  <div class="container">
+
+    
+    <div class="navbar-header">
+      
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+              data-target=".navbar-collapse" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+      <a class="navbar-brand" href="/">Unqualified Success</a>
+    </div>
+
+    
+    <div class="collapse navbar-collapse">
+
+      
+      
+      <ul class="nav navbar-nav navbar-right">
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/#about">
+            
+            <span>Home</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/#posts">
+            
+            <span>Posts</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/#projects">
+            
+            <span>Projects</span>
+            
+          </a>
+        </li>
+
+        
+        
+
+        
+        
+        
+        
+        
+          
+        
+
+        <li class="nav-item">
+          <a href="/#contact">
+            
+            <span>Contact</span>
+            
+          </a>
+        </li>
+
+        
+        
+      
+
+      
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<article class="article" itemscope itemtype="http://schema.org/Article">
+
+  
+<div class="article-header">
+  
+  
+    <img src="/img/frame_16831.png" class="article-banner" itemprop="image">
+  
+
+  
+</div>
+
+
+
+  <div class="article-container">
+    <h1 itemprop="name">Ultimate Captioning Part 1</h1>
+
+    
+
+<div class="article-metadata">
+
+  <span class="article-date">
+    
+    <time datetime="2018-03-17 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
+      2018-03-17
+    </time>
+  </span>
+  <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
+    <meta itemprop="name" content="Karl Edwards">
+  </span>
+
+  
+
+  
+  
+
+  
+  
+  
+  <span class="middot-divider"></span>
+  <span class="article-categories">
+    <i class="fa fa-folder"></i>
+    
+    <a href="/categories/projects">projects</a
+    >, 
+    
+    <a href="/categories/posts">posts</a
+    >
+    
+  </span>
+  
+  
+
+  
+  
+
+  
+
+</div>
+
+
+    <div class="article-style" itemprop="articleBody">
+      
+
+<p>How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</p>
+
+<hr />
+
+<h2 id="describing-key-moments-from-an-ultimate-championship-tournament">Describing Key Moments From An Ultimate Championship Tournament</h2>
+
+<hr />
+
+<h1 id="what-is-ultimate">What is Ultimate?</h1>
+
+<h2 id="overview">Overview</h2>
+
+<ul>
+<li>According to the <a href="https://www.usaultimate.org/resources/officiating/rules/11th_edition_rules.aspx" target="_blank">rules</a> as described by USA Ultimate,</li>
+</ul>
+
+<blockquote>
+<p>Ultimate is a non-contact disc sport played by two teams of seven players. The object of the game is to score goals. A goal is scored when a player catches any legal pass in the end zone that player is attacking. A player may not run while holding the disc. The disc is advanced by passing it to other players. The disc may be passed in any direction. Any time a pass is incomplete, a turnover occurs, resulting in an immediate change of the team in possession of the disc.</p>
+</blockquote>
+
+<h2 id="temporal-structure-of-a-game">Temporal Structure of a Game</h2>
+
+<p>The score begins at zero-zero. One team or the other scores one point at a time. The game concludes when a team accumulates the agreed number of points (typically 15) and leads by at least two points, or the time limit is reached. Major events pertaining to the game include the following:</p>
+
+<ul>
+<li>Game not begun</li>
+<li>First half
+
+<ul>
+<li>Playing</li>
+<li>Not playing</li>
+</ul></li>
+<li>Half-time</li>
+<li>Second half
+
+<ul>
+<li>Playing</li>
+<li>Not playing</li>
+</ul></li>
+<li>Game over</li>
+</ul>
+
+<h2 id="temporal-structure-of-a-point">Temporal Structure of a Point</h2>
+
+<p>Players line up on the field, one team in each end-zone. When the defensive team signals readiness to begin, the offensive team throws the disc toward defensive team. This initial throw has a particular name: the <em>pull</em>. While in possession of the disc, a player may not run, but must throw the disc. A team advances toward the end zone by completing a succession of passes. Required events pertaining to playing for a point include the following:</p>
+
+<ul>
+<li>Players line up</li>
+<li>Signal</li>
+<li>Pull</li>
+<li>Score</li>
+</ul>
+
+<p>Additional events, which may occur between Pull and Score:</p>
+
+<ul>
+<li>Turnover
+
+<ul>
+<li>Disc lands on field</li>
+<li>Defense blocks a pass</li>
+<li>Defense intercepts a pass</li>
+<li>Stall count reaches 10</li>
+</ul></li>
+<li>Injury</li>
+<li>Foul</li>
+<li>Time-out</li>
+<li>Disc goes out of bounds</li>
+<li>Offense completes a pass, not in end-zone</li>
+</ul>
+
+<hr />
+
+<h1 id="data-inventory">Data Inventory</h1>
+
+<hr />
+
+<p>Potential sources of information are not limited to images from raw video files. In addition to raw footage, finished game videos, and finished highlight reels, there may also be audio or text from various sources.</p>
+
+<h2 id="images">Images</h2>
+
+<ul>
+<li>Video from one or more cameras, sometimes also slow-motion video</li>
+<li>Team roster: player name, team, jersey number, image of the player</li>
+</ul>
+
+<h2 id="audio">Audio</h2>
+
+<ul>
+<li>Commentators describing play-by-play</li>
+<li>Interviews</li>
+<li>Crowd noise</li>
+</ul>
+
+<h2 id="text">Text</h2>
+
+<ul>
+<li>Contained within images
+
+<ul>
+<li>signs or banners, the scoreboard, field markers, and player numbers or names on jerseys</li>
+</ul></li>
+<li>Captions applied to video during a live stream or in post-game production.</li>
+<li>Game description, for example, <em>Caltech vs. Stanford in semi-final at noon</em></li>
+<li>Team background: name, jersey color, city of origin, seed, and standing for home and away team</li>
+<li>Social Media -- Contemporaneous tweets typically mention scoring events and amazing plays</li>
+<li>Descriptive Video Service (DVS) Founded in 1990, DVS® pioneered access to television for viewers who are blind or visually impaired. The service provides descriptive narration of key visual elements, which is then inserted within the natural pauses in dialogue to help low-vision viewers to better understand the story.</li>
+<li>Transcribed text from announcer play-by-play.</li>
+</ul>
+
+<hr />
+
+<h1 id="glossary">Glossary</h1>
+
+<hr />
+
+<p>What is meant by, <em>Classification</em>, <em>Detection</em>, or <em>Captioning</em>, in the context of video clips or still images?</p>
+
+<table>
+<thead>
+<tr>
+<th>Term</th>
+<th>Description</th>
+</tr>
+</thead>
+
+<tbody>
+<tr>
+<td><strong>Image Classification</strong></td>
+<td>Label each image with the class it represents, e.g., <em><strong>this</strong> image contains one or more objects of <strong>that</strong> class</em></td>
+</tr>
+
+<tr>
+<td><strong>Object Detection</strong></td>
+<td>e.g., <em>There is an object of <strong>this</strong> class somewhere in this image</em></td>
+</tr>
+
+<tr>
+<td><strong>Segmentation</strong></td>
+<td>Identify classes of objects</td>
+</tr>
+
+<tr>
+<td>...<em>semantic</em> segmentation:</td>
+<td>Label each pixel with the class of object it partially represents</td>
+</tr>
+
+<tr>
+<td>...<em>instance</em> segmentation:</td>
+<td>Put a bounding box around each instance of a class of objects in an image</td>
+</tr>
+
+<tr>
+<td><strong>Image Captioning</strong></td>
+<td>Describe the contents or scene depicted in the image, sometimes with rich detail and coherent paragraphs, e.g., <em>a person standing</em>, <em>player 23 collides in mid-air with a defender</em>, <em>a fan wearing a blue shirt spills his beer</em>, <em>defensive team waits in the end zone for the pull</em></td>
+</tr>
+
+<tr>
+<td><strong>Video Classification</strong></td>
+<td>Label video sequences or entire videos based on contents of images, e.g.,  <strong>this</strong> video or clip is about <strong>that</strong> topic, <em>this video is about ultimate</em>, <em>this video is about basketball</em>, <em>this video is an interview</em></td>
+</tr>
+
+<tr>
+<td><strong>Video (Event) Detection</strong></td>
+<td>Identify frame index and event, e.g., in frame <em>n</em>... <em>a player catches the disc</em>, <em>half-time begins</em>, <em>the game ends</em>, <em>the home team scores</em></td>
+</tr>
+
+<tr>
+<td><strong>Video Captioning</strong></td>
+<td>Describe short video sequences in terms of dynamic information such as human actions</td>
+</tr>
+
+<tr>
+<td>... example:</td>
+<td>frames <em>m</em> through <em>n</em>: a player throws the disc</td>
+</tr>
+
+<tr>
+<td>__Video Understanding</td>
+<td>Reason about the consequences of events described in a video sequence</td>
+</tr>
+
+<tr>
+<td>... example:</td>
+<td>The home team relied on a zone-defense in the second half of the game</td>
+</tr>
+</tbody>
+</table>
+
+<hr />
+
+<h1 id="domain-specific-assumptions">Domain-Specific Assumptions</h1>
+
+<hr />
+
+<h2 id="score-vs-time">Score vs. Time</h2>
+
+<ul>
+<li><p>The score nearly always increases by exactly one point from beginning to end of game, with occasional exceptions for errors in reporting, when the score might jump by more than one point, or even decrease</p></li>
+
+<li><p>The shortest time from pull to score is roughly the time it takes a player to run the length of the field ( 64 meters ), so perhaps 20 seconds.</p></li>
+
+<li><p>The mean time between scoring events might be more like 4 minutes, if one assumes a game of 120 minutes features 30 pulls.</p></li>
+</ul>
+
+<h2 id="identification">Identification</h2>
+
+<ul>
+<li><p>Teams can be identified by jersey color</p></li>
+
+<li><p>Individual players can be identified by jersey color and number</p></li>
+
+<li><p>Official observers wear orange shirts with the word, 'observer'</p></li>
+
+<li><p>The disc is mostly white, and may contain a logo</p></li>
+</ul>
+
+<h2 id="what-is-most-interesting">What is most interesting?</h2>
+
+<ul>
+<li>Given an image containing a disc and an image <em>not</em> containing a disc, the former is more likely to be interesting.</li>
+</ul>
+
+    </div>
+
+    
+
+
+<div class="article-tags">
+  
+  <a class="btn btn-primary btn-outline" href="/tags/image-processing">image processing</a>
+  
+  <a class="btn btn-primary btn-outline" href="/tags/problem-statement">problem statement</a>
+  
+</div>
+
+
+
+
+    
+    
+
+    
+    <div class="article-widget">
+      <div class="post-nav">
+  
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/ultimate-captioning-approaches/" rel="next">Ultimate Captioning Part 2</a>
+  </div>
+  
+  
+</div>
+
+    </div>
+    
+
+    
+
+
+  </div>
+</article>
+
+<footer class="site-footer">
+  <div class="container">
+    <p class="powered-by">
+
+      &copy; 2018 &middot; 
+
+      Powered by the
+      <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic theme</a> for
+      <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a>.
+
+      <span class="pull-right" aria-hidden="true">
+        <a href="#" id="back_to_top">
+          <span class="button_icon">
+            <i class="fa fa-chevron-up fa-2x"></i>
+          </span>
+        </a>
+      </span>
+
+    </p>
+  </div>
+</footer>
+
+
+<div id="modal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close btn-large" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Cite</h4>
+      </div>
+      <div>
+        <pre><code class="modal-body tex"></code></pre>
+      </div>
+      <div class="modal-footer">
+        <a class="btn btn-primary btn-outline js-copy-cite" href="#" target="_blank">
+          <i class="fa fa-copy"></i> Copy
+        </a>
+        <a class="btn btn-primary btn-outline js-download-cite" href="#" target="_blank">
+          <i class="fa fa-download"></i> Download
+        </a>
+        <div id="modal-error"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+    
+
+    
+
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js" integrity="sha512-3P8rXCuGJdNZOnUx/03c1jOTnMn3rP63nBip5gOP2qmUh5YAdVAvFZ1E+QLZZbC1rtMrQb+mah3AfYW11RUrWA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.imagesloaded/4.1.3/imagesloaded.pkgd.min.js" integrity="sha512-umsR78NN0D23AzgoZ11K7raBD+R6hqKojyBZs1w8WvYlsI+QuKRGBx3LFCwhatzBunCjDuJpDHwxD13sLMbpRA==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha512-iztkobsvnjKfAtTNdHkGVjAYTrrtlC7mGp/54c40wowO7LhURYl3gVzzcEqGl/qKXQltJ2HwMrdLcNUdo+N/RQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.isotope/3.0.4/isotope.pkgd.min.js" integrity="sha512-VDBOIlDbuC4VWxGJNmuFRQ0Li0SKkDpmGyuhAG5LTDLd/dJ/S0WMVxriR2Y+CyPL5gzjpN4f/6iqWVBJlht0tQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.2.5/jquery.fancybox.min.js" integrity="sha256-X5PoE3KU5l+JcX+w09p/wHl9AzK333C4hJ2I9S5mD4M=" crossorigin="anonymous"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js" integrity="sha512-lInM/apFSqyy1o6s89K4iQUKg6ppXEgsVxT35HbzUupEVRh2Eu9Wdl4tHj7dZO0s1uvplcYGmt3498TtHq+log==" crossorigin="anonymous"></script>
+    
+    
+    <script src="/js/hugo-academic.js"></script>
+    
+
+    
+    
+      
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js" integrity="sha256-/BfiIkHlHoVihZdc6TFuj7MmJ0TWcWsMXkeDFwhi0zw=" crossorigin="anonymous"></script>
+      
+
+      
+      <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/R.min.js"></script>
+      
+
+      
+
+      <script>hljs.initHighlightingOnLoad();</script>
+    
+
+    
+    
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({ tex2jax: { inlineMath: [['$','$'], ['\\(','\\)']] } });
+    </script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS_CHTML" integrity="sha512-tOav5w1OjvsSJzePRtt2uQPFwBoHt1VZcUq8l8nm5284LEKE9FSJBQryzMBzHxY5P0zRdNqEcpLIRVYFNgu1jw==" crossorigin="anonymous"></script>
+    
+    
+
+  </body>
+</html>
+

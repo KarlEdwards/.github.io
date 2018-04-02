@@ -767,7 +767,7 @@ the IEEE International Conference on Computer Vision (ICCV) (2013)&lt;/p&gt;&lt;
       <guid>/post/ultimate-captioning-problem-rmd/</guid>
       <description>
 
-&lt;p&gt;Preparing a highlights video from raw footage is an intensely time-consuming endeavor. How can we choose the best 150 two-second plays from 10 or more hours of raw video? This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.&lt;/p&gt;
+&lt;p&gt;How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -883,7 +883,7 @@ the IEEE International Conference on Computer Vision (ICCV) (2013)&lt;/p&gt;&lt;
 
 &lt;hr /&gt;
 
-&lt;p&gt;What do we mean by &lt;em&gt;Classification&lt;/em&gt;, &lt;em&gt;Detection&lt;/em&gt;, or &lt;em&gt;Captioning&lt;/em&gt;, in the context of video clips or still images?&lt;/p&gt;
+&lt;p&gt;What is meant by, &lt;em&gt;Classification&lt;/em&gt;, &lt;em&gt;Detection&lt;/em&gt;, or &lt;em&gt;Captioning&lt;/em&gt;, in the context of video clips or still images?&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
