@@ -396,23 +396,13 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
       <guid>/post/ultimate-captioning-approaches/</guid>
       <description>
 
-&lt;p&gt;How have others approached this problem? What are the key challenges in the field of video captioning? How can we decompose the problem to facilitate solution by parts? How can we leverage the work of others to save time and produce a better solution? What is most interesting, and how do people describe it? How many frames needed to determine action? Using descriptive video services to create a large data source for video annotation research.&lt;/p&gt;
+&lt;p&gt;This post explores related work in the areas of object and action detection, selection of an appropriate level of detail, and coherent, multi-sentence description.&lt;/p&gt;
 
-&lt;ol&gt;
-&lt;li&gt;Where to Look For Ideas&lt;/li&gt;
-&lt;li&gt;What is most interesting, and how do people describe it?&lt;/li&gt;
-&lt;li&gt;How many frames needed to determine action?&lt;/li&gt;
-&lt;li&gt;Parts of the game&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;The sport of &lt;em&gt;ultimate&lt;/em&gt; resembles soccer in some ways. For example, both sports revolve around groups of similarly-clad individuals running around a mostly green environment, focused on a small, fast-moving object. Efforts to understand Soccer present many promising ideas for understanding ultimate.&lt;/p&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Separating action from the individual performing it&lt;/li&gt;
-&lt;li&gt;Dimensionality reduction&lt;/li&gt;
-&lt;li&gt;Separating action from the individual performing it&lt;/li&gt;
-&lt;li&gt;Unsupervised Discovery of Action Classes&lt;/li&gt;
-&lt;li&gt;Active Learning to Accelerate Labeling of Training Data&lt;/li&gt;
-&lt;li&gt;Using descriptive video services&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;The single image at the top of this post illustrates an action by itself: A player leaps into the air, attempting to catch the disc. Many times, motion from subsequent frames will be required in order to discern the action. For example, given an image of a player holding a disc, what action should we predict? &lt;em&gt;&#39;Holding&#39;&lt;/em&gt;  is not very interesting. Just caught? About to throw? About to drop? Yao et al. 2015 point out that certain actions are inextricably &lt;em&gt;dynamic&lt;/em&gt;.&lt;/p&gt;
+
+&lt;p&gt;Knowing is one thing; describing is another. Once we understand the events and actions, natural language processing facilitates the generation of descriptions that reflect the way real people, who know what they are talking about, would produce.&lt;/p&gt;
 
 &lt;hr /&gt;
 
@@ -422,55 +412,49 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 
 &lt;h1 id=&#34;related-work&#34;&gt;Related Work&lt;/h1&gt;
 
-&lt;h2 id=&#34;where-to-look-for-ideas&#34;&gt;Where to Look For Ideas&lt;/h2&gt;
+&lt;h2 id=&#34;object-and-action-detection&#34;&gt;Object and Action Detection&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;In, &lt;strong&gt;A Survey on Content-aware Video Analysis for Sports&lt;/strong&gt;, &lt;em&gt;Huang-Chia Shih&lt;/em&gt; introduces the the concept of the content pyramid, reviews the state-of-the-art for content hierarchies, and concludes with a discussion of remaining challenges in video analysis.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Unsupervised Discovery of Action Classes&lt;/strong&gt;, &lt;em&gt;Wang et. al.&lt;/em&gt; use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Action as Space-Time Shapes&lt;/strong&gt;, &lt;em&gt;Blank, Gorelick, et. al.&lt;/em&gt; regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call &lt;strong&gt;&lt;em&gt;stick&lt;/em&gt;&lt;/strong&gt;ness, &lt;strong&gt;&lt;em&gt;plate&lt;/em&gt;&lt;/strong&gt;ness, and &lt;strong&gt;&lt;em&gt;ball&lt;/em&gt;&lt;/strong&gt;ness. Using these, and others, they produce a vector of 280 features.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Chaotic Invariants for Human Action Recognition&lt;/strong&gt;, &lt;em&gt;Ali, Basharat, and Shar&lt;/em&gt; use a method I envision as stick-figure flow. They have produced a set of 81 videos, comprising 9 actors performing 9 actions. They extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features. Their method is robust in that it finds the essential motion, independent of who performs it.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;An Overview of Automatic Event Detection in Soccer Matches&lt;/strong&gt;, &lt;em&gt;de Sousa Júnior&lt;/em&gt; et. al. (2011) describe several relevant topics, including ball tracking, player tracking, kick detection, goal detection.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Automatic parsing of tv soccer programs&lt;/strong&gt;, &lt;em&gt;Chuan&lt;/em&gt; uses an &lt;em&gt;a priori&lt;/em&gt; model with four components: (1) field, (2) ball, (3) players, and (4) motion. The largest green region in the picture is assumed to be the field. Field segmentation is a three-step process: (1) apply a Gaussian-Laplacian edge detector for picking line marks, remove lines whose colors are not white, and perform a thinning operation; (2) edge trimming for patching up broken edges; (3) recognize line marks. The ball is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular. To identify players, they look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game. Motion: Look for corresponding pixels in consecutive frames.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Where are the ball and players? soccer game analysis with color based tracking and image mosaic&lt;/strong&gt;, &lt;em&gt;Seo et. al.&lt;/em&gt; take a sophisticated approach translating images into a field model, using feature points when the center circle is visible and using image-based mosaicking otherwise.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;level-of-detail&#34;&gt;Level of Detail&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In their application domain of cooking activities, it is important to describe all handled objects, so &lt;em&gt;Senina, Rohrbach, et. al.&lt;/em&gt;, in their paper, &lt;strong&gt;Coherent Multi-Sentence Video Description with Variable Level of Detail&lt;/strong&gt;, develop a robust hand detector, based on deformable part models, and extract color SIFT features in the vicinity of detected hands in order to facilitate the recognition of manipulated objects. They ask individuals to describe each cooking video with a single sentence, then with three to five sentences, and finally, with up to fifteen sentences, and then analyze which aspects of the video are verbalized in each case.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Things to try:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Collect domain-specific descriptions of important activities at various levels of detail&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Develop a robust disc detector, since in this domain, the disc is central to the game.&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;A Survey on Content-aware Video Analysis for Sports&lt;/strong&gt;, &lt;em&gt;Huang-Chia Shih&lt;/em&gt; introduces the the concept of the content pyramid, reviews the state-of-the-art for content hierarchies, and concludes with a discussion of remaining challenges in video analysis.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;blockquote&gt;
 &lt;p&gt;The &lt;em&gt;content pyramid&lt;/em&gt; is presented as an alternative to the spatiotemporal approach, using semantic reasoning to reach more meaningful awareness of video content. From &lt;em&gt;video clips&lt;/em&gt;, we extract &lt;em&gt;objects&lt;/em&gt;, from which we infer &lt;em&gt;events&lt;/em&gt;, about which we draw &lt;em&gt;conclusions&lt;/em&gt;. Similarly, &lt;em&gt;raw data&lt;/em&gt; become &lt;em&gt;named subjects and objects&lt;/em&gt;; subjects interacting with objects in context lead to &lt;em&gt;understanding&lt;/em&gt;; translating that understanding into text produces a &lt;em&gt;transcript&lt;/em&gt;.&lt;/p&gt;
 &lt;/blockquote&gt;
 
-&lt;h2 id=&#34;for-a-given-domain-what-is-most-interesting-and-how-do-people-describe-it&#34;&gt;For a given domain, what is most interesting, and how do people describe it?&lt;/h2&gt;
+&lt;h2 id=&#34;coherent-description&#34;&gt;Coherent Description&lt;/h2&gt;
+
+&lt;h3 id=&#34;semantics&#34;&gt;Semantics&lt;/h3&gt;
 
 &lt;ul&gt;
-&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Coherent multi-sentence video description with variable level of detail&lt;/strong&gt;, &lt;em&gt;Rohrbach&lt;/em&gt; et. al. (2014) collect and analyze a video description corpus of three levels of detail in order to understand the difference between more detailed and less detailed descriptions. They find that inferring the high level topic helps to ensure consistency across sentences, and that hand-centric features help to improve the visual recognition of object manipulation activities, which leads to corresponding improvements in the resulting descriptions. They use a two-step approach, learning first to predict a &lt;em&gt;semantic representation&lt;/em&gt;, for example, ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model. They claim that human judges rate their multi-sentence descriptions as more readable, correct, and relevant than related work.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;In their application domain of cooking activities, it is important to describe all handled objects, so &lt;em&gt;Senina, Rohrbach, et. al.&lt;/em&gt;, in their paper, &lt;strong&gt;Coherent Multi-Sentence Video Description with Variable Level of Detail&lt;/strong&gt;, develop a robust hand detector, based on deformable part models, and extract color SIFT features in the vicinity of detected hands in order to facilitate the recognition of manipulated objects. They ask individuals to describe each cooking video with a single sentence, then with three to five sentences, and finally, with up to fifteen sentences, and then analyze which aspects of the video are verbalized in each case.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;[x] Something to try: collect domain-specific descriptions of important activities at various levels of detail; develop a robust disc detector, since in this domain, the disc is central to the game.&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;In, &lt;strong&gt;Video in sentences out&lt;/strong&gt;, &lt;em&gt;Barbu&lt;/em&gt; et. al. (2015), describe an approach deeply rooted in formal semantics -- &lt;em&gt;Meaning&lt;/em&gt; is viewed as a relation between language and external reality, formalized in terms of reference, truth, possible worlds, etc. They criticize spatiotemporal-bags-of-words and similar approaches, claiming that these methods obtain  high accuracy for the wrong reasons, for example, associating &lt;em&gt;diving&lt;/em&gt; with the blue of the pool, rather than the motion of the actor. The main idea is that &lt;em&gt;verbs&lt;/em&gt; characterize interaction; participants, shapes, colors, sizes, and textures are irrelevant to action. Only after the action has been identified can these other details be used to add richness to the description. They use a limited vocabulary of 118 words, comprising 48 verbs, 24 nouns, 8 prepositions, along with other parts of speech, listed below, to generate video descriptions.&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;h2 id=&#34;what-is-the-minimum-number-of-frames-needed-in-order-to-determine-action&#34;&gt;What is the minimum number of frames needed in order to determine action&lt;/h2&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Action Snippets: How Many Frames Does Human Action Recognition Require?&lt;/strong&gt;, &lt;em&gt;Schindler and Van Gool&lt;/em&gt; found that 1 to 7 frames usually suffice. In their two-path model, the first path filters images at multiple scales and orientations while the second path calculates optical flow on multiple scales, directions, and speeds. The paths are combined eventually into a vector of 1000 features.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Unsupervised Discovery of Action Classes&lt;/strong&gt;, &lt;em&gt;Wang et. al.&lt;/em&gt; use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Action as Space-Time Shapes&lt;/strong&gt;, &lt;em&gt;Blank, Gorelick, et. al.&lt;/em&gt; regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call &lt;strong&gt;&lt;em&gt;stick&lt;/em&gt;&lt;/strong&gt;ness, &lt;strong&gt;&lt;em&gt;plate&lt;/em&gt;&lt;/strong&gt;ness, and &lt;strong&gt;&lt;em&gt;ball&lt;/em&gt;&lt;/strong&gt;ness. Using these, and others, they produce a vector of 280 features.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Chaotic Invariants for Human Action Recognition&lt;/strong&gt;, &lt;em&gt;Ali, Basharat, and Shar&lt;/em&gt; use a method I envision as stick-figure flow. They have produced a set of 81 videos, comprising 9 actors performing 9 actions. They extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features. Their method is robust in that it finds the essential motion, independent of who performs it.&lt;/p&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h2 id=&#34;jersey-number-extraction&#34;&gt;Jersey Number Extraction&lt;/h2&gt;
-
-&lt;p&gt;In &lt;strong&gt;Soccer Jersey Number Recognition Using Convolutional Neural Networks&lt;/strong&gt;, &lt;em&gt;Gerke and Müller&lt;/em&gt; find that a  holistic approach of one class per number performed better than one class per digit and that deep learning approaches yield quite good results even with smaller datasets.&lt;/p&gt;
-
-&lt;h2 id=&#34;event-detection&#34;&gt;Event Detection&lt;/h2&gt;
-
-&lt;p&gt;In, &lt;strong&gt;An Overview of Automatic Event Detection in Soccer Matches&lt;/strong&gt;, &lt;em&gt;de Sousa Júnior&lt;/em&gt; et. al. (2011) describe several relevant topics, including ball tracking, player tracking, kick detection, goal detection.&lt;/p&gt;
-
-&lt;p&gt;In, &lt;strong&gt;Automatic parsing of tv soccer programs&lt;/strong&gt;, &lt;em&gt;Chuan&lt;/em&gt; uses an &lt;em&gt;a priori&lt;/em&gt; model with four components: (1) field, (2) ball, (3) players, and (4) motion. The largest green region in the picture is assumed to be the field. Field segmentation is a three-step process: (1) apply a Gaussian-Laplacian edge detector for picking line marks, remove lines whose colors are not white, and perform a thinning operation; (2) edge trimming for patching up broken edges; (3) recognize line marks. The ball is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular. To identify players, they look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game. Motion: Look for corresponding pixels in consecutive frames.&lt;/p&gt;
-
-&lt;p&gt;In, &lt;strong&gt;Where are the ball and players? soccer game analysis with color based tracking and image mosaic&lt;/strong&gt;, &lt;em&gt;Seo et. al.&lt;/em&gt; take a sophisticated approach translating images into a field model, using feature points when the center circle is visible and using image-based mosaicking otherwise.&lt;/p&gt;
-
-&lt;h2 id=&#34;who-did-what-to-whom&#34;&gt;Who Did What To Whom?&lt;/h2&gt;
-
-&lt;h3 id=&#34;also-when-where-and-how&#34;&gt;Also: When, Where, and How?&lt;/h3&gt;
-
-&lt;p&gt;In, &lt;strong&gt;Video in sentences out&lt;/strong&gt;, &lt;em&gt;Barbu&lt;/em&gt; et. al. (2015), describe an approach deeply rooted in formal semantics--&lt;em&gt;Meaning&lt;/em&gt; is viewed as a relation between language and external reality, formalized in terms of reference, truth, possible worlds, etc. They criticize spatiotemporal-bags-of-words and similar approaches, claiming that these methods obtain  high accuracy for the wrong reasons, for example, associating &lt;em&gt;diving&lt;/em&gt; with the blue of the pool, rather than the motion of the actor. The main idea is that &lt;em&gt;verbs&lt;/em&gt; characterize interaction; participants, shapes, colors, sizes, and textures are irrelevant to action. Only after the action has been identified can these other details be used to add richness to the description. They use a limited vocabulary of 118 words, comprising 48 verbs, 24 nouns, 8 prepositions, along with other parts of speech, listed below, to generate video descriptions.&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -538,45 +522,65 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 &lt;/tbody&gt;
 &lt;/table&gt;
 
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; checked disabled class=&#34;task-list-item&#34;&gt; Something to try: implement their approach with a domain-specific vocabulary--ultimate verbs (pull, sky, huck, layout, etc) and ultimate nouns (disc, end-zone, defender, ...)&lt;/label&gt;&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Something to try:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Implement the approach described by &lt;em&gt;Barbu&lt;/em&gt; et. al. (2015) in &lt;strong&gt;Video in sentences out&lt;/strong&gt;,  with a domain-specific vocabulary, comprising ultimate verbs (pull, sky, huck, layout) and ultimate nouns (disc, end-zone, defender)&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;for-a-given-domain-what-is-most-interesting-and-how-do-people-describe-it&#34;&gt;For a given domain, what is most interesting, and how do people describe it?&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In &lt;strong&gt;Coherent multi-sentence video description with variable level of detail&lt;/strong&gt;, &lt;em&gt;Rohrbach&lt;/em&gt; et. al. (2014) collect and analyze a video description corpus of three levels of detail in order to understand the difference between more detailed and less detailed descriptions. They find that inferring the high level topic helps to ensure consistency across sentences, and that hand-centric features help to improve the visual recognition of object manipulation activities, which leads to corresponding improvements in the resulting descriptions. They use a two-step approach, learning first to predict a &lt;em&gt;semantic representation&lt;/em&gt;, for example, ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model. They claim that human judges rate their multi-sentence descriptions as more readable, correct, and relevant than related work.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;nuggets-of-insight&#34;&gt;Nuggets of Insight&lt;/h2&gt;
+
+&lt;h3 id=&#34;jersey-number-extraction&#34;&gt;Jersey Number Extraction&lt;/h3&gt;
+
+&lt;p&gt;In &lt;strong&gt;Soccer Jersey Number Recognition Using Convolutional Neural Networks&lt;/strong&gt;, &lt;em&gt;Gerke and Müller&lt;/em&gt; find that a  holistic approach of one class per number performed better than one class per digit and that deep learning approaches yield quite good results even with smaller datasets.&lt;/p&gt;
+
+&lt;h3 id=&#34;what-is-the-minimum-number-of-frames-needed-in-order-to-determine-action&#34;&gt;What is the minimum number of frames needed in order to determine action&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;In &lt;strong&gt;Action Snippets: How Many Frames Does Human Action Recognition Require?&lt;/strong&gt;, &lt;em&gt;Schindler and Van Gool&lt;/em&gt; found that 1 to 7 frames usually suffice. In their two-path model, the first path filters images at multiple scales and orientations while the second path calculates optical flow on multiple scales, directions, and speeds. The paths are combined eventually into a vector of 1000 features.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h2 id=&#34;active-learning-to-accelerate-labeling-of-training-data&#34;&gt;Active Learning to Accelerate Labeling of Training Data&lt;/h2&gt;
 
 &lt;ul&gt;
-&lt;li&gt;In, &lt;strong&gt;Learning Active Learning from Data&lt;/strong&gt;, &lt;em&gt;Konyushkova, Raphael, and Fua&lt;/em&gt; take an iterative and adaptive approach for deciding which datapoints should be annotated next, instead of asking experts to annotate all the data.&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;In, &lt;strong&gt;Learning Active Learning from Data&lt;/strong&gt;, &lt;em&gt;Konyushkova, Raphael, and Fua&lt;/em&gt; take an iterative and adaptive approach for deciding which datapoints should be annotated next, instead of asking experts to annotate all the data.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Recognizing and describing arbitrary activities using semantic hierarchies and zero-shoot recognition&lt;/strong&gt;, Guadarrama et al &lt;strong&gt;2013&lt;/strong&gt;, attempt to perform general, &lt;em&gt;broad-coverage&lt;/em&gt;, activity recognition, beginning with subject/verb/object triplets taken from natural language descriptions of videos. Their method does not require training videos of the exact activity. If it cannot find an accurate prediction for a pre-trained model, it finds a less specific answer that is also plausible. The semantic hierarchies learned from the data help to choose an appropriate level of generalization. They create object descriptors based on Deformable Parts Models. Their classifiers use a non-linear SVM to combine information from both object and activity features.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In &lt;strong&gt;A Thousand Frames in Just a Few Words: Lingual Description of Videos through Latent Topics and Sparse Object Stitching&lt;/strong&gt;, &lt;em&gt;Das&lt;/em&gt; et al 2013, employ a low level multimodal latent topic model for initial keyword annotation, a middle level of concept detectors, and a high level module to produce final lingual descriptions.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;The middle level is a top-down approach that detects concepts sparsely throughout the video, matches them over time, which we call stitching, and relates them to a tripartite template graph for generating language output.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;&lt;em&gt;Sparse Object Stitching&lt;/em&gt; identifies the main idea from the first few images. As it considers each subsequent image, it adds additional ideas or concepts when the main idea identified from the current image is sufficiently different. So, for example, in a video showing a person, who grasps a bowl and then stirs its contents with a spoon, the sparse objects might be person, bowl, spoon.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;The tripartite template graph takes the form (human) subject/tool/object. For a given domain, each such  triplet instantiates a manually created template, such as “⟨subject⟩ is cleaning ⟨object⟩ with ⟨tool⟩.”&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;In &lt;strong&gt;Recognizing and describing arbitrary activities using semantic hierarchies and zero-shoot recognition&lt;/strong&gt;, Guadarrama et al &lt;strong&gt;2013&lt;/strong&gt;, attempt to perform general, &lt;em&gt;broad-coverage&lt;/em&gt;, activity recognition, beginning with subject/verb/object triplets taken from natural language descriptions of videos. Their method does not require training videos of the exact activity. If it cannot find an accurate prediction for a pre-trained model, it finds a less specific answer that is also plausible. The semantic hierarchies learned from the data help to choose an appropriate level of generalization. They create object descriptors based on Deformable Parts Models. Their classifiers use a non-linear SVM to combine information from both object and activity features.&lt;/p&gt;
+&lt;p&gt;How might we populate the tripartite templates for Ultimate? There are &lt;strong&gt;Subjects&lt;/strong&gt; ( player, defender, observer, fan, commentator ); &lt;strong&gt;Objects&lt;/strong&gt; ( disc ); but &lt;strong&gt;Tool&lt;/strong&gt;? In the Ultimate Captioning domain, what are the tools?&lt;/p&gt;
 
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; I think this is too complex, and tries to be more general than needed for the specific problem I&#39;m trying to solve.&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;in &lt;strong&gt;A Thousand Frames in Just a Few Words: Lingual Description of Videos through Latent Topics and Sparse Object Stitching&lt;/strong&gt;, &lt;em&gt;Das&lt;/em&gt; et al 2013, employ a low level multimodal latent topic model for initial keyword annotation, a middle level of concept detectors, and a high level module to produce final lingual descriptions.&lt;/p&gt;
-
-&lt;p&gt;The middle level is a top-down approach that detects concepts sparsely throughout the video, matches them over time, which we call stitching, and relates them to a tripartite template graph for generating language output.&lt;/p&gt;
-
-&lt;p&gt;&lt;em&gt;Sparse Object Stitching&lt;/em&gt; identifies the main idea from the first few images. As it considers each subsequent image, it adds additional ideas or concepts when the main idea identified from the current image is sufficiently different. So, for example, in a video showing a person, who grasps a bowl and then stirs its contents with a spoon, the sparse objects might be person, bowl, spoon.&lt;/p&gt;
-
-&lt;p&gt;The tripartite template graph takes the form (human) subject/tool/object. For a given domain, each such  triplet instantiates a manually created template, such as “⟨subject⟩ is cleaning ⟨object⟩ with ⟨tool⟩.”&lt;/p&gt;
-
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; In the Ultimate Captioning domain, there are few tools available for populating the tripartite templates--subjects might include: player, defender, observer, fan, commentator; objects might include: disc, ?, ?; but tool?&lt;/label&gt;&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;p&gt;In &lt;strong&gt;Sequence to sequence – video to text&lt;/strong&gt;, &lt;em&gt;Venugopalan&lt;/em&gt; et al 2015 use an end-to-end-trainable model, incorporating both intensity and optical flow inputs. Their approach requires neither an attention mechanism nor domain-specific template.&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Sequence to sequence – video to text&lt;/strong&gt;, &lt;em&gt;Venugopalan&lt;/em&gt; et al 2015 use an end-to-end-trainable model, incorporating both intensity and optical flow inputs. Their approach requires neither an attention mechanism nor domain-specific template.&lt;/p&gt;
 
 &lt;ul&gt;
 &lt;li&gt;Their implementation, based Caffe, is available at &lt;a href=&#34;https://github.com/vsubhashini/caffe/tree/recurrent/examples/s2vt&#34; target=&#34;_blank&#34;&gt;https://github.com/vsubhashini/caffe/tree/recurrent/examples/s2vt&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;In &lt;strong&gt;Describing videos by exploiting temporal structure&lt;/strong&gt;, Yao et al 2015 use a combination of still frame features and dynamic motion-based features for caption generation. They introduce a &lt;em&gt;soft-attention&lt;/em&gt; mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.  Soft-attention depends both on the video representation and previous RNN state, dynamically changing through time.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;They use a pre-trained convolutional neural network (2-D ConvNet) as well as a 3-dimensional, spatio-temporal convolutional neural network (3-D ConvNet: 2 spacial dimensions + 1 temporal dimension), pre-trained on activity-recognition datasets.&lt;/li&gt;
+&lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
-
-&lt;p&gt;In &lt;strong&gt;Describing videos by exploiting temporal structure&lt;/strong&gt;, Yao et al 2015 use a combination of still frame features and dynamic motion-based features for caption generation. They introduce a &lt;em&gt;soft-attention&lt;/em&gt; mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.  Soft-attention depends both on the video representation and previous RNN state, dynamically changing through time.&lt;/p&gt;
-
-&lt;p&gt;They use a pre-trained convolutional neural network (2-D ConvNet) as well as a 3-dimensional, spatio-temporal convolutional neural network (3-D ConvNet: 2 spacial dimensions + 1 temporal dimension), pre-trained on activity-recognition datasets.&lt;/p&gt;
-
-&lt;p&gt;They point out that certain actions are inextricably dynamic. For example, given an image of a player holding a disc, what action should we predict? Holding? That is not very interesting. Just caught? About to throw? About to drop? Motion from subsequent frames will be required in order to discern the action.&lt;/p&gt;
 </description>
     </item>
     
@@ -588,7 +592,7 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
       <guid>/post/ultimate-captioning-problem-rmd/</guid>
       <description>
 
-&lt;p&gt;How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.&lt;/p&gt;
+&lt;p&gt;How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes various sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.&lt;/p&gt;
 
 &lt;hr /&gt;
 
