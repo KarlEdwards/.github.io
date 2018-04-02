@@ -17,8 +17,8 @@
       
     
   
-  <meta name="description" content="What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. I will use HoG, with cells in {1,4,9,16} and bins in {5, 9}, to establish a baseline for disc detection.
- Identify images depicting the field.">
+  <meta name="description" content="What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.
+ Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)">
 
   
   <link rel="alternate" hreflang="en-us" href="/post/ultimate-captioning-scorecard/">
@@ -77,8 +77,8 @@
   <meta property="og:site_name" content="Unqualified Success">
   <meta property="og:url" content="/post/ultimate-captioning-scorecard/">
   <meta property="og:title" content="Ultimate Captioning Part 3 | Unqualified Success">
-  <meta property="og:description" content="What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. I will use HoG, with cells in {1,4,9,16} and bins in {5, 9}, to establish a baseline for disc detection.
- Identify images depicting the field."><meta property="og:image" content="/img/frame_16831.png">
+  <meta property="og:description" content="What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.
+ Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)"><meta property="og:image" content="/img/frame_16831.png">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2018-03-31T00:00:00&#43;00:00">
@@ -267,9 +267,11 @@
     <div class="article-style" itemprop="articleBody">
       
 
-<p>What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. I will use HoG, with cells in {1,4,9,16} and bins in {5, 9}, to establish a baseline for disc detection.</p>
+<p>What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.</p>
 
 <ol>
+<li><p>Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)</p></li>
+
 <li><p>Identify images depicting the field. Assume that the largest green region in the picture is the field.</p></li>
 
 <li><p>Extract field marks from images depicting the field as follows (Field segmentation):</p>
@@ -285,8 +287,6 @@
 <li>recognize line marks</li>
 </ul></li>
 
-<li><p>Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)</p></li>
-
 <li><p>Establish team colors by looking for distinct peaks in the color histogram and trying to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game.</p></li>
 </ol>
 
@@ -296,6 +296,7 @@
 
 <ul class="task-list">
 <li><label><input type="checkbox" checked disabled class="task-list-item"> Extract image files from video file(s)</label></li>
+<li><label><input type="checkbox" disabled class="task-list-item"> Find images containing a disc</label></li>
 <li><label><input type="checkbox" disabled class="task-list-item"> Determine the top N colors present in an image
 
 <ul>
