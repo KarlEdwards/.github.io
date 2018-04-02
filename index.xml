@@ -174,7 +174,7 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
       <guid>/post/ultimate-captioning-scorecard/</guid>
       <description>
 
-&lt;p&gt;What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.&lt;/p&gt;
+&lt;p&gt;What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. Some practical suggestions:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)&lt;/p&gt;&lt;/li&gt;
@@ -201,20 +201,15 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 
 &lt;h1 id=&#34;toolbox&#34;&gt;Toolbox&lt;/h1&gt;
 
-&lt;ul class=&#34;task-list&#34;&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; checked disabled class=&#34;task-list-item&#34;&gt; Extract image files from video file(s)&lt;/label&gt;&lt;/li&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Find images containing a disc&lt;/label&gt;&lt;/li&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Determine the top N colors present in an image
+&lt;p&gt;Here is a quick reference for tools created, or being created, in support of the overall video-captioning project:&lt;/p&gt;
 
 &lt;ul&gt;
-&lt;li&gt;by pixel area&lt;/li&gt;
-&lt;li&gt;where color is defined in broad categories: red/green/blue/yellow/white&lt;/li&gt;
-&lt;li&gt;---&lt;/li&gt;
-&lt;/ul&gt;&lt;/label&gt;&lt;/li&gt;
-&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Extract field lines from images&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/Video-Captioning/Practical-VLC&#34; target=&#34;_blank&#34;&gt;https://github.com/Video-Captioning/Practical-VLC&lt;/a&gt; presents a few examples illustrating the manipulation of videos using VLC.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h1 id=&#34;scorecard&#34;&gt;Scorecard&lt;/h1&gt;
+
+&lt;p&gt;What are the individual tasks, and how effective are various approaches?&lt;/p&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
@@ -226,6 +221,12 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 &lt;/thead&gt;
 
 &lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;Identify images depicting the disc&lt;/td&gt;
+&lt;td&gt;Starting with 3471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour, partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. After partitioning the data, extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;AUC 73% using 60% of the data for training, 40% for testing, 9 cells and 9 bins&lt;/td&gt;
+&lt;/tr&gt;
+
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;Player Identification&lt;/td&gt;
 &lt;td&gt;Semantic Segmentation&lt;/td&gt;
@@ -319,12 +320,6 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;Extract field marks from images depicting the field&lt;/td&gt;
 &lt;td&gt;Field segmentation: (1) apply a Gaussian-Laplacian edge detector for picking line marks, remove lines whose colors are not white, and perform a thinning operation; (2) edge trimming for patching up broken edges; (3) recognize line marks.&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
-&lt;/tr&gt;
-
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;Identify images depicting the disc&lt;/td&gt;
-&lt;td&gt;The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
