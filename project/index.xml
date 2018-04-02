@@ -42,27 +42,6 @@ More Specifically This project describes in some detail the steps to photograph 
     </item>
     
     <item>
-      <title>A Plain Markdown Post</title>
-      <link>/project/2017-09-09-example-plain-markdown/</link>
-      <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
-      
-      <guid>/project/2017-09-09-example-plain-markdown/</guid>
-      <description>Summary
-Example of a Plain Markdown post and how Plain Markdown differs from R Markdown
- one two three four five six  This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
- You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
-    </item>
-    
-    <item>
-      <title>Deep Learning</title>
-      <link>/project/deep-learning/</link>
-      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
-      
-      <guid>/project/deep-learning/</guid>
-      <description>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus.</description>
-    </item>
-    
-    <item>
       <title></title>
       <link>/project/2017-09-09-example-plain-markdown/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>

@@ -7,24 +7,15 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Wed, 21 Mar 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 01 Apr 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/post/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ultimate Captioning Part 4</title>
-      <link>/post/ultimate-captioning-field-detector/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/ultimate-captioning-field-detector/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ultimate Captioning Part 5</title>
       <link>/post/ultimate-captioning-disc-detector/</link>
-      <pubDate>Wed, 21 Mar 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-disc-detector/</guid>
       <description>Establish a baseline for disc detection.
@@ -36,7 +27,7 @@ cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.s
     <item>
       <title>Ultimate Captioning Part 3</title>
       <link>/post/ultimate-captioning-scorecard/</link>
-      <pubDate>Mon, 19 Mar 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 31 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-scorecard/</guid>
       <description>What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. I will use HoG, with cells in {1,4,9,16} and bins in {5, 9}, to establish a baseline for disc detection.
@@ -46,7 +37,7 @@ cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.s
     <item>
       <title>Ultimate Captioning Part 2</title>
       <link>/post/ultimate-captioning-approaches/</link>
-      <pubDate>Sun, 18 Mar 2018 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-approaches/</guid>
       <description>How have others approached this problem? What are the key challenges in the field of video captioning? How can we decompose the problem to facilitate solution by parts? How can we leverage the work of others to save time and produce a better solution? What is most interesting, and how do people describe it? How many frames needed to determine action? Using descriptive video services to create a large data source for video annotation research.</description>
@@ -58,35 +49,7 @@ cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.s
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-problem-rmd/</guid>
-      <description>Preparing a highlights video from raw footage is an intensely time-consuming endeavor. How can we choose the best 150 two-second plays from 10 or more hours of raw video? This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes potentially available sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</description>
-    </item>
-    
-    <item>
-      <title>About the Blog...</title>
-      <link>/post/about-the-blog-rmd/</link>
-      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/about-the-blog-rmd/</guid>
-      <description>Getting Started I began by trying to follow the instructions from these resources:
- Blogging with R Markdown, by Kevin Wong http://kevinfw.com/post/blogging-with-r-markdown/ Building a Blog with Blogdown and GitHub, by Tyler Clavelle https://tclavelle.github.io/blog/blogdown_github/ Announcing Blogdown, by Yihui Xie https://blog.rstudio.com/2017/09/11/announcing-blogdown/, along with https://github.com/rstudio/blogdown Blogging with Rmarkdown, knitr, and Jekyll, by Brendan Rocks, https://www.r-bloggers.com/blogging-with-rmarkdown-knitr-and-jekyll/ Happy Git and GitHub for the useR, by Jennifer Bryan, https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user  After many false starts and nearly giving up, things finally started falling into place.</description>
-    </item>
-    
-    <item>
-      <title>R Example</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
-      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
-      
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
-      <description>R Markdown  </description>
-    </item>
-    
-    <item>
-      <title></title>
-      <link>/post/2018-03-15-about-the-blog-rmd/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      
-      <guid>/post/2018-03-15-about-the-blog-rmd/</guid>
-      <description>About the Blog…       code{white-space: pre;} pre:not([class]) { background-color: white; }  if (window.hljs &amp;&amp; document.readyState &amp;&amp; document.readyState === &#34;complete&#34;) { window.setTimeout(function() { hljs.initHighlighting(); }, 0); }  h1 { font-size: 34px; } h1.title { font-size: 38px; } h2 { font-size: 30px; } h3 { font-size: 24px; } h4 { font-size: 18px; } h5 { font-size: 16px; } h6 { font-size: 12px; } .table th:not([align]) { text-align: left; }    .</description>
+      <description>Preparing a highlights video from raw footage is an intensely time-consuming endeavor. How can we choose the best 150 two-second plays from 10 or more hours of raw video? This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes possible sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</description>
     </item>
     
   </channel>
