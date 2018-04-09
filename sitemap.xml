@@ -5,8 +5,17 @@
     
     <url>
     
-      <loc>/post/ultimate-captioning-disc-detector/</loc>
-      <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+      <loc>/post/ultimate-captioning-list-of-posts/</loc>
+      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/post/ultimate-captioning-detector/</loc>
+      <lastmod>2018-04-05T00:00:00+00:00</lastmod>
     </url>
     
   
@@ -41,6 +50,15 @@
     
     <url>
     
+      <loc>/post/about-the-blog-rmd/</loc>
+      <lastmod>2018-03-15T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
+    
       <loc>/project/images-like-this/</loc>
       <lastmod>2018-01-14T00:00:00+00:00</lastmod>
     </url>
@@ -68,6 +86,33 @@
     
     <url>
     
+      <loc>/project/example-plain-markdown-project/</loc>
+      <lastmod>2017-09-09T21:49:57-07:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/project/deep-learning/</loc>
+      <lastmod>2016-04-27T00:00:00+00:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/post/2015-07-23-r-rmarkdown/</loc>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+    </url>
+    
+  
+    
+    
+    <url>
+    
       <loc>/project/2017-09-09-example-plain-markdown/</loc>
     </url>
     
@@ -85,8 +130,8 @@
     
     <url>
     
-      <loc>/tags/image-processing/</loc>
-      <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+      <loc>/tags/deep-learning/</loc>
+      <lastmod>2016-04-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -96,7 +141,27 @@
     <url>
     
       <loc>/tags/image-processing/</loc>
-      <lastmod>2018-01-14T00:00:00+00:00</lastmod>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/tags/image-processing/</loc>
+      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/tags/image-processing/</loc>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -125,8 +190,28 @@
     
     <url>
     
+      <loc>/tags/plain-markdown/</loc>
+      <lastmod>2017-09-09T21:49:57-07:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/tags/plot/</loc>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
       <loc>/post/</loc>
-      <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -136,7 +221,7 @@
     <url>
     
       <loc>/categories/posts/</loc>
-      <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -147,6 +232,16 @@
     
       <loc>/tags/problem-statement/</loc>
       <lastmod>2018-03-17T00:00:00+00:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/tags/project/</loc>
+      <lastmod>2016-04-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -166,7 +261,7 @@
     <url>
     
       <loc>/categories/projects/</loc>
-      <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -204,6 +299,26 @@
     
     <url>
     
+      <loc>/categories/r/</loc>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
+      <loc>/tags/r-markdown/</loc>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <priority>0</priority>
+    </url>
+    
+  
+    
+    
+    <url>
+    
       <loc>/tags/rmarkdown/</loc>
       <lastmod>2017-10-31T00:00:00+00:00</lastmod>
       <priority>0</priority>
@@ -225,7 +340,7 @@
     <url>
     
       <loc>/tags/</loc>
-      <lastmod>2018-04-01T00:00:00+00:00</lastmod>
+      <lastmod>2016-04-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     

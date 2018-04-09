@@ -11,157 +11,156 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
-      <title>Ultimate Captioning Part 4</title>
-      <link>/post/ultimate-captioning-disc-detector/</link>
-      <pubDate>Sun, 01 Apr 2018 00:00:00 +0000</pubDate>
+      <title>Ultimate Captioning Posts</title>
+      <link>/post/ultimate-captioning-list-of-posts/</link>
+      <pubDate>Sat, 21 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/ultimate-captioning-disc-detector/</guid>
-      <description>&lt;p&gt;Establish a baseline for disc detection.&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;Data&lt;/li&gt;
-&lt;li&gt;Calculation of HoGs using varying number of cells and bins&lt;/li&gt;
-&lt;li&gt;Clustering&lt;/li&gt;
-&lt;li&gt;Evaluation&lt;/li&gt;
-&lt;li&gt;Conclusion&lt;/li&gt;
-&lt;/ul&gt;
+      <guid>/post/ultimate-captioning-list-of-posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Disc Detector</title>
+      <link>/post/ultimate-captioning-detector/</link>
+      <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-detector/</guid>
+      <description>&lt;p&gt;The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs. testing and the number of cells used for extracting HoGs from each image.&lt;/p&gt;
 &lt;hr /&gt;
-&lt;div id=&#34;overview&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Overview&lt;/h1&gt;
-&lt;div id=&#34;data-source&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Data Source&lt;/h2&gt;
+&lt;div id=&#34;data&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Data&lt;/h2&gt;
+&lt;div id=&#34;data-source&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Data Source&lt;/h3&gt;
 &lt;p&gt;3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;data-preparation&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Data Preparation&lt;/h2&gt;
-&lt;p&gt;Partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. For example: 40% training&lt;/p&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd /Users/Karl/Dropbox/Projects/Video-Captioning
-sh ./partition_data_two_class.sh disc labeled_3471.txt 0.40
-&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;After partitioning the data, extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins:&lt;/p&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd ./disc40
-~/Dropbox/Projects/Video-Captioning/disc40
-sh ../hog.sh ../data/2_images/ 4 9
-sh ../hog.sh ../data/2_images/ 5 9
-sh ../hog.sh ../data/2_images/ 6 9
-sh ../hog.sh ../data/2_images/ 7 9
-sh ../hog.sh ../data/2_images/ 8 9
-sh ../hog.sh ../data/2_images/ 9 9&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;Re-Partition the data, this time using 60% for training:&lt;/p&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd /Users/Karl/Dropbox/Projects/Video-Captioning
-sh ./partition_data_two_class.sh disc labeled_3471.txt 0.60
-
-Once again extract HoG features using various numbers of cells and 9 bins:
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;cd ./disc60
-~/Dropbox/Projects/Video-Captioning/disc40
-sh ../hog.sh ../data/2_images/ 4 9
-sh ../hog.sh ../data/2_images/ 5 9
-sh ../hog.sh ../data/2_images/ 6 9
-sh ../hog.sh ../data/2_images/ 7 9
-sh ../hog.sh ../data/2_images/ 8 9
-sh ../hog.sh ../data/2_images/ 9 9&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# R linear_SVM.R
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells4_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells5_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells6_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells7_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells8_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc40/cells9_bins9/&amp;#39; )), times=1L )
-
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells4_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells5_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells6_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells7_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells8_bins9/&amp;#39; )), times=1L )
-microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#39; )), times=1L )
+&lt;div id=&#34;data-preparation&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;1. Data Preparation&lt;/h3&gt;
+&lt;p&gt;A. Manually label a list of the images as a plain, unformatted text file, where each row of the file begins with the bare file name, i.e., &lt;em&gt;frame_12345.png&lt;/em&gt;, optionally followed by descriptive text, as shown here. Note that multiple key words may appear, in any order, on a line.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;frame_102391.png&lt;/li&gt;
+&lt;li&gt;frame_102361.png disc&lt;/li&gt;
+&lt;li&gt;frame_102451.png&lt;/li&gt;
+&lt;li&gt;frame_102481.png two-players&lt;/li&gt;
+&lt;li&gt;frame_102511.png&lt;/li&gt;
+&lt;li&gt;rame_102781.png pull&lt;/li&gt;
+&lt;li&gt;frame_102811.png&lt;/li&gt;
+&lt;li&gt;frame_104101.png&lt;/li&gt;
+&lt;li&gt;frame_10411.png disc&lt;/li&gt;
+&lt;li&gt;frame_19921.png disc&lt;/li&gt;
+&lt;li&gt;frame_19951.png player-on-ground disc&lt;/li&gt;
+&lt;li&gt;frame_20461.png between-points&lt;/li&gt;
+&lt;li&gt;frame_20041.png&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;B. Partition the labeled data into multiple training and testing sets in order to see what effect the number of training rows has on the effectiveness of the detector.&lt;/p&gt;
+&lt;p&gt;See &lt;a href=&#34;https://github.com/Video-Captioning/partition_datasets&#34; class=&#34;uri&#34;&gt;https://github.com/Video-Captioning/partition_datasets&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Generate three data sets, using a progressively higher
+# percentage of examples for training:
+cd `PROJECTPATH`
+for fraction in 0.40 0.50 0.60
+  do
+    ./partition_data_two_class.sh `KEYWORD` `CLASS_LABELS` $fraction
+  done
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
+&lt;div id=&#34;make-histograms-of-oriented-gradients-hogs&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;2. Make Histograms of Oriented Gradients (HoGs)&lt;/h3&gt;
+&lt;p&gt;See &lt;a href=&#34;https://github.com/Video-Captioning/HoG&#34; class=&#34;uri&#34;&gt;https://github.com/Video-Captioning/HoG&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;The number of bins remains constant at 9 for the following, while the number of cells varies from 4 to 9:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;for fraction in 40 50 60; do
+  cd `PROJECTPATH``KEYWORD`$fraction
+  for bins in 4 5 6 7 8 9; do
+    ../hog.sh ../data/2_images/ $bins 9
+  done
+done&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
-&lt;div id=&#34;results&#34; class=&#34;section level1&#34;&gt;
-&lt;h1&gt;Results&lt;/h1&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th&gt;AUC&lt;/th&gt;
-&lt;th&gt;F1-Score&lt;/th&gt;
-&lt;th align=&#34;right&#34;&gt;Seconds&lt;/th&gt;
-&lt;th&gt;PctTrain&lt;/th&gt;
-&lt;th&gt;Cells&lt;/th&gt;
-&lt;th&gt;Bins&lt;/th&gt;
-&lt;th&gt;Accuracy&lt;/th&gt;
-&lt;th&gt;Precision&lt;/th&gt;
-&lt;th&gt;Recall&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;69&lt;/td&gt;
-&lt;td&gt;54&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;112&lt;/td&gt;
-&lt;td&gt;60&lt;/td&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;90&lt;/td&gt;
-&lt;td&gt;88&lt;/td&gt;
-&lt;td&gt;39&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;62&lt;/td&gt;
-&lt;td&gt;38&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;216&lt;/td&gt;
-&lt;td&gt;40&lt;/td&gt;
-&lt;td&gt;7&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;62&lt;/td&gt;
-&lt;td&gt;91&lt;/td&gt;
-&lt;td&gt;24&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;62&lt;/td&gt;
-&lt;td&gt;37&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;154&lt;/td&gt;
-&lt;td&gt;60&lt;/td&gt;
-&lt;td&gt;8&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;88&lt;/td&gt;
-&lt;td&gt;86&lt;/td&gt;
-&lt;td&gt;23&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;60&lt;/td&gt;
-&lt;td&gt;35&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;76&lt;/td&gt;
-&lt;td&gt;60&lt;/td&gt;
-&lt;td&gt;6&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;88&lt;/td&gt;
-&lt;td&gt;88&lt;/td&gt;
-&lt;td&gt;21&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td&gt;56&lt;/td&gt;
-&lt;td&gt;22&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;92&lt;/td&gt;
-&lt;td&gt;40&lt;/td&gt;
-&lt;td&gt;5&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;87&lt;/td&gt;
-&lt;td&gt;95&lt;/td&gt;
-&lt;td&gt;12&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td&gt;53&lt;/td&gt;
-&lt;td&gt;13&lt;/td&gt;
-&lt;td align=&#34;right&#34;&gt;24&lt;/td&gt;
-&lt;td&gt;60&lt;/td&gt;
-&lt;td&gt;4&lt;/td&gt;
-&lt;td&gt;9&lt;/td&gt;
-&lt;td&gt;86&lt;/td&gt;
-&lt;td&gt;88&lt;/td&gt;
-&lt;td&gt;07&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+&lt;div id=&#34;classify-images&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;3. Classify Images&lt;/h3&gt;
+&lt;p&gt;To classify the images in the test set, we first train the model using the e1071 package – an R package with an interface to a C++ implementation of support vector machines. By combining two functions from this package, &lt;em&gt;svm&lt;/em&gt; and &lt;em&gt;tune&lt;/em&gt;, we can explore a range of costs and choose the one that gives the best performance. The basic arrangement follows:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Optimize cost parameter, C,
+# by training an SVM classifier using each of the
+# C-values given in input, values_of_C_to_try
+optimize_cost &amp;lt;- function( values_of_C_to_try, test_data ){
+  cat( sprintf( &amp;#39;Finding optimal cost...\n&amp;#39; ))
+  e1071::tune(
+      e1071::svm
+    , y~.
+    , data   = test_data
+    , kernel = &amp;#39;linear&amp;#39;
+    , ranges = values_of_C_to_try
+  )
+}&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;This code is combined with additional supporting functions in &lt;a href=&#34;https://github.com/Video-Captioning/SVM-two-class&#34;&gt;SVM_functions.R&lt;/a&gt;.&lt;/p&gt;
+&lt;p&gt;All the pieces to classify HoGs for a single configuration (training fraction, cells, bins) are in &lt;a href=&#34;https://github.com/Video-Captioning/SVM-two-class&#34;&gt;SVM_classify_one_set.R&lt;/a&gt;, which performs the following:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;Get the training and testing data&lt;/li&gt;
+&lt;li&gt;Optimize cost parameter, &lt;em&gt;C&lt;/em&gt;, using the training set&lt;/li&gt;
+&lt;li&gt;Make predictions using best model on the testing set&lt;/li&gt;
+&lt;li&gt;Compute a confusion matrix, calculate F1-scores and area-under-the ROC curve.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;To process the entire collection of configurations, we can call SVM_classify_one_set for each item of a list with the following R code:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# ----- Load the functions to use for this analysis -----
+require( purrr )
+libraries &amp;lt;- list( &amp;#39;SVM_functions&amp;#39;, &amp;#39;SVM_classify_one_set&amp;#39; )
+LIBRARY_PATH &amp;lt;- &amp;#39;/path/to/repository&amp;#39;
+DATA_PATH    &amp;lt;- &amp;#39;/path/to/data/&amp;#39;
+libraries %&amp;gt;%
+  map_chr( .f= ~paste0( LIBRARY_PATH, .x, &amp;#39;.R&amp;#39; )) %&amp;gt;%
+  walk( source )
+
+# ----- Describe which data sets to process -------------
+BATCHES &amp;lt;- list(
+  
+    &amp;#39;disc40/cells4_bins9/&amp;#39;
+  , &amp;#39;disc40/cells5_bins9/&amp;#39;
+  , &amp;#39;disc40/cells6_bins9/&amp;#39;
+  , &amp;#39;disc40/cells7_bins9/&amp;#39;
+  , &amp;#39;disc40/cells8_bins9/&amp;#39;
+  , &amp;#39;disc40/cells9_bins9/&amp;#39;
+  
+  , &amp;#39;disc50/cells4_bins9/&amp;#39;
+  , &amp;#39;disc50/cells5_bins9/&amp;#39;
+  , &amp;#39;disc50/cells6_bins9/&amp;#39;
+  , &amp;#39;disc50/cells7_bins9/&amp;#39;
+  , &amp;#39;disc50/cells8_bins9/&amp;#39;
+  , &amp;#39;disc50/cells9_bins9/&amp;#39;
+  
+  , &amp;#39;disc60/cells4_bins9/&amp;#39;
+  , &amp;#39;disc60/cells5_bins9/&amp;#39;
+  , &amp;#39;disc60/cells6_bins9/&amp;#39;
+  , &amp;#39;disc60/cells7_bins9/&amp;#39;
+  , &amp;#39;disc60/cells8_bins9/&amp;#39;
+  , &amp;#39;disc60/cells9_bins9/&amp;#39;
+)
+
+# ----- Process the data sets ----------------------------
+map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;collect-and-summarize-results&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;4. Collect and Summarize Results&lt;/h3&gt;
+&lt;p&gt;&lt;a href=&#34;https://github.com/Video-Captioning/SVM-two-class&#34;&gt;Recursive_score_collection.sh&lt;/a&gt; searches for all the &lt;em&gt;keyword&lt;/em&gt; &lt;em&gt;training_fraction&lt;/em&gt; subdirectories and captures the previously-recorded scores at each location.&lt;/p&gt;
+&lt;p&gt;Plot the results with &lt;a href=&#34;https://github.com/Video-Captioning/SVM-two-class/SVM_evaluation.R&#34;&gt;SVM_evaluation.R&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# --- Load libraries ---
+require( ggplot2 )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre&gt;&lt;code&gt;## Loading required package: ggplot2&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# --- Get the data ---
+SCORES &amp;lt;- &amp;#39;../../data/scores.txt&amp;#39;
+#dir( path = &amp;#39;../../data/&amp;#39; )
+x &amp;lt;- read.csv( file = SCORES, header=TRUE,sep=&amp;#39;|&amp;#39; )&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt; Using 4 cells was quick (about two minutes), but not very accurate, measured by area under the receiver operator characteristic curve.&lt;/p&gt;
+&lt;p&gt;Using 10 cells, feature extraction took 20 minutes or more. Using 50% of the images for training performed better than using 40% or 60%, and was quicker than using 40%. &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Feature extraction rate (rows per second) is &lt;em&gt;very&lt;/em&gt; slow for 10 cells, moderate for 7 to 9 cells, and considerably faster for 4 cells. &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;AUC_by_N_cells_points &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;See &lt;a href=&#34;https://www.mathworks.com/help/vision/ref/extracthogfeatures.html?requestedDomain%20=%20true&#34;&gt;MathWorks extractHOGFeatures&lt;/a&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;To capture large-scale spatial information, increase the cell size. When you increase the cell size, you may lose small-scale detail.&lt;/li&gt;
+&lt;li&gt;To encode finer orientation details, increase the number of bins. Increasing this value increases the size of the feature vector, which requires more time to process.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 </description>
     </item>
@@ -174,7 +173,86 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
       <guid>/post/ultimate-captioning-scorecard/</guid>
       <description>
 
-&lt;p&gt;What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. Some practical suggestions:&lt;/p&gt;
+&lt;h1 id=&#34;data-used-for-this-scorecard&#34;&gt;Data used for this scorecard&lt;/h1&gt;
+
+&lt;ul&gt;
+&lt;li&gt;3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;, partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. After partitioning the data, ...&lt;/p&gt;
+
+&lt;h1 id=&#34;scorecard&#34;&gt;Scorecard&lt;/h1&gt;
+
+&lt;p&gt;What are the individual tasks, and how effective are various approaches?&lt;/p&gt;
+
+&lt;h2 id=&#34;general&#34;&gt;General&lt;/h2&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Id&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Task&lt;/th&gt;
+&lt;th&gt;Approach&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Details&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;G1&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Extract images from video&lt;/td&gt;
+&lt;td&gt;Shell script to drive command-line VLC&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;See &lt;a href=&#34;https://github.com/Video-Captioning/Practical-VLC&#34; target=&#34;_blank&#34;&gt;https://github.com/Video-Captioning/Practical-VLC&lt;/a&gt; for a few examples illustrating the manipulation of videos using VLC&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;G2&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Partition a set of labeled images&lt;/td&gt;
+&lt;td&gt;Shell script to randomly select training and testing examples, based on a list of files and class labels&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;See examples ...&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;h2 id=&#34;image-classification&#34;&gt;Image Classification&lt;/h2&gt;
+
+&lt;p&gt;Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.&lt;/p&gt;
+
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Id&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Task&lt;/th&gt;
+&lt;th&gt;Approach&lt;/th&gt;
+&lt;th align=&#34;left&#34;&gt;Results&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;IC1&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Find discs&lt;/td&gt;
+&lt;td&gt;Histograms of Oriented Gradients with linear SVM&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;IC2&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Find people&lt;/td&gt;
+&lt;td&gt;Histograms of Oriented Gradients with linear SVM&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+
+&lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;UC3&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;Find the field&lt;/td&gt;
+&lt;td&gt;Dominant Hue with KNN clustering&lt;/td&gt;
+&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;Some practical suggestions:&lt;/p&gt;
 
 &lt;ol&gt;
 &lt;li&gt;&lt;p&gt;Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)&lt;/p&gt;&lt;/li&gt;
@@ -199,21 +277,12 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 
 &lt;hr /&gt;
 
-&lt;h1 id=&#34;toolbox&#34;&gt;Toolbox&lt;/h1&gt;
-
-&lt;p&gt;Here is a quick reference for tools created, or being created, in support of the overall video-captioning project:&lt;/p&gt;
-
-&lt;ul&gt;
-&lt;li&gt;&lt;a href=&#34;https://github.com/Video-Captioning/Practical-VLC&#34; target=&#34;_blank&#34;&gt;https://github.com/Video-Captioning/Practical-VLC&lt;/a&gt; presents a few examples illustrating the manipulation of videos using VLC.&lt;/li&gt;
-&lt;/ul&gt;
-
-&lt;h1 id=&#34;scorecard&#34;&gt;Scorecard&lt;/h1&gt;
-
-&lt;p&gt;What are the individual tasks, and how effective are various approaches?&lt;/p&gt;
+&lt;h2 id=&#34;image-classification-1&#34;&gt;Image classification&lt;/h2&gt;
 
 &lt;table&gt;
 &lt;thead&gt;
 &lt;tr&gt;
+&lt;th align=&#34;right&#34;&gt;Id&lt;/th&gt;
 &lt;th align=&#34;right&#34;&gt;Task&lt;/th&gt;
 &lt;th&gt;Approach&lt;/th&gt;
 &lt;th align=&#34;left&#34;&gt;Results&lt;/th&gt;
@@ -222,60 +291,70 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 
 &lt;tbody&gt;
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;IC1&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Identify images depicting the disc&lt;/td&gt;
-&lt;td&gt;Starting with 3471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour, partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. After partitioning the data, extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins&lt;/td&gt;
+&lt;td&gt;extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;AUC 73% using 60% of the data for training, 40% for testing, 9 cells and 9 bins&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Player Identification&lt;/td&gt;
 &lt;td&gt;Semantic Segmentation&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Player Identification&lt;/td&gt;
 &lt;td&gt;Instance Segmentation&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Disc Trajectory Tracking&lt;/td&gt;
 &lt;td&gt;Sparse Optical Flow&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Field Identification&lt;/td&gt;
 &lt;td&gt;Color Histogram, HoG&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Player Action&lt;/td&gt;
 &lt;td&gt;Stance Classification&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Pull Identification&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Interpret Scene&lt;/td&gt;
 &lt;td&gt;Content Pyramid:  raw data -&amp;gt; named subjects and objects, interacting in context -&amp;gt; understanding -&amp;gt; transcript.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Interpret Scene&lt;/td&gt;
 &lt;td&gt;disc-centric features -&amp;gt; disc activities(throw, catch) -&amp;gt; descriptions; learn to predict ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Interpret Scene&lt;/td&gt;
 &lt;td&gt;collect domain-specific descriptions of important activities at various levels of detail; develop a robust disc detector, since in this domain, the disc is central to the game.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
@@ -283,11 +362,13 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td&gt;Implement the method of Schindler and Van Gool, a two-path model, the first path filters images at multiple scales and orientations while the second path calculates optical flow on multiple scales, directions, and speeds. The paths are combined eventually into a vector of 1000 features.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td&gt;use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
@@ -295,83 +376,97 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td&gt;regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call &lt;strong&gt;&lt;em&gt;stick&lt;/em&gt;&lt;/strong&gt;ness, &lt;strong&gt;&lt;em&gt;plate&lt;/em&gt;&lt;/strong&gt;ness, and &lt;strong&gt;&lt;em&gt;ball&lt;/em&gt;&lt;/strong&gt;ness. Using these, and others, they produce a vector of 280 features&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
 &lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td&gt;extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features, representing essential motion, independent of who performs it&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Extract Jersey Numbers&lt;/td&gt;
 &lt;td&gt;one class per number&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Identify images depicting the field&lt;/td&gt;
 &lt;td&gt;the largest green region in the picture is assumed to be the field&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Extract field marks from images depicting the field&lt;/td&gt;
 &lt;td&gt;Field segmentation: (1) apply a Gaussian-Laplacian edge detector for picking line marks, remove lines whose colors are not white, and perform a thinning operation; (2) edge trimming for patching up broken edges; (3) recognize line marks.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Establish team colors&lt;/td&gt;
 &lt;td&gt;look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Describe the action in a brief sequence of video frames&lt;/td&gt;
 &lt;td&gt;The main idea is that &lt;em&gt;verbs&lt;/em&gt; characterize interaction; participants, shapes, colors, sizes, and textures are irrelevant to action. Only after the action has been identified can these other details be used to add richness to the description. They use a limited vocabulary of 118 words, comprising 48 verbs, 24 nouns, 8 prepositions, along with other parts of speech, listed below, to generate video descriptions.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;general, &lt;em&gt;broad-coverage&lt;/em&gt;, activity recognition&lt;/td&gt;
 &lt;td&gt;start with subject/verb/object triplets taken from natural language descriptions of videos. Create object descriptors based on Deformable Parts Models. Combine information from both object and activity features using a non-linear SVM&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Sparse Object Stitching&lt;/td&gt;
 &lt;td&gt;identify the main idea from the first few images. Consider each subsequent image, adding additional ideas or concepts when the main idea identified from the current image is sufficiently different&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Annotate images with keywords&lt;/td&gt;
 &lt;td&gt;employ a low level multimodal latent topic model for initial keyword annotation&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Annotate images associated with concept change&lt;/td&gt;
 &lt;td&gt;use a middle level concept detectors&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Annotate short sequences&lt;/td&gt;
 &lt;td&gt;use a high level module to produce final lingual descriptions by stitching concepts to a tripartite template graph&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;Generate captions&lt;/td&gt;
 &lt;td&gt;using a combination of still frame features and dynamic motion-based features with a soft-attention mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
 &lt;/tr&gt;
 
 &lt;tr&gt;
+&lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td align=&#34;right&#34;&gt;&lt;/td&gt;
 &lt;td&gt;&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
@@ -390,8 +485,6 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
       
       <guid>/post/ultimate-captioning-approaches/</guid>
       <description>
-
-&lt;p&gt;This post explores related work in the areas of object and action detection, selection of an appropriate level of detail, and coherent, multi-sentence description.&lt;/p&gt;
 
 &lt;p&gt;The sport of &lt;em&gt;ultimate&lt;/em&gt; resembles soccer in some ways. For example, both sports revolve around groups of similarly-clad individuals running around a mostly green environment, focused on a small, fast-moving object. Efforts to understand Soccer present many promising ideas for understanding ultimate.&lt;/p&gt;
 
@@ -813,6 +906,198 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
     </item>
     
     <item>
+      <title>About the Blog...</title>
+      <link>/post/about-the-blog-rmd/</link>
+      <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/about-the-blog-rmd/</guid>
+      <description>
+
+&lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
+
+&lt;p&gt;I began by trying to follow the instructions from these resources:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;em&gt;Blogging with R Markdown&lt;/em&gt;, by &lt;strong&gt;Kevin Wong&lt;/strong&gt; &lt;code&gt;http://kevinfw.com/post/blogging-with-r-markdown/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Building a Blog with Blogdown and GitHub&lt;/em&gt;, by &lt;strong&gt;Tyler Clavelle&lt;/strong&gt; &lt;code&gt;https://tclavelle.github.io/blog/blogdown_github/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Announcing Blogdown&lt;/em&gt;, by &lt;strong&gt;Yihui Xie&lt;/strong&gt; &lt;code&gt;https://blog.rstudio.com/2017/09/11/announcing-blogdown/&lt;/code&gt;, along with &lt;code&gt;https://github.com/rstudio/blogdown&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Blogging with Rmarkdown, knitr, and Jekyll&lt;/em&gt;, by &lt;strong&gt;Brendan Rocks&lt;/strong&gt;, &lt;code&gt;https://www.r-bloggers.com/blogging-with-rmarkdown-knitr-and-jekyll/&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;em&gt;Happy Git and GitHub for the useR&lt;/em&gt;, by &lt;strong&gt;Jennifer Bryan&lt;/strong&gt;,  &lt;a href=&#34;https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user&#34; target=&#34;_blank&#34;&gt;https://speakerdeck.com/jennybc/happy-git-and-github-for-the-user&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;After many false starts and nearly giving up, things finally started falling into place.&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;the-last-thing-i-remember&#34;&gt;The last thing I remember...&lt;/h1&gt;
+
+&lt;p&gt;...before things started working:&lt;/p&gt;
+
+&lt;h2 id=&#34;there-was-a-problem-len-of-untyped-nil-as-evidenced-below&#34;&gt;There was a problem... &lt;code&gt;len of untyped nil&lt;/code&gt; as evidenced below:&lt;/h2&gt;
+
+&lt;p&gt;&lt;code&gt;[?25lBuilding sites … ERROR 2018/03/15 07:34:02 Error while rendering &amp;quot;home&amp;quot; in &amp;quot;&amp;quot;: template: theme/index.html:1:3: executing &amp;quot;theme/index.html&amp;quot; at &amp;lt;partial &amp;quot;widget_page...&amp;gt;: error calling partial: template: theme/partials/widget_page.html:23:9: executing &amp;quot;theme/partials/widget_page.html&amp;quot; at &amp;lt;partial $widget $par...&amp;gt;: error calling partial: template: theme/partials/widgets/posts.html:61:51: executing &amp;quot;theme/partials/widgets/posts.html&amp;quot; at &amp;lt;len .Params.tags&amp;gt;: error calling len: len of untyped nil&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;In &lt;code&gt;layouts/partials/widgets/posts.html&lt;/code&gt;, I changed the capitalization of &lt;strong&gt;params&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;from:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    {{ $params := dict &amp;quot;post&amp;quot; . }}
+    {{ partial &amp;quot;post_li&amp;quot; $params }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;to:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;    {{ $Params := dict &amp;quot;post&amp;quot; . }}
+    {{ partial &amp;quot;post_li&amp;quot; $Params }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h2 id=&#34;in-the-file-layouts-partials-widgets-projects-html&#34;&gt;In the file, &lt;code&gt;layouts/partials/widgets/projects.html&lt;/code&gt;...&lt;/h2&gt;
+
+&lt;p&gt;...the first line, below, was trying to &lt;code&gt;delimit $page.Params.tags &amp;quot; &amp;quot;&lt;/code&gt;, but failing when there were no &lt;code&gt;tags&lt;/code&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  &amp;lt;div class=&amp;quot;col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit $page.Params.tags &amp;quot; &amp;quot; }}&amp;quot;&amp;gt;
+    &amp;lt;div class=&amp;quot;card&amp;quot;&amp;gt;
+      {{ with $project.Params.image_preview }}
+      &amp;lt;a href=&amp;quot;{{ $.Scratch.Get &amp;quot;project_url&amp;quot; }}&amp;quot; title=&amp;quot;&amp;quot; class=&amp;quot;card-image hover-overlay&amp;quot;
+         {{ $.Scratch.Get &amp;quot;target&amp;quot; | safeHTMLAttr }}&amp;gt;
+        &amp;lt;img src=&amp;quot;{{ &amp;quot;/img/&amp;quot; | relURL }}{{ . }}&amp;quot; alt=&amp;quot;&amp;quot; class=&amp;quot;img-responsive&amp;quot;&amp;gt;
+      &amp;lt;/a&amp;gt;
+      {{ end }}
+      &amp;lt;div class=&amp;quot;card-text&amp;quot;&amp;gt;
+        &amp;lt;h4&amp;gt;&amp;lt;a href=&amp;quot;{{ $.Scratch.Get &amp;quot;project_url&amp;quot; }}&amp;quot; {{ $.Scratch.Get &amp;quot;target&amp;quot; | safeHTMLAttr }}&amp;gt;{{ .Title }}&amp;lt;/a&amp;gt;&amp;lt;/h4&amp;gt;
+        &amp;lt;div class=&amp;quot;card-desription&amp;quot;&amp;gt;
+          {{ with $project.Params.summary }}&amp;lt;p&amp;gt;{{ . | markdownify }}&amp;lt;/p&amp;gt;{{ end }}
+        &amp;lt;/div&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+  {{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So I enclosed the whole block between:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  {{ if isset $page.Params &amp;quot;tags&amp;quot; }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;and:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  {{ end }} # isset tags
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;resulting in:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;  {{ if isset $page.Params &amp;quot;tags&amp;quot; }}
+    &amp;lt;div class=&amp;quot;col-xs-12 col-sm-6 col-md-4 col-lg-6 project-item isotope-item {{ delimit $page.Params.tags &amp;quot; &amp;quot; }}&amp;quot;&amp;gt;
+      &amp;lt;div class=&amp;quot;card&amp;quot;&amp;gt;
+        {{ with $project.Params.image_preview }}
+        &amp;lt;a href=&amp;quot;{{ $.Scratch.Get &amp;quot;project_url&amp;quot; }}&amp;quot; title=&amp;quot;&amp;quot; class=&amp;quot;card-image hover-overlay&amp;quot;
+           {{ $.Scratch.Get &amp;quot;target&amp;quot; | safeHTMLAttr }}&amp;gt;
+          &amp;lt;img src=&amp;quot;{{ &amp;quot;/img/&amp;quot; | relURL }}{{ . }}&amp;quot; alt=&amp;quot;&amp;quot; class=&amp;quot;img-responsive&amp;quot;&amp;gt;
+        &amp;lt;/a&amp;gt;
+        {{ end }}
+        &amp;lt;div class=&amp;quot;card-text&amp;quot;&amp;gt;
+          &amp;lt;h4&amp;gt;&amp;lt;a href=&amp;quot;{{ $.Scratch.Get &amp;quot;project_url&amp;quot; }}&amp;quot; {{ $.Scratch.Get &amp;quot;target&amp;quot; | safeHTMLAttr }}&amp;gt;{{ .Title }}&amp;lt;/a&amp;gt;&amp;lt;/h4&amp;gt;
+          &amp;lt;div class=&amp;quot;card-desription&amp;quot;&amp;gt;
+            {{ with $project.Params.summary }}&amp;lt;p&amp;gt;{{ . | markdownify }}&amp;lt;/p&amp;gt;{{ end }}
+          &amp;lt;/div&amp;gt;
+        &amp;lt;/div&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+    {{ end }}
+  {{ end }} # isset tags
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;strong&gt;&lt;em&gt;Shazaam!&lt;/em&gt;&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;It started working!&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;h1 id=&#34;customization-and-personalization&#34;&gt;Customization and Personalization&lt;/h1&gt;
+
+&lt;p&gt;Next, I turned my attention to the &lt;strong&gt;About&lt;/strong&gt; page&lt;/p&gt;
+
+&lt;h2 id=&#34;how-to-add-a-sub-section&#34;&gt;How to add a Sub-Section...&lt;/h2&gt;
+
+&lt;p&gt;This required modification of a few files:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;about.md&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;about.html&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;en.yaml&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;h2 id=&#34;about-md&#34;&gt;about.md&lt;/h2&gt;
+
+&lt;p&gt;The TOML (&lt;code&gt;Tom&#39;s Obvious, Minimal Language&lt;/code&gt;) front matter in &lt;strong&gt;about.md&lt;/strong&gt; invites one to &#39;List your academic interests.&#39;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[interests]
+  interests = [
+    &amp;quot;Machine Learning&amp;quot;,
+    &amp;quot;Image Processing&amp;quot;,
+    &amp;quot;Video Captioning&amp;quot;
+  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I added a similar section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;[pets]
+  pets = [
+    &amp;quot;Rex&amp;quot;,
+    &amp;quot;Fido&amp;quot;,
+    &amp;quot;Rover&amp;quot;
+  ]
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;In, &lt;code&gt;about.html&lt;/code&gt;, noting the &lt;em&gt;interests&lt;/em&gt; section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      {{ with $page.Params.interests }}
+      &amp;lt;div class=&amp;quot;col-sm-5&amp;quot;&amp;gt;
+        &amp;lt;h3&amp;gt;{{ i18n &amp;quot;interests&amp;quot; | markdownify }}&amp;lt;/h3&amp;gt;
+        &amp;lt;ul class=&amp;quot;ul-interests&amp;quot;&amp;gt;
+          {{ range .interests }}
+          &amp;lt;li&amp;gt;{{ . | markdownify }}&amp;lt;/li&amp;gt;
+          {{ end }}
+        &amp;lt;/ul&amp;gt;
+      &amp;lt;/div&amp;gt;
+      {{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I added a similar section for &lt;em&gt;pets&lt;/em&gt;:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;      {{ with $page.Params.pets }}
+      &amp;lt;div class=&amp;quot;col-sm-5&amp;quot;&amp;gt;
+        &amp;lt;h3&amp;gt;{{ i18n &amp;quot;pets&amp;quot; | markdownify }}&amp;lt;/h3&amp;gt;
+        &amp;lt;ul class=&amp;quot;ul-pets&amp;quot;&amp;gt;
+          {{ range .pets }}
+          &amp;lt;li&amp;gt;{{ . | markdownify }}&amp;lt;/li&amp;gt;
+          {{ end }}
+        &amp;lt;/ul&amp;gt;
+      &amp;lt;/div&amp;gt;
+      {{ end }}
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And, in &lt;code&gt;en.yaml&lt;/code&gt;, beneath the widget associated with the &lt;code&gt;About&lt;/code&gt; section:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# About widget
+
+- id: interests
+  translation: Interests
+
+- id: education
+  translation: Education
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;I appended:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;
+- id: pets
+  translation: Pets
+&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Images Like This</title>
       <link>/project/images-like-this/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
@@ -861,6 +1146,92 @@ microbenchmark( (results &amp;lt;- update( &amp;#39;./disc60/cells9_bins9/&amp;#
 &lt;p&gt;This project describes in some detail the steps to photograph a potsherd and generate a mathematical model from the resulting images, and, in much less detail, suggests how to automatically measure the object represented by the model. The R source code is available on github and an R package will be available soon. A number of simplifying assumptions accelerated this initial draft.&lt;/p&gt;
 
 &lt;p&gt;&lt;img src=&#34;post/photogrammetric-potsherd/dimensioned_profile.png&#34; alt=&#34;Resulting dimensions&#34; /&gt;&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>A Plain Markdown Project</title>
+      <link>/project/example-plain-markdown-project/</link>
+      <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
+      
+      <guid>/project/example-plain-markdown-project/</guid>
+      <description>&lt;hr /&gt;
+
+&lt;p&gt;Summary&lt;/p&gt;
+
+&lt;p&gt;Example of a &lt;strong&gt;Plain Markdown&lt;/strong&gt; project and how &lt;em&gt;Plain Markdown&lt;/em&gt; differs from &lt;em&gt;R Markdown&lt;/em&gt;&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;one&lt;/li&gt;
+&lt;li&gt;two&lt;/li&gt;
+&lt;li&gt;three&lt;/li&gt;
+&lt;li&gt;four&lt;/li&gt;
+&lt;li&gt;five&lt;/li&gt;
+&lt;li&gt;six&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;This is a post written in plain Markdown (&lt;code&gt;*.md&lt;/code&gt;) instead of R Markdown (&lt;code&gt;*.Rmd&lt;/code&gt;). The major differences are:&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (&lt;code&gt;```{r}&lt;/code&gt;);&lt;/li&gt;
+&lt;li&gt;A plain Markdown post is rendered through &lt;a href=&#34;https://gohugo.io/overview/configuration/&#34; target=&#34;_blank&#34;&gt;Blackfriday&lt;/a&gt;, and an R Markdown document is compiled by &lt;a href=&#34;http://rmarkdown.rstudio.com&#34; target=&#34;_blank&#34;&gt;&lt;strong&gt;rmarkdown&lt;/strong&gt;&lt;/a&gt; and &lt;a href=&#34;http://pandoc.org&#34; target=&#34;_blank&#34;&gt;Pandoc&lt;/a&gt;.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;There are many differences in syntax between Blackfriday&#39;s Markdown and Pandoc&#39;s Markdown. For example, you can write a task list with Blackfriday but not with Pandoc:&lt;/p&gt;
+
+&lt;ul class=&#34;task-list&#34;&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; checked disabled class=&#34;task-list-item&#34;&gt; Write an R package.&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Write a book.&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; ...&lt;/label&gt;&lt;/li&gt;
+&lt;li&gt;&lt;label&gt;&lt;input type=&#34;checkbox&#34; disabled class=&#34;task-list-item&#34;&gt; Profit!&lt;/label&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Similarly, Blackfriday does not support LaTeX math and Pandoc does. I have added the MathJax support to this theme (&lt;a href=&#34;https://github.com/yihui/hugo-lithium-theme&#34; target=&#34;_blank&#34;&gt;hugo-lithium-theme&lt;/a&gt;) but there is a caveat for plain Markdown posts: you have to include math expressions in a pair of backticks (inline: &lt;code&gt;`$ $`&lt;/code&gt;; display style: &lt;code&gt;`$$ $$`&lt;/code&gt;), e.g., &lt;code&gt;$S_n = \sum_{i=1}^n X_i$&lt;/code&gt;.&lt;sup class=&#34;footnote-ref&#34; id=&#34;fnref:This-is-because&#34;&gt;&lt;a href=&#34;#fn:This-is-because&#34;&gt;1&lt;/a&gt;&lt;/sup&gt; For R Markdown posts, you do not need the backticks, because Pandoc can identify and process math expressions.&lt;/p&gt;
+
+&lt;p&gt;When creating a new post, you have to decide whether the post format is Markdown or R Markdown, and this can be done via the &lt;code&gt;ext&lt;/code&gt; argument of the function &lt;code&gt;blogdown::new_post()&lt;/code&gt;, e.g.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;language-r&#34;&gt;blogdown::new_post(&amp;quot;Post Title&amp;quot;, ext = &#39;.Rmd&#39;)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;div class=&#34;footnotes&#34;&gt;
+
+&lt;hr /&gt;
+
+&lt;ol&gt;
+&lt;li id=&#34;fn:This-is-because&#34;&gt;This is because we have to protect the math expressions from being interpreted as Markdown. You may not need the backticks if your math expression does not contain any special Markdown syntax such as underscores or asterisks, but it is always a safer choice to use backticks. When you happen to have a pair of literal dollar signs inside the same element, you can escape one dollar sign, e.g., &lt;code&gt;\$50 and $100&lt;/code&gt; renders &amp;quot;\$50 and $100&amp;quot;. &lt;a class=&#34;footnote-return&#34; href=&#34;#fnref:This-is-because&#34;&gt;&lt;sup&gt;^&lt;/sup&gt;&lt;/a&gt;&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>Deep Learning</title>
+      <link>/project/deep-learning/</link>
+      <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
+      
+      <guid>/project/deep-learning/</guid>
+      <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
+
+&lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
+
+&lt;p&gt;Cras aliquam rhoncus ipsum, in hendrerit nunc mattis vitae. Duis vitae efficitur metus, ac tempus leo. Cras nec fringilla lacus. Quisque sit amet risus at ipsum pharetra commodo. Sed aliquam mauris at consequat eleifend. Praesent porta, augue sed viverra bibendum, neque ante euismod ante, in vehicula justo lorem ac eros. Suspendisse augue libero, venenatis eget tincidunt ut, malesuada at lorem. Donec vitae bibendum arcu. Aenean maximus nulla non pretium iaculis. Quisque imperdiet, nulla in pulvinar aliquet, velit quam ultrices quam, sit amet fringilla leo sem vel nunc. Mauris in lacinia lacus.&lt;/p&gt;
+
+&lt;p&gt;Suspendisse a tincidunt lacus. Curabitur at urna sagittis, dictum ante sit amet, euismod magna. Sed rutrum massa id tortor commodo, vitae elementum turpis tempus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean purus turpis, venenatis a ullamcorper nec, tincidunt et massa. Integer posuere quam rutrum arcu vehicula imperdiet. Mauris ullamcorper quam vitae purus congue, quis euismod magna eleifend. Vestibulum semper vel augue eget tincidunt. Fusce eget justo sodales, dapibus odio eu, ultrices lorem. Duis condimentum lorem id eros commodo, in facilisis mauris scelerisque. Morbi sed auctor leo. Nullam volutpat a lacus quis pharetra. Nulla congue rutrum magna a ornare.&lt;/p&gt;
+
+&lt;p&gt;Aliquam in turpis accumsan, malesuada nibh ut, hendrerit justo. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Quisque sed erat nec justo posuere suscipit. Donec ut efficitur arcu, in malesuada neque. Nunc dignissim nisl massa, id vulputate nunc pretium nec. Quisque eget urna in risus suscipit ultricies. Pellentesque odio odio, tincidunt in eleifend sed, posuere a diam. Nam gravida nisl convallis semper elementum. Morbi vitae felis faucibus, vulputate orci placerat, aliquet nisi. Aliquam erat volutpat. Maecenas sagittis pulvinar purus, sed porta quam laoreet at.&lt;/p&gt;
+</description>
+    </item>
+    
+    <item>
+      <title>R Example</title>
+      <link>/post/2015-07-23-r-rmarkdown/</link>
+      <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
+      
+      <guid>/post/2015-07-23-r-rmarkdown/</guid>
+      <description>&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;R Markdown&lt;/h1&gt;
+&lt;/div&gt;
 </description>
     </item>
     

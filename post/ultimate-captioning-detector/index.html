@@ -17,11 +17,10 @@
       
     
   
-  <meta name="description" content="Disc Detection Baseline Partition the Data Extract HoG Features Classify Images Evaluate Results  Data Data Source 3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.
-1. Data Preparation A. Manually label a list of the images as a plain, unformatted text file, where each row of the file begins with the bare file name, i.e., frame_12345.png, optionally followed by descriptive text, as shown here.">
+  <meta name="description" content="The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/ultimate-captioning-disc-detector/">
+  <link rel="alternate" hreflang="en-us" href="/post/ultimate-captioning-detector/">
 
   
 
@@ -70,25 +69,24 @@
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/ultimate-captioning-disc-detector/">
+  <link rel="canonical" href="/post/ultimate-captioning-detector/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Unqualified Success">
-  <meta property="og:url" content="/post/ultimate-captioning-disc-detector/">
-  <meta property="og:title" content="Ultimate Captioning Part 4a | Unqualified Success">
-  <meta property="og:description" content="Disc Detection Baseline Partition the Data Extract HoG Features Classify Images Evaluate Results  Data Data Source 3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.
-1. Data Preparation A. Manually label a list of the images as a plain, unformatted text file, where each row of the file begins with the bare file name, i.e., frame_12345.png, optionally followed by descriptive text, as shown here.">
+  <meta property="og:url" content="/post/ultimate-captioning-detector/">
+  <meta property="og:title" content="Ultimate Captioning Disc Detector | Unqualified Success">
+  <meta property="og:description" content="The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs.">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2018-04-01T00:00:00&#43;00:00">
+  <meta property="article:published_time" content="2018-04-05T00:00:00&#43;00:00">
   
-  <meta property="article:modified_time" content="2018-04-01T00:00:00&#43;00:00">
-  
-
+  <meta property="article:modified_time" content="2018-04-05T00:00:00&#43;00:00">
   
 
-  <title>Ultimate Captioning Part 4a | Unqualified Success</title>
+  
+
+  <title>Ultimate Captioning Disc Detector | Unqualified Success</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#toc" data-offset="71" class="dark">
@@ -209,7 +207,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Ultimate Captioning Part 4a</h1>
+    <h1 itemprop="name">Ultimate Captioning Disc Detector</h1>
 
     
 
@@ -217,8 +215,8 @@
 
   <span class="article-date">
     
-    <time datetime="2018-04-01 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
-      2018-04-01
+    <time datetime="2018-04-05 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
+      2018-04-05
     </time>
   </span>
   <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
@@ -256,29 +254,17 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      
-
-<h1 id="disc-detection-baseline">Disc Detection Baseline</h1>
-
-<ul class="task-list">
-<li><label><input type="checkbox" checked disabled class="task-list-item"> Partition the Data</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> Extract HoG Features</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> Classify Images</label></li>
-<li><label><input type="checkbox" disabled class="task-list-item"> Evaluate Results</label></li>
-</ul>
-
+      <p>The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs. testing and the number of cells used for extracting HoGs from each image.</p>
 <hr />
-
-<h2 id="data">Data</h2>
-
-<h3 id="data-source">Data Source</h3>
-
+<div id="data" class="section level2">
+<h2>Data</h2>
+<div id="data-source" class="section level3">
+<h3>Data Source</h3>
 <p>3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.</p>
-
-<h3 id="1-data-preparation">1. Data Preparation</h3>
-
+</div>
+<div id="data-preparation" class="section level3">
+<h3>1. Data Preparation</h3>
 <p>A. Manually label a list of the images as a plain, unformatted text file, where each row of the file begins with the bare file name, i.e., <em>frame_12345.png</em>, optionally followed by descriptive text, as shown here. Note that multiple key words may appear, in any order, on a line.</p>
-
 <blockquote>
 <ul>
 <li>frame_102391.png</li>
@@ -286,109 +272,125 @@
 <li>frame_102451.png</li>
 <li>frame_102481.png two-players</li>
 <li>frame_102511.png</li>
-<li>frame_102541.png</li>
-<li>frame_102571.png</li>
-<li>frame_102601.png</li>
-<li>frame_102781.png pull</li>
+<li>rame_102781.png pull</li>
 <li>frame_102811.png</li>
 <li>frame_104101.png</li>
 <li>frame_10411.png disc</li>
-<li>frame_10441.png</li>
-<li>frame_10471.png disc</li>
-<li>frame_10501.png disc</li>
 <li>frame_19921.png disc</li>
 <li>frame_19951.png player-on-ground disc</li>
-<li>frame_19981.png player-on-ground</li>
-<li>frame_20011.png</li>
 <li>frame_20461.png between-points</li>
 <li>frame_20041.png</li>
 </ul>
 </blockquote>
-
-<p>B. Partition the labeled data into multiple training and testing sets in order to see what effect the training fraction has on the effectiveness of the detector.</p>
-
-<p>See <a href="https://github.com/Video-Captioning/partition_datasets" target="_blank">https://github.com/Video-Captioning/partition_datasets</a></p>
-
-<pre><code class="language-bash, eval=FALSE,echo=FALSE">alias PROJECTPATH='echo &quot;/path/to/Projects/Video-Captioning/&quot;'
-alias CLASS_LABELS='echo &quot;labeled_3471.txt&quot;'
-alias KEYWORD='echo &quot;disc&quot;'
-</code></pre>
-
-<pre><code class="language-bash, eval = FALSE, echo=TRUE"># Generate three data sets, using a progressively higher
+<p>B. Partition the labeled data into multiple training and testing sets in order to see what effect the number of training rows has on the effectiveness of the detector.</p>
+<p>See <a href="https://github.com/Video-Captioning/partition_datasets" class="uri">https://github.com/Video-Captioning/partition_datasets</a></p>
+<pre class="bash"><code># Generate three data sets, using a progressively higher
 # percentage of examples for training:
 cd `PROJECTPATH`
 for fraction in 0.40 0.50 0.60
   do
     ./partition_data_two_class.sh `KEYWORD` `CLASS_LABELS` $fraction
   done
-
 </code></pre>
-
-<h3 id="2-make-histograms-of-oriented-gradients-hogs">2. Make Histograms of Oriented Gradients (HoGs)</h3>
-
-<p>See <a href="https://github.com/Video-Captioning/HoG" target="_blank">https://github.com/Video-Captioning/HoG</a></p>
-
+</div>
+<div id="make-histograms-of-oriented-gradients-hogs" class="section level3">
+<h3>2. Make Histograms of Oriented Gradients (HoGs)</h3>
+<p>See <a href="https://github.com/Video-Captioning/HoG" class="uri">https://github.com/Video-Captioning/HoG</a></p>
 <p>The number of bins remains constant at 9 for the following, while the number of cells varies from 4 to 9:</p>
-
-<pre><code class="language-bash, eval = FALSE, echo=TRUE">for fraction in 40 50 60; do
+<pre class="bash"><code>for fraction in 40 50 60; do
   cd `PROJECTPATH``KEYWORD`$fraction
   for bins in 4 5 6 7 8 9; do
     ../hog.sh ../data/2_images/ $bins 9
   done
-done
-</code></pre>
-
-<h3 id="3-classify-images">3. Classify Images</h3>
-
-<p>First, define some functions, in <a href="https://github.com/Video-Captioning/SVM-two-class" target="_blank">SVM_functions.R</a></p>
-
-<p>Classify HoGs for a single configuration with <a href="https://github.com/Video-Captioning/SVM-two-class" target="_blank">SVM_classify_one_set.R</a></p>
-
-<p>Classify HoGs for a collection of configurations with the following R code:</p>
-
-<pre><code class="language-R"># ----- Load the functions to use for this analysis -----
+done</code></pre>
+</div>
+<div id="classify-images" class="section level3">
+<h3>3. Classify Images</h3>
+<p>To classify the images in the test set, we first train the model using the e1071 package – an R package with an interface to a C++ implementation of support vector machines. By combining two functions from this package, <em>svm</em> and <em>tune</em>, we can explore a range of costs and choose the one that gives the best performance. The basic arrangement follows:</p>
+<pre class="r"><code># Optimize cost parameter, C,
+# by training an SVM classifier using each of the
+# C-values given in input, values_of_C_to_try
+optimize_cost &lt;- function( values_of_C_to_try, test_data ){
+  cat( sprintf( &#39;Finding optimal cost...\n&#39; ))
+  e1071::tune(
+      e1071::svm
+    , y~.
+    , data   = test_data
+    , kernel = &#39;linear&#39;
+    , ranges = values_of_C_to_try
+  )
+}</code></pre>
+<p>This code is combined with additional supporting functions in <a href="https://github.com/Video-Captioning/SVM-two-class">SVM_functions.R</a>.</p>
+<p>All the pieces to classify HoGs for a single configuration (training fraction, cells, bins) are in <a href="https://github.com/Video-Captioning/SVM-two-class">SVM_classify_one_set.R</a>, which performs the following:</p>
+<ul>
+<li>Get the training and testing data</li>
+<li>Optimize cost parameter, <em>C</em>, using the training set</li>
+<li>Make predictions using best model on the testing set</li>
+<li>Compute a confusion matrix, calculate F1-scores and area-under-the ROC curve.</li>
+</ul>
+<p>To process the entire collection of configurations, we can call SVM_classify_one_set for each item of a list with the following R code:</p>
+<pre class="r"><code># ----- Load the functions to use for this analysis -----
 require( purrr )
-libraries &lt;- list( 'SVM_functions', 'SVM_classify_one_set' )
-LIBRARY_PATH &lt;- '/path/to/repository'
-DATA_PATH    &lt;- '/path/to/data/'
+libraries &lt;- list( &#39;SVM_functions&#39;, &#39;SVM_classify_one_set&#39; )
+LIBRARY_PATH &lt;- &#39;/path/to/repository&#39;
+DATA_PATH    &lt;- &#39;/path/to/data/&#39;
 libraries %&gt;%
-  map_chr( .f= ~paste0( LIBRARY_PATH, .x, '.R' )) %&gt;%
+  map_chr( .f= ~paste0( LIBRARY_PATH, .x, &#39;.R&#39; )) %&gt;%
   walk( source )
 
 # ----- Describe which data sets to process -------------
 BATCHES &lt;- list(
   
-    'disc40/cells4_bins9/'
-  , 'disc40/cells5_bins9/'
-  , 'disc40/cells6_bins9/'
-  , 'disc40/cells7_bins9/'
-  , 'disc40/cells8_bins9/'
-  , 'disc40/cells9_bins9/'
+    &#39;disc40/cells4_bins9/&#39;
+  , &#39;disc40/cells5_bins9/&#39;
+  , &#39;disc40/cells6_bins9/&#39;
+  , &#39;disc40/cells7_bins9/&#39;
+  , &#39;disc40/cells8_bins9/&#39;
+  , &#39;disc40/cells9_bins9/&#39;
   
-  , 'disc50/cells4_bins9/'
-  , 'disc50/cells5_bins9/'
-  , 'disc50/cells6_bins9/'
-  , 'disc50/cells7_bins9/'
-  , 'disc50/cells8_bins9/'
-  , 'disc50/cells9_bins9/'
+  , &#39;disc50/cells4_bins9/&#39;
+  , &#39;disc50/cells5_bins9/&#39;
+  , &#39;disc50/cells6_bins9/&#39;
+  , &#39;disc50/cells7_bins9/&#39;
+  , &#39;disc50/cells8_bins9/&#39;
+  , &#39;disc50/cells9_bins9/&#39;
   
-  , 'disc60/cells4_bins9/'
-  , 'disc60/cells5_bins9/'
-  , 'disc60/cells6_bins9/'
-  , 'disc60/cells7_bins9/'
-  , 'disc60/cells8_bins9/'
-  , 'disc60/cells9_bins9/'
+  , &#39;disc60/cells4_bins9/&#39;
+  , &#39;disc60/cells5_bins9/&#39;
+  , &#39;disc60/cells6_bins9/&#39;
+  , &#39;disc60/cells7_bins9/&#39;
+  , &#39;disc60/cells8_bins9/&#39;
+  , &#39;disc60/cells9_bins9/&#39;
 )
 
 # ----- Process the data sets ----------------------------
-map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))
-</code></pre>
-
-<h3 id="4-collect-and-summarize-results">4. Collect and Summarize Results</h3>
-
-<p>Collect the results with <a href="https://github.com/Video-Captioning/SVM-two-class" target="_blank">Recursive_score_collection.sh</a></p>
-
-<p>Plot the results with <a href="https://github.com/Video-Captioning/SVM-two-class" target="_blank">SVM_evaluation.R</a></p>
+map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))</code></pre>
+</div>
+<div id="collect-and-summarize-results" class="section level3">
+<h3>4. Collect and Summarize Results</h3>
+<p><a href="https://github.com/Video-Captioning/SVM-two-class">Recursive_score_collection.sh</a> searches for all the <em>keyword</em> <em>training_fraction</em> subdirectories and captures the previously-recorded scores at each location.</p>
+<p>Plot the results with <a href="https://github.com/Video-Captioning/SVM-two-class/SVM_evaluation.R">SVM_evaluation.R</a></p>
+<pre class="r"><code># --- Load libraries ---
+require( ggplot2 )</code></pre>
+<pre><code>## Loading required package: ggplot2</code></pre>
+<pre class="r"><code># --- Get the data ---
+SCORES &lt;- &#39;../../data/scores.txt&#39;
+#dir( path = &#39;../../data/&#39; )
+x &lt;- read.csv( file = SCORES, header=TRUE,sep=&#39;|&#39; )</code></pre>
+<p><img src="/post/Part4_files/figure-html/unnamed-chunk-6-1.png" width="672" /> Using 4 cells was quick (about two minutes), but not very accurate, measured by area under the receiver operator characteristic curve.</p>
+<p>Using 10 cells, feature extraction took 20 minutes or more. Using 50% of the images for training performed better than using 40% or 60%, and was quicker than using 40%. <img src="/post/Part4_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p>Feature extraction rate (rows per second) is <em>very</em> slow for 10 cells, moderate for 7 to 9 cells, and considerably faster for 4 cells. <img src="/post/Part4_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p>AUC_by_N_cells_points <img src="/post/Part4_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+</div>
+<div id="conclusion" class="section level3">
+<h3>Conclusion</h3>
+<p>See <a href="https://www.mathworks.com/help/vision/ref/extracthogfeatures.html?requestedDomain%20=%20true">MathWorks extractHOGFeatures</a></p>
+<ul>
+<li>To capture large-scale spatial information, increase the cell size. When you increase the cell size, you may lose small-scale detail.</li>
+<li>To encode finer orientation details, increase the number of bins. Increasing this value increases the size of the feature vector, which requires more time to process.</li>
+</ul>
+</div>
+</div>
 
     </div>
 
@@ -427,7 +429,7 @@ map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/post/ultimate-captioning-detector/" rel="next">Ultimate Captioning Disc Detector</a>
+    <a href="/post/ultimate-captioning-list-of-posts/" rel="next">Ultimate Captioning Posts</a>
   </div>
   
   

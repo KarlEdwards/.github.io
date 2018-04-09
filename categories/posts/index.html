@@ -77,7 +77,7 @@
   <meta property="og:description" content=")(">
   <meta property="og:locale" content="en-us">
   
-  <meta property="og:updated_time" content="2018-04-01T00:00:00&#43;00:00">
+  <meta property="og:updated_time" content="2018-04-21T00:00:00&#43;00:00">
   
 
   
@@ -209,13 +209,17 @@
   
   
   <div>
-    <h2><a href="/post/ultimate-captioning-disc-detector/">Ultimate Captioning Part 4</a></h2>
+    <h2><a href="/post/ultimate-captioning-list-of-posts/">Ultimate Captioning Posts</a></h2>
     <div class="article-style">
       
-      Establish a baseline for disc detection.
- Data Calculation of HoGs using varying number of cells and bins Clustering Evaluation Conclusion  Overview Data Source 3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.
- Data Preparation Partition the labeled data into two sets: Some portion of the data for training and the rest for testing. For example: 40% training
-cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.sh disc labeled_3471.
+    </div>
+  </div>
+  
+  <div>
+    <h2><a href="/post/ultimate-captioning-detector/">Ultimate Captioning Disc Detector</a></h2>
+    <div class="article-style">
+      
+      Establish a baseline for disc detection ( Rmd version )
       
     </div>
   </div>
@@ -224,8 +228,7 @@ cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.s
     <h2><a href="/post/ultimate-captioning-scorecard/">Ultimate Captioning Part 3</a></h2>
     <div class="article-style">
       
-      What tools would make the video captioning task easier? What partial solutions contribute to the whole solution? Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start. Some practical suggestions:
- Identify images depicting the disc. The disc is particularly hard to find, due to its small size; therefore only detected when white patch exceeds a certain size and white patch is roughly circular (and not a picture of a disk on a sign or banner)
+      Solving the whole problem by breaking it down into manageable chunks. This scorecard shows individual tasks, approaches tried, and results achieved so far.
       
     </div>
   </div>
@@ -234,9 +237,7 @@ cd /Users/Karl/Dropbox/Projects/Video-Captioning sh ./partition_data_two_class.s
     <h2><a href="/post/ultimate-captioning-approaches/">Ultimate Captioning Part 2</a></h2>
     <div class="article-style">
       
-      This post explores related work in the areas of object and action detection, selection of an appropriate level of detail, and coherent, multi-sentence description.
-The sport of ultimate resembles soccer in some ways. For example, both sports revolve around groups of similarly-clad individuals running around a mostly green environment, focused on a small, fast-moving object. Efforts to understand Soccer present many promising ideas for understanding ultimate.
-The single image at the top of this post illustrates an action by itself: A player leaps into the air, attempting to catch the disc.
+      An exploration of related work in the areas of object and action detection, selection of an appropriate level of detail, and coherent, multi-sentence description.
       
     </div>
   </div>
@@ -245,7 +246,7 @@ The single image at the top of this post illustrates an action by itself: A play
     <h2><a href="/post/ultimate-captioning-problem-rmd/">Ultimate Captioning Part 1</a></h2>
     <div class="article-style">
       
-      How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes various sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.
+      How can we choose the best 150 two-second plays from 10 or more hours of raw video?
       
     </div>
   </div>
