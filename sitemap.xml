@@ -141,16 +141,6 @@
     <url>
     
       <loc>/tags/image-processing/</loc>
-      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    
-    <url>
-    
-      <loc>/tags/image-processing/</loc>
       <lastmod>2018-04-21T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -161,7 +151,7 @@
     <url>
     
       <loc>/tags/image-processing/</loc>
-      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <lastmod>2018-01-14T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -192,16 +182,6 @@
     
       <loc>/tags/plain-markdown/</loc>
       <lastmod>2017-09-09T21:49:57-07:00</lastmod>
-      <priority>0</priority>
-    </url>
-    
-  
-    
-    
-    <url>
-    
-      <loc>/tags/plot/</loc>
-      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -289,8 +269,8 @@
     
     <url>
     
-      <loc>/tags/r/</loc>
-      <lastmod>2017-11-27T00:00:00+00:00</lastmod>
+      <loc>/categories/r/</loc>
+      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -299,8 +279,8 @@
     
     <url>
     
-      <loc>/categories/r/</loc>
-      <lastmod>2015-07-23T21:13:14-05:00</lastmod>
+      <loc>/tags/r/</loc>
+      <lastmod>2017-11-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     

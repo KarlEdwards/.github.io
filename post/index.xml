@@ -36,7 +36,7 @@
       <pubDate>Sat, 31 Mar 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-scorecard/</guid>
-      <description>Data used for this scorecard  3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour  , partition the labeled data into two sets: Some portion of the data for training and the rest for testing. After partitioning the data, ...
+      <description>Data used for this scorecard  3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour  Partition the labeled data into two sets: Some portion of the data for training and the rest for testing. After partitioning the data, ...
 Scorecard What are the individual tasks, and how effective are various approaches?
 General    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See https://github.</description>
     </item>

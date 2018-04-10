@@ -25,7 +25,7 @@
       <pubDate>Thu, 05 Apr 2018 00:00:00 +0000</pubDate>
       
       <guid>/post/ultimate-captioning-detector/</guid>
-      <description>&lt;p&gt;The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs. testing and the number of cells used for extracting HoGs from each image.&lt;/p&gt;
+      <description>&lt;p&gt;The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs. testing, the number of cells, and the number of bins used for extracting HoGs from each image.&lt;/p&gt;
 &lt;hr /&gt;
 &lt;div id=&#34;data&#34; class=&#34;section level2&#34;&gt;
 &lt;h2&gt;Data&lt;/h2&gt;
@@ -55,6 +55,10 @@
 &lt;/blockquote&gt;
 &lt;p&gt;B. Partition the labeled data into multiple training and testing sets in order to see what effect the number of training rows has on the effectiveness of the detector.&lt;/p&gt;
 &lt;p&gt;See &lt;a href=&#34;https://github.com/Video-Captioning/partition_datasets&#34; class=&#34;uri&#34;&gt;https://github.com/Video-Captioning/partition_datasets&lt;/a&gt;&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Create a few aliases to make the intent more clear in the scripts that follow.
+alias PROJECTPATH=&amp;#39;echo &amp;quot;/path/to/Projects/Video-Captioning/&amp;quot;&amp;#39;
+alias CLASS_LABELS=&amp;#39;echo &amp;quot;labeled_3471.txt&amp;quot;&amp;#39;
+alias KEYWORD=&amp;#39;echo &amp;quot;disc&amp;quot;&amp;#39;&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Generate three data sets, using a progressively higher
 # percentage of examples for training:
 cd `PROJECTPATH`
@@ -67,11 +71,12 @@ for fraction in 0.40 0.50 0.60
 &lt;div id=&#34;make-histograms-of-oriented-gradients-hogs&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;2. Make Histograms of Oriented Gradients (HoGs)&lt;/h3&gt;
 &lt;p&gt;See &lt;a href=&#34;https://github.com/Video-Captioning/HoG&#34; class=&#34;uri&#34;&gt;https://github.com/Video-Captioning/HoG&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;The number of bins remains constant at 9 for the following, while the number of cells varies from 4 to 9:&lt;/p&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;for fraction in 40 50 60; do
   cd `PROJECTPATH``KEYWORD`$fraction
-  for bins in 4 5 6 7 8 9; do
-    ../hog.sh ../data/2_images/ $bins 9
+  for bins in 7 9 15; do
+    for cells in 4 5 6 7 8 9; do
+      ../hog.sh ../data/2_images/ $cells $bins
+    done
   done
 done&lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
@@ -141,17 +146,47 @@ map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))&lt;/code&gt;&lt;/pre&
 &lt;h3&gt;4. Collect and Summarize Results&lt;/h3&gt;
 &lt;p&gt;&lt;a href=&#34;https://github.com/Video-Captioning/SVM-two-class&#34;&gt;Recursive_score_collection.sh&lt;/a&gt; searches for all the &lt;em&gt;keyword&lt;/em&gt; &lt;em&gt;training_fraction&lt;/em&gt; subdirectories and captures the previously-recorded scores at each location.&lt;/p&gt;
 &lt;p&gt;Plot the results with &lt;a href=&#34;https://github.com/Video-Captioning/SVM-two-class/SVM_evaluation.R&#34;&gt;SVM_evaluation.R&lt;/a&gt;&lt;/p&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# --- Load libraries ---
-require( ggplot2 )&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## Loading required package: ggplot2&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# --- Get the data ---
-SCORES &amp;lt;- &amp;#39;../../data/scores.txt&amp;#39;
-#dir( path = &amp;#39;../../data/&amp;#39; )
-x &amp;lt;- read.csv( file = SCORES, header=TRUE,sep=&amp;#39;|&amp;#39; )&lt;/code&gt;&lt;/pre&gt;
-&lt;p&gt;&lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-6-1.png&#34; width=&#34;672&#34; /&gt; Using 4 cells was quick (about two minutes), but not very accurate, measured by area under the receiver operator characteristic curve.&lt;/p&gt;
-&lt;p&gt;Using 10 cells, feature extraction took 20 minutes or more. Using 50% of the images for training performed better than using 40% or 60%, and was quicker than using 40%. &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;Feature extraction rate (rows per second) is &lt;em&gt;very&lt;/em&gt; slow for 10 cells, moderate for 7 to 9 cells, and considerably faster for 4 cells. &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
-&lt;p&gt;AUC_by_N_cells_points &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-9-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;##                     Batch   TP FP  TN  FN   AUC  Sec testrecs Frac Bins
+## 5  disc30/cells5_bins15/  2063  6 302  60 0.581  865     2431   30   15
+## 8  disc30/cells6_bins15/  2059 10 272  90 0.622 1254     2431   30   15
+## 12  disc30/cells7_bins7/  2062  7 304  58 0.578  837     2431   30   07
+## 13  disc30/cells7_bins9/  2062  7 288  74 0.601 1168     2431   30   09
+## 15  disc30/cells8_bins7/  2062  7 284  78 0.606 1092     2431   30   07
+## 16  disc30/cells8_bins9/  2061  8 264  98 0.633 1294     2431   30   09
+## 18  disc30/cells9_bins7/  2063  6 253 109 0.649 1597     2431   30   07
+## 20 disc40/cells10_bins9/  1769  7 183 125 0.701 1894     2084   40   09
+## 25  disc40/cells8_bins9/  1771  5 248  60 0.596 1121     2084   40   09
+## 26  disc40/cells9_bins9/  1771  5 218  90 0.645 1421     2084   40   09
+##    Cells  Accu  Prec  Recl trainrecs      rate Speed number_of_bins
+## 5     05 97.29 99.71 97.17      1042 0.8301344     1             15
+## 8     06 95.89 99.52 95.81      1042 1.2034549     0             15
+## 12    07 97.33 99.66 97.26      1042 0.8032630     1              7
+## 13    07 96.67 99.66 96.54      1042 1.1209213     1              9
+## 15    08 96.50 99.66 96.36      1042 1.0479846     1              7
+## 16    08 95.64 99.61 95.46      1042 1.2418426     0              9
+## 18    09 95.27 99.71 94.98      1042 1.5326296     0              7
+## 20    10 93.67 99.61 93.40      1389 1.3635709     0              9
+## 25    08 96.88 99.72 96.72      1389 0.8070554     1              9
+## 26    09 95.44 99.72 95.16      1389 1.0230382     0              9
+##    number_of_cells bins_ cells_ bins cells frac
+## 5                5   15      5    15     5   30
+## 8                6   15      6    15     6   30
+## 12               7    7      7     7     7   30
+## 13               7    9      7     9     7   30
+## 15               8    7      8     7     8   30
+## 16               8    9      8     9     8   30
+## 18               9    7      9     7     9   30
+## 20              10    9     10     9    10   40
+## 25               8    9      8     9     8   40
+## 26               9    9      9     9     9   40&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Generally, more cells result in a greater area under the curve… &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-7-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;But it takes more time to calculate HoGs for more cells…&lt;/p&gt;
+&lt;p&gt;The Feature Extraction Rate (rows per second) is &lt;em&gt;very&lt;/em&gt; slow for 10 cells, moderate for 7 to 9 cells, and considerably faster for 4 cells. &lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-8-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Using 4 cells was quick (about two minutes), but not very accurate, measured by area under the receiver operator characteristic curve.&lt;/p&gt;
+&lt;p&gt;Using 10 cells, feature extraction took 20 minutes or more. Using 50% of the images for training performed better than using 40% or 60%, and was quicker than using 40%.&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-11-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
+&lt;p&gt;Fast enough, but without requiring too many training examples…&lt;/p&gt;
+&lt;p&gt;&lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-12-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Conclusion&lt;/h3&gt;
@@ -179,7 +214,7 @@ x &amp;lt;- read.csv( file = SCORES, header=TRUE,sep=&amp;#39;|&amp;#39; )&lt;/c
 &lt;li&gt;3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour&lt;/li&gt;
 &lt;/ul&gt;
 
-&lt;p&gt;, partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. After partitioning the data, ...&lt;/p&gt;
+&lt;p&gt;Partition the labeled data into two sets: Some portion of the data for &lt;em&gt;training&lt;/em&gt; and the rest for &lt;em&gt;testing&lt;/em&gt;. After partitioning the data, ...&lt;/p&gt;
 
 &lt;h1 id=&#34;scorecard&#34;&gt;Scorecard&lt;/h1&gt;
 
@@ -244,7 +279,7 @@ x &amp;lt;- read.csv( file = SCORES, header=TRUE,sep=&amp;#39;|&amp;#39; )&lt;/c
 &lt;/tr&gt;
 
 &lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;UC3&lt;/td&gt;
+&lt;td align=&#34;right&#34;&gt;IC3&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;Find the field&lt;/td&gt;
 &lt;td&gt;Dominant Hue with KNN clustering&lt;/td&gt;
 &lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
