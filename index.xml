@@ -157,13 +157,9 @@ map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))&lt;/code&gt;&lt;/pre&
 &lt;p&gt;The best Area Under the Curve, while under 1 second per row: 9 bins, 9-10 cells, about half the data for training…&lt;/p&gt;
 &lt;p&gt;&lt;img src=&#34;/post/Part4_files/figure-html/unnamed-chunk-13-1.png&#34; width=&#34;672&#34; /&gt;&lt;/p&gt;
 &lt;/div&gt;
-&lt;div id=&#34;conclusion&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Conclusion&lt;/h3&gt;
-&lt;p&gt;This insight from &lt;a href=&#34;https://www.mathworks.com/help/vision/ref/extracthogfeatures.html?requestedDomain%20=%20true&#34;&gt;MathWorks extractHOGFeatures&lt;/a&gt; might shed some light on why these classifiers miss some images depicting a disc:&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;To capture large-scale spatial information, increase the cell size. When you increase the cell size, you may lose small-scale detail.&lt;/li&gt;
-&lt;li&gt;To encode finer orientation details, increase the number of bins. Increasing this value increases the size of the feature vector, which requires more time to process.&lt;/li&gt;
-&lt;/ul&gt;
+&lt;div id=&#34;conclusion-and-next-steps&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Conclusion and Next Steps&lt;/h3&gt;
+&lt;p&gt;The baseline disc detector using histograms of oriented gradients with 9 bins and 9 to 10 cells, trained on about 1,500 images has an AUC of about 0.75. For which images does this detector fail to detect a disc when there is a disc shown? For which images does this detector detect a non-existent disc?&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 </description>
