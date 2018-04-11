@@ -375,51 +375,20 @@ map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))</code></pre>
 <h3>4. Collect and Summarize Results</h3>
 <p><a href="https://github.com/Video-Captioning/SVM-two-class">Recursive_score_collection.sh</a> searches for all the <em>keyword</em> <em>training_fraction</em> subdirectories and captures the previously-recorded scores at each location.</p>
 <p>Plot the results with <a href="https://github.com/Video-Captioning/SVM-two-class/SVM_evaluation.R">SVM_evaluation.R</a></p>
-<pre><code>##                     Batch   TP FP  TN  FN   AUC  Sec testrecs Frac Bins
-## 5  disc30/cells5_bins15/  2063  6 302  60 0.581  865     2431   30   15
-## 8  disc30/cells6_bins15/  2059 10 272  90 0.622 1254     2431   30   15
-## 12  disc30/cells7_bins7/  2062  7 304  58 0.578  837     2431   30   07
-## 13  disc30/cells7_bins9/  2062  7 288  74 0.601 1168     2431   30   09
-## 15  disc30/cells8_bins7/  2062  7 284  78 0.606 1092     2431   30   07
-## 16  disc30/cells8_bins9/  2061  8 264  98 0.633 1294     2431   30   09
-## 18  disc30/cells9_bins7/  2063  6 253 109 0.649 1597     2431   30   07
-## 20 disc40/cells10_bins9/  1769  7 183 125 0.701 1894     2084   40   09
-## 25  disc40/cells8_bins9/  1771  5 248  60 0.596 1121     2084   40   09
-## 26  disc40/cells9_bins9/  1771  5 218  90 0.645 1421     2084   40   09
-##    Cells  Accu  Prec  Recl trainrecs      rate Speed number_of_bins
-## 5     05 97.29 99.71 97.17      1042 0.8301344     1             15
-## 8     06 95.89 99.52 95.81      1042 1.2034549     0             15
-## 12    07 97.33 99.66 97.26      1042 0.8032630     1              7
-## 13    07 96.67 99.66 96.54      1042 1.1209213     1              9
-## 15    08 96.50 99.66 96.36      1042 1.0479846     1              7
-## 16    08 95.64 99.61 95.46      1042 1.2418426     0              9
-## 18    09 95.27 99.71 94.98      1042 1.5326296     0              7
-## 20    10 93.67 99.61 93.40      1389 1.3635709     0              9
-## 25    08 96.88 99.72 96.72      1389 0.8070554     1              9
-## 26    09 95.44 99.72 95.16      1389 1.0230382     0              9
-##    number_of_cells bins_ cells_ bins cells frac
-## 5                5   15      5    15     5   30
-## 8                6   15      6    15     6   30
-## 12               7    7      7     7     7   30
-## 13               7    9      7     9     7   30
-## 15               8    7      8     7     8   30
-## 16               8    9      8     9     8   30
-## 18               9    7      9     7     9   30
-## 20              10    9     10     9    10   40
-## 25               8    9      8     9     8   40
-## 26               9    9      9     9     9   40</code></pre>
 <p>Generally, more cells result in a greater area under the curve… <img src="/post/Part4_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p>But it takes more time to calculate HoGs for more cells…</p>
 <p>The Feature Extraction Rate (rows per second) is <em>very</em> slow for 10 cells, moderate for 7 to 9 cells, and considerably faster for 4 cells. <img src="/post/Part4_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="/post/Part4_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="/post/Part4_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p>Using 4 cells was quick (about two minutes), but not very accurate, measured by area under the receiver operator characteristic curve.</p>
 <p>Using 10 cells, feature extraction took 20 minutes or more. Using 50% of the images for training performed better than using 40% or 60%, and was quicker than using 40%.</p>
-<p><img src="/post/Part4_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Fast enough, but without requiring too many training examples…</p>
 <p><img src="/post/Part4_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p>The best Area Under the Curve, while under 1 second per row: 9 bins, 9-10 cells, about half the data for training…</p>
+<p><img src="/post/Part4_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 </div>
 <div id="conclusion" class="section level3">
 <h3>Conclusion</h3>
-<p>See <a href="https://www.mathworks.com/help/vision/ref/extracthogfeatures.html?requestedDomain%20=%20true">MathWorks extractHOGFeatures</a></p>
+<p>This insight from <a href="https://www.mathworks.com/help/vision/ref/extracthogfeatures.html?requestedDomain%20=%20true">MathWorks extractHOGFeatures</a> might shed some light on why these classifiers miss some images depicting a disc:</p>
 <ul>
 <li>To capture large-scale spatial information, increase the cell size. When you increase the cell size, you may lose small-scale detail.</li>
 <li>To encode finer orientation details, increase the number of bins. Increasing this value increases the size of the feature vector, which requires more time to process.</li>
