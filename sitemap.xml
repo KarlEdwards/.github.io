@@ -5,8 +5,8 @@
     
     <url>
     
-      <loc>/post/ultimate-captioning-list-of-posts/</loc>
-      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+      <loc>https://karledwards.github.io/post/ultimate-captioning-detector/</loc>
+      <lastmod>2018-04-26T00:00:00+00:00</lastmod>
     </url>
     
   
@@ -14,16 +14,7 @@
     
     <url>
     
-      <loc>/post/ultimate-captioning-detector/</loc>
-      <lastmod>2018-04-05T00:00:00+00:00</lastmod>
-    </url>
-    
-  
-    
-    
-    <url>
-    
-      <loc>/post/ultimate-captioning-scorecard/</loc>
+      <loc>https://karledwards.github.io/post/ultimate-captioning-scorecard/</loc>
       <lastmod>2018-03-31T00:00:00+00:00</lastmod>
     </url>
     
@@ -32,7 +23,7 @@
     
     <url>
     
-      <loc>/post/ultimate-captioning-approaches/</loc>
+      <loc>https://karledwards.github.io/post/ultimate-captioning-approaches/</loc>
       <lastmod>2018-03-24T00:00:00+00:00</lastmod>
     </url>
     
@@ -41,7 +32,7 @@
     
     <url>
     
-      <loc>/post/ultimate-captioning-problem-rmd/</loc>
+      <loc>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</loc>
       <lastmod>2018-03-17T00:00:00+00:00</lastmod>
     </url>
     
@@ -50,7 +41,7 @@
     
     <url>
     
-      <loc>/post/about-the-blog-rmd/</loc>
+      <loc>https://karledwards.github.io/post/about-the-blog-rmd/</loc>
       <lastmod>2018-03-15T00:00:00+00:00</lastmod>
     </url>
     
@@ -59,7 +50,7 @@
     
     <url>
     
-      <loc>/project/images-like-this/</loc>
+      <loc>https://karledwards.github.io/project/images-like-this/</loc>
       <lastmod>2018-01-14T00:00:00+00:00</lastmod>
     </url>
     
@@ -68,7 +59,7 @@
     
     <url>
     
-      <loc>/project/large-integer-multiplication/</loc>
+      <loc>https://karledwards.github.io/project/large-integer-multiplication/</loc>
       <lastmod>2017-11-27T00:00:00+00:00</lastmod>
     </url>
     
@@ -77,7 +68,7 @@
     
     <url>
     
-      <loc>/project/photogrammetric-potsherd/</loc>
+      <loc>https://karledwards.github.io/project/photogrammetric-potsherd/</loc>
       <lastmod>2017-10-31T00:00:00+00:00</lastmod>
     </url>
     
@@ -86,7 +77,7 @@
     
     <url>
     
-      <loc>/project/example-plain-markdown-project/</loc>
+      <loc>https://karledwards.github.io/project/example-plain-markdown-project/</loc>
       <lastmod>2017-09-09T21:49:57-07:00</lastmod>
     </url>
     
@@ -95,7 +86,7 @@
     
     <url>
     
-      <loc>/project/deep-learning/</loc>
+      <loc>https://karledwards.github.io/project/deep-learning/</loc>
       <lastmod>2016-04-27T00:00:00+00:00</lastmod>
     </url>
     
@@ -104,7 +95,7 @@
     
     <url>
     
-      <loc>/post/2015-07-23-r-rmarkdown/</loc>
+      <loc>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</loc>
       <lastmod>2015-07-23T21:13:14-05:00</lastmod>
     </url>
     
@@ -113,7 +104,7 @@
     
     <url>
     
-      <loc>/project/2017-09-09-example-plain-markdown/</loc>
+      <loc>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</loc>
     </url>
     
   
@@ -121,7 +112,7 @@
     
     <url>
     
-      <loc>/categories/</loc>
+      <loc>https://karledwards.github.io/categories/</loc>
       <priority>0</priority>
     </url>
     
@@ -130,7 +121,7 @@
     
     <url>
     
-      <loc>/tags/deep-learning/</loc>
+      <loc>https://karledwards.github.io/tags/deep-learning/</loc>
       <lastmod>2016-04-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -140,8 +131,8 @@
     
     <url>
     
-      <loc>/tags/image-processing/</loc>
-      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+      <loc>https://karledwards.github.io/tags/image-processing/</loc>
+      <lastmod>2018-04-26T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -150,7 +141,7 @@
     
     <url>
     
-      <loc>/tags/image-processing/</loc>
+      <loc>https://karledwards.github.io/tags/image-processing/</loc>
       <lastmod>2018-01-14T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -160,7 +151,7 @@
     
     <url>
     
-      <loc>/tags/large-integer-multiplication/</loc>
+      <loc>https://karledwards.github.io/tags/large-integer-multiplication/</loc>
       <lastmod>2017-11-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -170,7 +161,7 @@
     
     <url>
     
-      <loc>/tags/photogrammetry/</loc>
+      <loc>https://karledwards.github.io/tags/photogrammetry/</loc>
       <lastmod>2017-10-31T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -180,7 +171,7 @@
     
     <url>
     
-      <loc>/tags/plain-markdown/</loc>
+      <loc>https://karledwards.github.io/tags/plain-markdown/</loc>
       <lastmod>2017-09-09T21:49:57-07:00</lastmod>
       <priority>0</priority>
     </url>
@@ -190,8 +181,8 @@
     
     <url>
     
-      <loc>/post/</loc>
-      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+      <loc>https://karledwards.github.io/post/</loc>
+      <lastmod>2018-04-26T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -200,8 +191,8 @@
     
     <url>
     
-      <loc>/categories/posts/</loc>
-      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+      <loc>https://karledwards.github.io/categories/posts/</loc>
+      <lastmod>2018-04-26T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -210,7 +201,7 @@
     
     <url>
     
-      <loc>/tags/problem-statement/</loc>
+      <loc>https://karledwards.github.io/tags/problem-statement/</loc>
       <lastmod>2018-03-17T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -220,7 +211,7 @@
     
     <url>
     
-      <loc>/tags/project/</loc>
+      <loc>https://karledwards.github.io/tags/project/</loc>
       <lastmod>2016-04-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -230,7 +221,7 @@
     
     <url>
     
-      <loc>/project/</loc>
+      <loc>https://karledwards.github.io/project/</loc>
       <lastmod>2018-01-14T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -240,8 +231,8 @@
     
     <url>
     
-      <loc>/categories/projects/</loc>
-      <lastmod>2018-04-21T00:00:00+00:00</lastmod>
+      <loc>https://karledwards.github.io/categories/projects/</loc>
+      <lastmod>2018-04-26T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
     
@@ -250,7 +241,7 @@
     
     <url>
     
-      <loc>/publication_types/</loc>
+      <loc>https://karledwards.github.io/publication_types/</loc>
       <priority>0</priority>
     </url>
     
@@ -259,7 +250,7 @@
     
     <url>
     
-      <loc>/tags/python/</loc>
+      <loc>https://karledwards.github.io/tags/python/</loc>
       <lastmod>2018-01-14T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -269,7 +260,7 @@
     
     <url>
     
-      <loc>/tags/r/</loc>
+      <loc>https://karledwards.github.io/tags/r/</loc>
       <lastmod>2017-11-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -279,7 +270,7 @@
     
     <url>
     
-      <loc>/categories/r/</loc>
+      <loc>https://karledwards.github.io/categories/r/</loc>
       <lastmod>2015-07-23T21:13:14-05:00</lastmod>
       <priority>0</priority>
     </url>
@@ -289,7 +280,7 @@
     
     <url>
     
-      <loc>/tags/r-markdown/</loc>
+      <loc>https://karledwards.github.io/tags/r-markdown/</loc>
       <lastmod>2015-07-23T21:13:14-05:00</lastmod>
       <priority>0</priority>
     </url>
@@ -299,7 +290,7 @@
     
     <url>
     
-      <loc>/tags/rmarkdown/</loc>
+      <loc>https://karledwards.github.io/tags/rmarkdown/</loc>
       <lastmod>2017-10-31T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -309,7 +300,7 @@
     
     <url>
     
-      <loc>/tags/reproducible-research/</loc>
+      <loc>https://karledwards.github.io/tags/reproducible-research/</loc>
       <lastmod>2017-10-31T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -319,7 +310,7 @@
     
     <url>
     
-      <loc>/tags/</loc>
+      <loc>https://karledwards.github.io/tags/</loc>
       <lastmod>2016-04-27T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>
@@ -329,7 +320,7 @@
     
     <url>
     
-      <loc>/</loc>
+      <loc>https://karledwards.github.io/</loc>
       <lastmod>2018-03-15T00:00:00+00:00</lastmod>
       <priority>0</priority>
     </url>

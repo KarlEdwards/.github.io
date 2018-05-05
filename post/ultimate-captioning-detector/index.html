@@ -17,10 +17,13 @@
       
     
   
-  <meta name="description" content="The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs.">
+  <meta name="description" content="The task: Create a baseline disc classifier. The basic idea is to classify the images into two buckets: those that depict a disc (positive examples), and those that do not (negative examples).
+We will need:  Data Features Classifier  The Classifier will separate the data into positive and negative bins, based on Features extracted from the (labeled) Data.
+ Data \(\implies\) \(\fbox{ Extractor }\) \(\implies\) Features
+Features \(\implies\) \(\fbox{ Classifier }\) \(\implies\) Predictions">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/ultimate-captioning-detector/">
+  <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/ultimate-captioning-detector/">
 
   
 
@@ -61,32 +64,35 @@
   
 
   
-  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
-  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="alternate" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="feed" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/ultimate-captioning-detector/">
+  <link rel="canonical" href="https://karledwards.github.io/post/ultimate-captioning-detector/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Unqualified Success">
-  <meta property="og:url" content="/post/ultimate-captioning-detector/">
-  <meta property="og:title" content="Ultimate Captioning Disc Detector | Unqualified Success">
-  <meta property="og:description" content="The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs.">
+  <meta property="og:url" content="https://karledwards.github.io/post/ultimate-captioning-detector/">
+  <meta property="og:title" content="Ultimate Captioning Part 4 | Unqualified Success">
+  <meta property="og:description" content="The task: Create a baseline disc classifier. The basic idea is to classify the images into two buckets: those that depict a disc (positive examples), and those that do not (negative examples).
+We will need:  Data Features Classifier  The Classifier will separate the data into positive and negative bins, based on Features extracted from the (labeled) Data.
+ Data \(\implies\) \(\fbox{ Extractor }\) \(\implies\) Features
+Features \(\implies\) \(\fbox{ Classifier }\) \(\implies\) Predictions">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2018-04-05T00:00:00&#43;00:00">
+  <meta property="article:published_time" content="2018-04-26T00:00:00&#43;00:00">
   
-  <meta property="article:modified_time" content="2018-04-05T00:00:00&#43;00:00">
-  
-
+  <meta property="article:modified_time" content="2018-04-26T00:00:00&#43;00:00">
   
 
-  <title>Ultimate Captioning Disc Detector | Unqualified Success</title>
+  
+
+  <title>Ultimate Captioning Part 4 | Unqualified Success</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#toc" data-offset="71" class="dark">
@@ -207,7 +213,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">Ultimate Captioning Disc Detector</h1>
+    <h1 itemprop="name">Ultimate Captioning Part 4</h1>
 
     
 
@@ -215,8 +221,8 @@
 
   <span class="article-date">
     
-    <time datetime="2018-04-05 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
-      2018-04-05
+    <time datetime="2018-04-26 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
+      2018-04-26
     </time>
   </span>
   <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
@@ -254,142 +260,229 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>The task is to classify images: which ones depict a disc, and which ones do not? Using a manually-labeled collection of over 3,000 images, partition the data into training and testing sets, extract features using Histograms of Oriented Gradients (HoGs), train a linear support vector machine on the training set, and classify the images from the testing set. Examine the effect on classifier performance resulting from varying the proportion of examples used for training vs. testing, the number of cells, and the number of bins used for extracting HoGs from each image.</p>
-<hr />
-<div id="data" class="section level2">
-<h2>Data</h2>
-<div id="data-source" class="section level3">
-<h3>Data Source</h3>
-<p>3471 images, excerpted from 2015bsVriot.mp4, roughly 1 frame per second for about 1 hour.</p>
-</div>
-<div id="data-preparation" class="section level3">
-<h3>1. Data Preparation</h3>
-<p>A. Manually label a list of the images as a plain, unformatted text file, where each row of the file begins with the bare file name, i.e., <em>frame_12345.png</em>, optionally followed by descriptive text, as shown here. Note that multiple key words may appear, in any order, on a line.</p>
-<blockquote>
+      <div id="the-task-create-a-baseline-disc-classifier." class="section level4">
+<h4>The task: Create a baseline disc classifier.</h4>
+<p>The basic idea is to classify the images into two buckets: those that depict a disc (positive examples), and those that do not (negative examples).</p>
+<div id="we-will-need" class="section level5">
+<h5>We will need:</h5>
 <ul>
-<li>frame_102391.png</li>
-<li>frame_102361.png disc</li>
-<li>frame_102451.png</li>
-<li>frame_102481.png two-players</li>
-<li>frame_102511.png</li>
-<li>rame_102781.png pull</li>
-<li>frame_102811.png</li>
-<li>frame_104101.png</li>
-<li>frame_10411.png disc</li>
-<li>frame_19921.png disc</li>
-<li>frame_19951.png player-on-ground disc</li>
-<li>frame_20461.png between-points</li>
-<li>frame_20041.png</li>
+<li>Data</li>
+<li>Features</li>
+<li>Classifier</li>
 </ul>
+<p>The <em>Classifier</em> will separate the data into positive and negative bins, based on <em>Features</em> extracted from the (labeled) <em>Data</em>.</p>
+<blockquote>
+<p>Data <span class="math inline">\(\implies\)</span> <span class="math inline">\(\fbox{ Extractor }\)</span> <span class="math inline">\(\implies\)</span> Features</p>
+<p>Features <span class="math inline">\(\implies\)</span> <span class="math inline">\(\fbox{ Classifier }\)</span> <span class="math inline">\(\implies\)</span> Predictions</p>
 </blockquote>
-<p>B. Partition the labeled data into multiple training and testing sets in order to see what effect the number of training rows has on the effectiveness of the detector.</p>
-<p>See <a href="https://github.com/Video-Captioning/partition_datasets" class="uri">https://github.com/Video-Captioning/partition_datasets</a></p>
-<pre class="bash"><code># Create a few aliases to make the intent more clear in the scripts that follow.
-alias PROJECTPATH=&#39;echo &quot;/path/to/Projects/Video-Captioning/&quot;&#39;
-alias CLASS_LABELS=&#39;echo &quot;labeled_3471.txt&quot;&#39;
-alias KEYWORD=&#39;echo &quot;disc&quot;&#39;</code></pre>
-<pre class="bash"><code># Generate three data sets, using a progressively higher
-# percentage of examples for training:
-cd `PROJECTPATH`
-for fraction in 0.40 0.50 0.60
-  do
-    ./partition_data_two_class.sh `KEYWORD` `CLASS_LABELS` $fraction
-  done
-</code></pre>
 </div>
-<div id="make-histograms-of-oriented-gradients-hogs" class="section level3">
-<h3>2. Make Histograms of Oriented Gradients (HoGs)</h3>
-<p>See <a href="https://github.com/Video-Captioning/HoG" class="uri">https://github.com/Video-Captioning/HoG</a></p>
-<pre class="bash"><code>for fraction in 40 50 60; do
-  cd `PROJECTPATH``KEYWORD`$fraction
-  for bins in 7 9 15; do
-    for cells in 4 5 6 7 8 9; do
-      ../hog.sh ../data/2_images/ $cells $bins
-    done
-  done
+<div id="which-classifier" class="section level5">
+<h5>Which classifier?</h5>
+<p>Scikit-learn.org has a handy flowchart, <a href="http://scikit-learn.org/stable/tutorial/machine_learning_map/index.html">Choosing the Right Estimator</a>, which suggests starting with a linear support vector classifier when there are fewer than 100,000 examples of labeled data.</p>
+</div>
+<div id="which-feature-extractor" class="section level5">
+<h5>Which Feature Extractor?</h5>
+<p>Let’s begin with a feature extractor known for its object-detection performance: Histograms of Oriented Gradients ( HoGs, for short ) described <a href="https://pdfs.semanticscholar.org/presentation/342b/c8b55d46f822e1574e4c6fccaa0b8bfa5d3b.pdf">here</a>.</p>
+</div>
+<div id="refinements" class="section level5">
+<h5>Refinements</h5>
+<p>Later, when we want a <em>better</em> classifer, <a href="https://www.pyimagesearch.com/2014/11/10/histogram-oriented-gradients-object-detection/">this</a> article will be useful.</p>
+</div>
+<div id="the-major-steps" class="section level5">
+<h5>The major steps</h5>
+<ol style="list-style-type: decimal">
+<li>Label the training and testing images</li>
+<li>Extract features using HoGs</li>
+<li>Classify Images and Evaluate Performance</li>
+<li>Summarize the results</li>
+</ol>
+<hr />
+</div>
+</div>
+<div id="label-the-training-and-testing-images" class="section level2">
+<h2>1. Label the training and testing images</h2>
+<div id="a.-data-source" class="section level3">
+<h3>A. Data Source</h3>
+<p>Data for this post comprise 3471 images, excerpted from <a href="https://www.youtube.com/watch?v=ULzQS2rv34s">Women’s Final from the 2015 National Championships</a>, in which Boston Brute Squad takes on Seattle Riot in Frisco, Texas. The images are extracted at a rate of roughly 1 frame per second for about 1 hour.</p>
+<pre class="bash"><code># -----------------------------------------------
+# Save video from the web using VLC:
+# -----------------------------------------------
+
+vlc -v -I rc --no-sout-audio --sout=&#39;#transcode{ vcodec=h264, vb=800, scale=1 }:std{ access=file,
+mux=ts, dst=/path/to/resulting/video.mp4 }&#39; https://www.youtube.com/watch?v=ULzQS2rv34s/ vlc://quit
+
+# -----------------------------------------------
+# Extract an excerpt of the video as a series of images:
+# -----------------------------------------------
+
+vlc $video_file  --start-time $start_time_seconds --run-time $run_time_seconds --sout \&#39;#transcode{ vfilter = scene{ ratio = $FRAME_RATIO, prefix = $FILE_PREFIX, path = $output_path, out=dummy }, vcodec = theo, vb = 2000,scale = 1.0, acodec = none }:standard{ access = file, mux = ogg, dst = \&quot;dummy.ogg\&quot; }\&#39; vlc://quit
+
+# See https://github.com/Video-Captioning/Practical-VLC</code></pre>
+</div>
+<div id="b.-data-preparation" class="section level3">
+<h3>B. Data Preparation</h3>
+<div id="manually" class="section level4">
+<h4><em>Manually</em>:</h4>
+<ul>
+<li>Create a list of images in a plain, unformatted text file, with one file name on each line</li>
+<li>Include descriptive text after the file name</li>
+<li>Multiple keywords may appear in any order on a line</li>
+</ul>
+<p>Example:</p>
+<table>
+<thead>
+<tr class="header">
+<th>File  Name               [ optional descriptive text ]</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>frame_20041.png</td>
+</tr>
+<tr class="even">
+<td>frame_02911.png</td>
+</tr>
+<tr class="odd">
+<td>frame_02941.png disc</td>
+</tr>
+<tr class="even">
+<td>frame_02971.png field players running</td>
+</tr>
+<tr class="odd">
+<td>frame_03001.png field players running</td>
+</tr>
+<tr class="even">
+<td>frame_03031.png blurry</td>
+</tr>
+<tr class="odd">
+<td>frame_03061.png field players running</td>
+</tr>
+<tr class="even">
+<td>frame_03091.png field players running</td>
+</tr>
+<tr class="odd">
+<td>frame_03121.png field players looking_up</td>
+</tr>
+<tr class="even">
+<td>frame_03151.png disc field players running</td>
+</tr>
+<tr class="odd">
+<td>frame_03181.png field players</td>
+</tr>
+<tr class="even">
+<td>frame_03211.png disc blurry</td>
+</tr>
+<tr class="odd">
+<td>frame_03241.png blurry</td>
+</tr>
+<tr class="even">
+<td>frame_03271.png disc_flying</td>
+</tr>
+<tr class="odd">
+<td>frame_03301.png disc_flying field players running</td>
+</tr>
+<tr class="even">
+<td>frame_03331.png field players jumping</td>
+</tr>
+<tr class="odd">
+<td>frame_03361.png field players landing</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div id="extract-features-using-hogs" class="section level2">
+<h2>2. Extract features using HoGs</h2>
+<p>Make training and testing datasets for the keyword, <em>disc</em>, selecting training and testing examples at random from the labeled data:</p>
+<pre class="bash"><code># 80% of images for training; 20% for testing
+#
+# partition the data ---+    +--- training fraction
+#                       |    |       +--- keyword
+#      the script       |    |       |          +--- class label file
+#          |            |    |       |          |
+# ____________________ __ _______ _______ ___________________
+./object_detector.sh -p -f 0.80 -k disc -l labeled_3471.txt</code></pre>
+<p>This will produce a subdirectory named <em>disc80</em> and four files containing the names of image files for both positive and negative examples.</p>
+<pre><code>|
++--disc80
+|       +--testing_neg.txt
+|       +--testing_pos.txt
+|       +--training_neg.txt
+|       +--training_pos.txt
+|</code></pre>
+<p>Now, let’s extract HoG features, using 8 cells and 15 bins.</p>
+<pre class="bash"><code># Initiate feature extraction
+#
+# number of cells (windows)---+     +--- number of bins
+#    eXtract features ---+    |     |       +--- keyword
+#      the script        |    |     |       |        +--- training fraction
+#          |             |    |     |       |        |
+# ____________________  __  ____  _____  _______  _______
+./object_detector.sh  -x  -w 8  -b 15  -k disc  -f 0.80</code></pre>
+<p>Two parameters, the number of <em>Cells</em> and the number of <em>Bins</em>, affect the size, shape, and orientation of objects that can be detected. The dimensionality of the resulting feature set is proportional to the number of bins and to the square of the number of cells, so, for both processing time and accuracy of predictions, it is important to get these parameters at least somewhat optimized.</p>
+<p>The experiments in this post utilize OpenImageR, SimpleCV, and OpenCV – three open-source packages, which are described briefly, below:</p>
+<blockquote>
+<p>OpenImageR <span class="math inline">\(\implies\)</span> SimpleCV <span class="math inline">\(\implies\)</span> OpenCV</p>
+<p><a href="https://www.rdocumentation.org/packages/OpenImageR/versions/1.0.8">OpenImageR</a> is an Image Processing Toolkit that takes advantage of ‘RcppArmadillo’ to speed up computationally intensive functions. The histogram of oriented gradients descriptor is a modification of the ‘findHOGFeatures’ function of the ‘SimpleCV’ computer vision platform.</p>
+<p><a href="http://simplecv.org">SimpleCV</a> is an open source framework for building computer vision applications that uses libraries such as OpenCV.</p>
+<p><a href="https://opencv.org">OpenCV</a> is a library of programming functions mainly aimed at real-time computer vision.</p>
+</blockquote>
+</div>
+<div id="classify-images-and-evaluate-performance" class="section level2">
+<h2>3. Classify Images and Evaluate Performance</h2>
+<pre class="bash"><code># Initiate image classification
+#
+# number of cells (windows)---+     +--- number of bins
+#            classify ---+    |     |       +--- keyword
+#      the script        |    |     |       |        +--- training fraction
+#          |             |    |     |       |        |
+# ____________________  __  ____  _____  _______  _______
+./object_detector.sh  -c  -w 8  -b 15  -k disc  -f 0.80
+
+# Feature extraction and image classification can be requested together:
+./object_detector.sh  -x -c  -w 8  -b 15  -k disc  -f 0.80
+
+for bins in 10 11 12 13 14 15; do
+  ./object_detector.sh  -x -c  -w 6  -b $bins  -k disc  -f 0.80
+done
+
+for cells in 3 4 5 6 7 8 9 10 11 12 13 14 15; do
+  ./object_detector.sh  -x -c  -w $cells  -b 17  -k disc  -f 0.80
 done</code></pre>
 </div>
-<div id="classify-images" class="section level3">
-<h3>3. Classify Images</h3>
-<p>To classify the images in the test set, we first train the model using the e1071 package – an R package with an interface to a C++ implementation of support vector machines. By combining two functions from this package, <em>svm</em> and <em>tune</em>, we can explore a range of costs and choose the one that gives the best performance. The basic arrangement follows:</p>
-<pre class="r"><code># Optimize cost parameter, C,
-# by training an SVM classifier using each of the
-# C-values given in input, values_of_C_to_try
-optimize_cost &lt;- function( values_of_C_to_try, test_data ){
-  cat( sprintf( &#39;Finding optimal cost...\n&#39; ))
-  e1071::tune(
-      e1071::svm
-    , y~.
-    , data   = test_data
-    , kernel = &#39;linear&#39;
-    , ranges = values_of_C_to_try
-  )
-}</code></pre>
-<p>This code is combined with additional supporting functions in <a href="https://github.com/Video-Captioning/SVM-two-class">SVM_functions.R</a>.</p>
-<p>All the pieces to classify HoGs for a single configuration (training fraction, cells, bins) are in <a href="https://github.com/Video-Captioning/SVM-two-class">SVM_classify_one_set.R</a>, which performs the following:</p>
+<div id="summarize-the-results" class="section level2">
+<h2>4. Summarize the results</h2>
+<pre class="bash"><code>./library/Recursive-score-collection.sh disc &gt; scores.txt
+./show_scores.R</code></pre>
+<div class="figure">
+<img src="/img/uc4-fig1.png" alt="Overall performance by cells and bins." />
+<p class="caption">Overall performance by cells and bins.</p>
+</div>
+<div id="which-images-are-mis-classified" class="section level3">
+<h3>Which images are mis-classified?</h3>
+</div>
+<div id="why-are-images-mis-classified" class="section level3">
+<h3>Why are images mis-classified?</h3>
+<div class="figure">
+<img src="/img/uc4-fig2.png" alt="False Positives by cells and bins." />
+<p class="caption">False Positives by cells and bins.</p>
+</div>
+<div class="figure">
+<img src="/img/uc4-fig3.png" alt="True Negatives by cells and bins." />
+<p class="caption">True Negatives by cells and bins.</p>
+</div>
+<hr />
+</div>
+</div>
+<div id="github" class="section level2">
+<h2>GitHub</h2>
+<p>For details of the code behind the examples used in this post, please see the following repositories:</p>
 <ul>
-<li>Get the training and testing data</li>
-<li>Optimize cost parameter, <em>C</em>, using the training set</li>
-<li>Make predictions using best model on the testing set</li>
-<li>Compute a confusion matrix, calculate F1-scores and area-under-the ROC curve.</li>
+<li><p><a href="https://github.com/Video-Captioning/HoG/blob/master/object_detector.sh">Object Detection</a></p></li>
+<li><p><a href="https://github.com/Video-Captioning/partition_datasets">Partitioning</a></p></li>
+<li><p><a href="https://github.com/Video-Captioning/SVM-two-class">Classification</a></p></li>
 </ul>
-<p>To process the entire collection of configurations, we can call SVM_classify_one_set for each item of a list with the following R code:</p>
-<pre class="r"><code># ----- Load the functions to use for this analysis -----
-require( purrr )
-libraries &lt;- list( &#39;SVM_functions&#39;, &#39;SVM_classify_one_set&#39; )
-LIBRARY_PATH &lt;- &#39;/path/to/repository&#39;
-DATA_PATH    &lt;- &#39;/path/to/data/&#39;
-libraries %&gt;%
-  map_chr( .f= ~paste0( LIBRARY_PATH, .x, &#39;.R&#39; )) %&gt;%
-  walk( source )
-
-# ----- Describe which data sets to process -------------
-BATCHES &lt;- list(
-  
-    &#39;disc40/cells4_bins9/&#39;
-  , &#39;disc40/cells5_bins9/&#39;
-  , &#39;disc40/cells6_bins9/&#39;
-  , &#39;disc40/cells7_bins9/&#39;
-  , &#39;disc40/cells8_bins9/&#39;
-  , &#39;disc40/cells9_bins9/&#39;
-  
-  , &#39;disc50/cells4_bins9/&#39;
-  , &#39;disc50/cells5_bins9/&#39;
-  , &#39;disc50/cells6_bins9/&#39;
-  , &#39;disc50/cells7_bins9/&#39;
-  , &#39;disc50/cells8_bins9/&#39;
-  , &#39;disc50/cells9_bins9/&#39;
-  
-  , &#39;disc60/cells4_bins9/&#39;
-  , &#39;disc60/cells5_bins9/&#39;
-  , &#39;disc60/cells6_bins9/&#39;
-  , &#39;disc60/cells7_bins9/&#39;
-  , &#39;disc60/cells8_bins9/&#39;
-  , &#39;disc60/cells9_bins9/&#39;
-)
-
-# ----- Process the data sets ----------------------------
-map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))</code></pre>
-</div>
-<div id="collect-and-summarize-results" class="section level3">
-<h3>4. Collect and Summarize Results</h3>
-<p><a href="https://github.com/Video-Captioning/SVM-two-class">Recursive_score_collection.sh</a> searches for all the <em>keyword</em> <em>training_fraction</em> subdirectories and captures the previously-recorded scores at each location.</p>
-<p>Plot the results with <a href="https://github.com/Video-Captioning/SVM-two-class/SVM_evaluation.R">SVM_evaluation.R</a></p>
-<p>Generally, more cells result in a greater area under the curve… <img src="/post/Part4_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
-<p>But it takes more time to calculate HoGs for more cells…</p>
-<p>The Feature Extraction Rate (rows per second) is <em>very</em> slow for 10 cells, moderate for 7 to 9 cells, and considerably faster for 4 cells. <img src="/post/Part4_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
-<p><img src="/post/Part4_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
-<p><img src="/post/Part4_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
-<p>Using 4 cells was quick (about two minutes), but not very accurate, measured by area under the receiver operator characteristic curve.</p>
-<p>Using 10 cells, feature extraction took 20 minutes or more. Using 50% of the images for training performed better than using 40% or 60%, and was quicker than using 40%.</p>
-<p><img src="/post/Part4_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
-<p>The best Area Under the Curve, while under 1 second per row: 9 bins, 9-10 cells, about half the data for training…</p>
-<p><img src="/post/Part4_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
-</div>
-<div id="conclusion-and-next-steps" class="section level3">
-<h3>Conclusion and Next Steps</h3>
-<p>The baseline disc detector using histograms of oriented gradients with 9 bins and 9 to 10 cells, trained on about 1,500 images has an AUC of about 0.75. For which images does this detector fail to detect a disc when there is a disc shown? For which images does this detector detect a non-existent disc?</p>
-</div>
 </div>
 
     </div>
@@ -427,15 +520,10 @@ map2( DATA_PATH, BATCHES, ~SVM_classify_one_set( .x, .y ))</code></pre>
     <div class="article-widget">
       <div class="post-nav">
   
-  <div class="post-nav-item">
-    <div class="meta-nav">Next</div>
-    <a href="/post/ultimate-captioning-list-of-posts/" rel="next">Ultimate Captioning Posts</a>
-  </div>
-  
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/post/ultimate-captioning-scorecard/" rel="prev">Ultimate Captioning Part 3</a>
+    <a href="https://karledwards.github.io/post/ultimate-captioning-scorecard/" rel="prev">Ultimate Captioning Part 3</a>
   </div>
   
 </div>

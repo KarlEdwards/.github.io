@@ -17,12 +17,11 @@
       
     
   
-  <meta name="description" content="Data used for this scorecard  3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour  Partition the labeled data into two sets: Some portion of the data for training and the rest for testing. After partitioning the data, ...
-Scorecard What are the individual tasks, and how effective are various approaches?
-General    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See https://github.">
+  <meta name="description" content="Scorecard What are the individual tasks involved in solving the whole problem, and how effective are various approaches to these tasks?
+General Tasks    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See Practical VLC   G2 Partition a set of labeled images Shell script to randomly select training and testing examples, based on a list of files and class labels See Partitioning Data    Image Classification Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/ultimate-captioning-scorecard/">
+  <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/ultimate-captioning-scorecard/">
 
   
 
@@ -63,24 +62,23 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
   
 
   
-  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
-  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="alternate" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="feed" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/ultimate-captioning-scorecard/">
+  <link rel="canonical" href="https://karledwards.github.io/post/ultimate-captioning-scorecard/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Unqualified Success">
-  <meta property="og:url" content="/post/ultimate-captioning-scorecard/">
+  <meta property="og:url" content="https://karledwards.github.io/post/ultimate-captioning-scorecard/">
   <meta property="og:title" content="Ultimate Captioning Part 3 | Unqualified Success">
-  <meta property="og:description" content="Data used for this scorecard  3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour  Partition the labeled data into two sets: Some portion of the data for training and the rest for testing. After partitioning the data, ...
-Scorecard What are the individual tasks, and how effective are various approaches?
-General    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See https://github."><meta property="og:image" content="/img/frame_16831.png">
+  <meta property="og:description" content="Scorecard What are the individual tasks involved in solving the whole problem, and how effective are various approaches to these tasks?
+General Tasks    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See Practical VLC   G2 Partition a set of labeled images Shell script to randomly select training and testing examples, based on a list of files and class labels See Partitioning Data    Image Classification Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start."><meta property="og:image" content="https://karledwards.github.io/img/frame_16831.png">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2018-03-31T00:00:00&#43;00:00">
@@ -269,19 +267,11 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
     <div class="article-style" itemprop="articleBody">
       
 
-<h1 id="data-used-for-this-scorecard">Data used for this scorecard</h1>
-
-<ul>
-<li>3,471 images, excerpted from 2015bsVriot.mp4 at a rate of roughly 1 frame per second for about 1 hour</li>
-</ul>
-
-<p>Partition the labeled data into two sets: Some portion of the data for <em>training</em> and the rest for <em>testing</em>. After partitioning the data, ...</p>
-
 <h1 id="scorecard">Scorecard</h1>
 
-<p>What are the individual tasks, and how effective are various approaches?</p>
+<p>What are the individual tasks involved in solving the whole problem, and how effective are various approaches to these tasks?</p>
 
-<h2 id="general">General</h2>
+<h2 id="general-tasks">General Tasks</h2>
 
 <table>
 <thead>
@@ -298,14 +288,14 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 <td align="right">G1</td>
 <td align="left">Extract images from video</td>
 <td>Shell script to drive command-line VLC</td>
-<td align="left">See <a href="https://github.com/Video-Captioning/Practical-VLC" target="_blank">https://github.com/Video-Captioning/Practical-VLC</a> for a few examples illustrating the manipulation of videos using VLC</td>
+<td align="left">See <a href="https://github.com/Video-Captioning/Practical-VLC" target="_blank">Practical VLC</a></td>
 </tr>
 
 <tr>
 <td align="right">G2</td>
 <td align="left">Partition a set of labeled images</td>
 <td>Shell script to randomly select training and testing examples, based on a list of files and class labels</td>
-<td align="left">See examples ...</td>
+<td align="left">See <a href="https://github.com/Video-Captioning/partition_datasets/blob/master/partition_data_two_class.sh" target="_blank">Partitioning Data</a></td>
 </tr>
 </tbody>
 </table>
@@ -389,7 +379,7 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 <tr>
 <td align="right">IC1</td>
 <td align="right">Identify images depicting the disc</td>
-<td>extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins</td>
+<td>Extract HoG (Histograms of Oriented Gradients) features using various numbers of cells and 9 bins</td>
 <td align="left">AUC 73% using 60% of the data for training, 40% for testing, 9 cells and 9 bins</td>
 </tr>
 
@@ -445,14 +435,14 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 <tr>
 <td align="right"></td>
 <td align="right">Interpret Scene</td>
-<td>disc-centric features -&gt; disc activities(throw, catch) -&gt; descriptions; learn to predict ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model.</td>
+<td>Disc-centric features -&gt; disc activities(throw, catch) -&gt; descriptions; learn to predict ⟨ ACTIVITY, TOOL, INGREDIENT, SOURCE, TARGET ⟩, from video and then generate natural language descriptions by combining scores from a phrase-based translation model, a language model, and a distortion model.</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Interpret Scene</td>
-<td>collect domain-specific descriptions of important activities at various levels of detail; develop a robust disc detector, since in this domain, the disc is central to the game.</td>
+<td>Collect domain-specific descriptions of important activities at various levels of detail; develop a robust disc detector, since in this domain, the disc is central to the game.</td>
 <td align="left"></td>
 </tr>
 
@@ -466,35 +456,35 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 <tr>
 <td align="right"></td>
 <td align="right"></td>
-<td>use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering</td>
+<td>Use the coarse shape of human figures to match pairs of images, calculating the distance between them, and then performing spectral clustering</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right"></td>
-<td>regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call <strong><em>stick</em></strong>ness, <strong><em>plate</em></strong>ness, and <strong><em>ball</em></strong>ness. Using these, and others, they produce a vector of 280 features</td>
+<td>Regard human actions as three-dimensional shapes produced by stacking silhouettes in a space-time volume. They define a handful of continuous characteristics, including some they call <strong><em>stick</em></strong>ness, <strong><em>plate</em></strong>ness, and <strong><em>ball</em></strong>ness. Using these, and others, they produce a vector of 280 features</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right"></td>
-<td>extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features, representing essential motion, independent of who performs it</td>
+<td>Extract joint tracks from hands, feet, head, and belly using foreground silhouettes, and perform additional processing to produce a vector of 40 features, representing essential motion, independent of who performs it</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Extract Jersey Numbers</td>
-<td>one class per number</td>
+<td>One class per number</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Identify images depicting the field</td>
-<td>the largest green region in the picture is assumed to be the field</td>
+<td>The largest green region in the picture is assumed to be the field</td>
 <td align="left"></td>
 </tr>
 
@@ -508,7 +498,7 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 <tr>
 <td align="right"></td>
 <td align="right">Establish team colors</td>
-<td>look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game.</td>
+<td>Look for distinct peaks in the color histogram and try to find two peak colors, other than green, that might be team jerseys. Once colors are established, use them for subsequent identification of players for the current game.</td>
 <td align="left"></td>
 </tr>
 
@@ -521,43 +511,43 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 
 <tr>
 <td align="right"></td>
-<td align="right">general, <em>broad-coverage</em>, activity recognition</td>
-<td>start with subject/verb/object triplets taken from natural language descriptions of videos. Create object descriptors based on Deformable Parts Models. Combine information from both object and activity features using a non-linear SVM</td>
+<td align="right">General, <em>broad-coverage</em>, activity recognition</td>
+<td>Start with subject/verb/object triplets taken from natural language descriptions of videos. Create object descriptors based on Deformable Parts Models. Combine information from both object and activity features using a non-linear SVM</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Sparse Object Stitching</td>
-<td>identify the main idea from the first few images. Consider each subsequent image, adding additional ideas or concepts when the main idea identified from the current image is sufficiently different</td>
+<td>Identify the main idea from the first few images. Consider each subsequent image, adding additional ideas or concepts when the main idea identified from the current image is sufficiently different</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Annotate images with keywords</td>
-<td>employ a low level multimodal latent topic model for initial keyword annotation</td>
+<td>Employ a low level multimodal latent topic model for initial keyword annotation</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Annotate images associated with concept change</td>
-<td>use a middle level concept detectors</td>
+<td>Use a middle level concept detectors</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Annotate short sequences</td>
-<td>use a high level module to produce final lingual descriptions by stitching concepts to a tripartite template graph</td>
+<td>Use a high level module to produce final lingual descriptions by stitching concepts to a tripartite template graph</td>
 <td align="left"></td>
 </tr>
 
 <tr>
 <td align="right"></td>
 <td align="right">Generate captions</td>
-<td>using a combination of still frame features and dynamic motion-based features with a soft-attention mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.</td>
+<td>Using a combination of still frame features and dynamic motion-based features with a soft-attention mechanism to allow the text generating RNN to dynamically attend to specific temporal regions of the video while generating text.</td>
 <td align="left"></td>
 </tr>
 
@@ -570,7 +560,7 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
 </tbody>
 </table>
 
-<p>; The middle level is a top-down approach that detects concepts sparsely throughout the video, matches them over time, which we call stitching, and relates them to a tripartite template graph for generating language output; The tripartite template graph takes the form (human) subject/tool/object. For a given domain, each such  triplet instantiates a manually created template, such as “⟨subject⟩ is cleaning ⟨object⟩ with ⟨tool⟩.” ||</p>
+<p>; The middle level is a top-down approach that detects concepts sparsely throughout the video, matches them over time, which we call stitching, and relates them to a tripartite template graph for generating language output; The tripartite template graph takes the form (human) subject/tool/object. For a given domain, each such  triplet instantiates a manually created template, such as &quot;⟨subject⟩ is cleaning ⟨object⟩ with ⟨tool⟩.&quot; ||</p>
 
     </div>
 
@@ -607,13 +597,13 @@ General    Id Task Approach Details     G1 Extract images from video Shell scrip
   
   <div class="post-nav-item">
     <div class="meta-nav">Next</div>
-    <a href="/post/ultimate-captioning-detector/" rel="next">Ultimate Captioning Disc Detector</a>
+    <a href="https://karledwards.github.io/post/ultimate-captioning-detector/" rel="next">Ultimate Captioning Part 4</a>
   </div>
   
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/post/ultimate-captioning-approaches/" rel="prev">Ultimate Captioning Part 2</a>
+    <a href="https://karledwards.github.io/post/ultimate-captioning-approaches/" rel="prev">Ultimate Captioning Part 2</a>
   </div>
   
 </div>
