@@ -1,0 +1,49 @@
+# Spatiotemporal Algorithm for Background Subtraction
+# S. Derin Babacan, Thrasyvoulos N. Pappas
+
+# Control Variables
+K
+alpha
+W
+Beta_S
+Beta_t
+
+# Initialization
+Obtain initial segmentation x using Adaptive Clustering Algorithm
+Calculate local statistics: mu_ist_SIGMA_ist
+Initialize K Gaussian probability distribution functions G_i, using mu_ist_SIGMA_ist
+
+while new data y_t do
+
+  # ---------------------
+  # get new pixel label i
+  # ---------------------
+
+  i <- argmax_i a/b exp S,
+
+  where:
+    a=abs( y_st - mu_ist )
+    b=little_sigma_ist
+    S= SIGMA_C V_c(x_st)
+  
+  # ---------------------
+  # update
+  # ---------------------
+
+  Calculate local statistics: mu_ist_SIGMA_ist
+  Apply Eq(9) to G_i
+    mu_super_i_sub_st = ( 1 - alpha )* mu_is[t-1] + alpha * mu_hat_sub_ist
+  Apply Eq(10) to G_i
+    SIGMA_ist = ( 1 - alpha )* mu_is[t-1] + alpha * Transpose( mu_hat_sub_ist - mu_sub_ist ) * ( mu_hat_sub_ist - mu_sub_ist )
+
+  where:
+    alpha is the learning rate with 0 <= alpha <= 1
+    mu_hat_sub_ist is the local intensity mean estimate calculated for region i using x_t within the neighborhood defined by a square window of side length W
+
+  # ---------------------
+  # [Optional] Spatial Smoothing
+  # ---------------------
+
+  Apply Iterated Conditional Max/Min-imization to x_t until convergence or by a fixed number of iterations.
+
+    

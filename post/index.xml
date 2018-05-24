@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Thu, 26 Apr 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Tue, 08 May 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://karledwards.github.io/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Fixed Camera Surveillance</title>
+      <link>https://karledwards.github.io/post/fixed-camera-surveillance/</link>
+      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/post/fixed-camera-surveillance/</guid>
+      <description>Abstract Fixed-camera surveillance has many practical applications, including, for example: theft prevention, vehicle tolling, robot localization, personnel authentication, construction monitoring and environmental monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next.</description>
+    </item>
     
     <item>
       <title>Ultimate Captioning Part 4</title>

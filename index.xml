@@ -11,6 +11,141 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Fixed Camera Surveillance</title>
+      <link>https://karledwards.github.io/post/fixed-camera-surveillance/</link>
+      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/post/fixed-camera-surveillance/</guid>
+      <description>&lt;div id=&#34;abstract&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;Abstract&lt;/h1&gt;
+&lt;p&gt;Fixed-camera surveillance has many practical applications, including, for example: theft prevention, vehicle tolling, robot localization, personnel authentication, construction monitoring and environmental monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next. By removing the portions of the image that do not change (the &lt;strong&gt;background&lt;/strong&gt;), we can focus on the more interesting parts that &lt;em&gt;do&lt;/em&gt; change (the &lt;strong&gt;foreground&lt;/strong&gt;). This post introduces a methodology for abbreviating and highlighting surveillance footage in order to reduce the amount of time needed to document the captured events .&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;div id=&#34;introduction&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;1. Introduction&lt;/h1&gt;
+&lt;p&gt;Fixed cameras provide a way to capture a scene without requiring a person to be present. But capturing the imagery is the easy part. The challenge is to efficiently identify the interesting images so we can spend our time interpreting the events, rather than spending our time looking for events to interpret. By removing uninteresting images and presenting reviewers with only those images depicting events of interest, we can facilitate the process of documentating the time, date, and description of each event.&lt;/p&gt;
+&lt;p&gt;The major steps to accomplish this are:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Reduce the number of images by sampling the video, perhaps twice per second&lt;/li&gt;
+&lt;li&gt;Subtract the background from each image in the reduced set&lt;/li&gt;
+&lt;li&gt;Obtain the outline of each object remaining after background subtraction&lt;/li&gt;
+&lt;li&gt;Superimpose the refined outlines onto the images to highlight the objects&lt;/li&gt;
+&lt;li&gt;Present the highlighted images to personnel for evaluation&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;related-work&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;2. Related Work&lt;/h1&gt;
+&lt;div id=&#34;image-processing&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Image Processing&lt;/h2&gt;
+&lt;p&gt;There are many ways to subtract the background from an image. Two are described briefly, below.&lt;/p&gt;
+&lt;div id=&#34;fingerprints&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Fingerprints&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;citation&#34;&gt;Lampros (&lt;a href=&#34;#ref-mlampros&#34;&gt;2016&lt;/a&gt;)&lt;/span&gt; describes &lt;em&gt;Perceptual Hashing&lt;/em&gt; as a way to produce a fingerprint of an image. A simplified description of one hashing algorithm is as follows:&lt;/p&gt;
+&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
+&lt;li&gt;Convert the input image to grayscale&lt;/li&gt;
+&lt;li&gt;Severely reduce the size of the image, for example to 8x8 pixels&lt;/li&gt;
+&lt;li&gt;Calculate the mean value of the resulting colors&lt;/li&gt;
+&lt;li&gt;Compare each bit of the reduced image with the mean value and set the corresponding hash bit if the color value is greater than the mean; otherwise clear the corresponding hash bit.&lt;/li&gt;
+&lt;li&gt;Return the hash as a hexadecimal hash string or as a set of binary features&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div id=&#34;shadows&#34; class=&#34;section level3&#34;&gt;
+&lt;h3&gt;Shadows&lt;/h3&gt;
+&lt;p&gt;&lt;span class=&#34;citation&#34;&gt;Kaewtrakulpong and Bowden (&lt;a href=&#34;#ref-Kaewtrakulpong_and_Bowden&#34;&gt;2002&lt;/a&gt;)&lt;/span&gt; present a more refined method that models each background pixel as a mixture of Gaussians, the weights of which represent the color stability over time, with the idea that the background will be more stable; the foreground, transient.&lt;/p&gt;
+&lt;p&gt;OpenCV.org has published an example implementation of this more refined method in &lt;span class=&#34;citation&#34;&gt;(&lt;em&gt;OpenCV-Python Tutorials: Video Analysis: Background Subtraction&lt;/em&gt; &lt;a href=&#34;#ref-OpenCV&#34;&gt;2017&lt;/a&gt;)&lt;/span&gt;.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;approach&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;3. Approach&lt;/h1&gt;
+&lt;p&gt;Evaluate Perceptual Hashing using a K-nearest neighbors classifier on a few test videos to establish a baseline measurement for separation of foreground from background. When the number of camera installations is relatively small, the fastest way to establish a starting point for the background would be to manually select a representative image from each camera. If the number of installations makes this approach too time-consuming, or if the background conditions are not stable for each installation, then it will be necessary to develop one of the more sophisticated methods for automatically selecting a background and updating it as conditions change.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;experimental-setup&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;4. Experimental Setup&lt;/h1&gt;
+&lt;p&gt;Example code illustrates the methodology for a short video clip.&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Video clips &lt;span class=&#34;math inline&#34;&gt;\(\implies\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(\fbox{ Box1 }\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(\implies\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(\fbox{ Box2 }\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(\implies\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(\fbox{ Box3 }\)&lt;/span&gt; &lt;span class=&#34;math inline&#34;&gt;\(\implies\)&lt;/span&gt; Hash Clusters&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Box1 Sample video at two frames per second&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Box2 Calculate hash for each image&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Box3 Cluster the hashes&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;36:21 to 36:41&lt;/p&gt;
+&lt;div id=&#34;sample-video-at-two-frames-per-second&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;4.1 Sample video at two frames per second&lt;/h2&gt;
+&lt;p&gt;To accomplish this manually using the command-line interface for VLC:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;vlc box1/clip542.mp4 --sout &amp;#39;#transcode{ vfilter = scene{ ratio = 3, prefix = frame_, path = box2, out=dummy }, vcodec = theo, vb = 2000,scale = 1.0, acodec = none }:standard{ access = file, mux = ogg, dst = &amp;quot;dummy.ogg&amp;quot; }&amp;#39; vlc://quit
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Since many of the parameters don’t change from one video file to the next, we can use a script, &lt;em&gt;excerpt.sh&lt;/em&gt;, to create the VLC commands:&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;
+#    +--- the script
+#    |             +--- input file
+#    |             |            +--- put results here
+#    |             |            |  +--- start_time_seconds (0 starts at beginning)
+#    |             |            |  | +--- run_time_seconds (0 to use entire length)
+#    |             |            |  | |    +--- &amp;#39;fine&amp;#39; or &amp;#39;coarse&amp;#39;
+#    |             |            |  | |    |      +--- &amp;#39;clip&amp;#39; or &amp;#39;frames&amp;#39;
+#    |             |            |  | |    |      |
+# __________ ________________ ____ _ _ ______ ______
+./excerpt.sh box1/clip542.mp4 box2 0 0 coarse frames
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;The example video is 342 seconds long, so this should produce about 684 images.&lt;/p&gt;
+&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# How many images did we make?
+ls box2 | grep -c .
+## 689&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;div id=&#34;calculate-hash-for-each-image&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;4.2 Calculate hash for each image&lt;/h2&gt;
+&lt;p&gt;Get the latest version of the repository&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;devtools::githubinstall( &amp;quot;fixed-camera-surveillance&amp;quot; )&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;hashes &amp;lt;- hash_batch(&amp;#39;/Users/Karl/Dropbox/Projects/Video-Captioning/pipelines/box2/&amp;#39;)
+# Save the hashes:
+#  saveRDS( hashes, &amp;#39;36hashes.RDS&amp;#39; )
+
+# Retrieve the saved hashes:
+#  readRDS( &amp;#39;36hashes.RDS&amp;#39; )&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;results-and-discussion&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;5. Results and Discussion&lt;/h1&gt;
+&lt;div id=&#34;criteria-for-success&#34; class=&#34;section level2&#34;&gt;
+&lt;h2&gt;Criteria for Success&lt;/h2&gt;
+&lt;p&gt;In order to be successful, the new approach must save time and produce a summary of events that is at least as good as the current approach.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id=&#34;conclusion&#34; class=&#34;section level1&#34;&gt;
+&lt;h1&gt;6. Conclusion&lt;/h1&gt;
+&lt;p&gt;?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;bibliography&#34; class=&#34;section level1 unnumbered&#34;&gt;
+&lt;h1&gt;Bibliography&lt;/h1&gt;
+&lt;div id=&#34;refs&#34; class=&#34;references&#34;&gt;
+&lt;div id=&#34;ref-Bouttefroy2010&#34;&gt;
+&lt;p&gt;Bouttefroy, Bouzerdoum, P. L. 2010. &lt;em&gt;On the Analysis of Background Subtraction Techniques Using Gaussian Mixture Models&lt;/em&gt;. &lt;em&gt;IEEE International Conference on Acoustics, Speech, and Signal Processing&lt;/em&gt;. IEEE. &lt;a href=&#34;http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1820&amp;amp;context=infopapers&#34; class=&#34;uri&#34;&gt;http://ro.uow.edu.au/cgi/viewcontent.cgi?article=1820&amp;amp;context=infopapers&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Kaewtrakulpong_and_Bowden&#34;&gt;
+&lt;p&gt;Kaewtrakulpong, P., and R. Bowden. 2002. “An Improved Adaptive Background Mixture Model for Real-Time Tracking with Shadow Detection.” In &lt;em&gt;In Proc. 2nd Eur. Workshop Adv. Video-Based Surveillance Syst&lt;/em&gt;, 135–44. Washington, DC, USA: IEEE Computer Society. doi:&lt;a href=&#34;https://doi.org/10.1109/ICPR.2004.479&#34;&gt;10.1109/ICPR.2004.479&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-mlampros&#34;&gt;
+&lt;p&gt;Lampros, Mouselimis. 2016. “OpenImageR, an Image Processing Toolkit.” blogpost. &lt;a href=&#34;https://www.r-bloggers.com/openimager-an-image-processing-toolkit/&#34; class=&#34;uri&#34;&gt;https://www.r-bloggers.com/openimager-an-image-processing-toolkit/&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-OpenCV&#34;&gt;
+&lt;p&gt;&lt;em&gt;OpenCV-Python Tutorials: Video Analysis: Background Subtraction&lt;/em&gt;. 2017. Open Source Computer Vision. &lt;a href=&#34;https://docs.opencv.org/3.3.0/db/d5c/tutorial_py_bg_subtraction.html&#34; class=&#34;uri&#34;&gt;https://docs.opencv.org/3.3.0/db/d5c/tutorial_py_bg_subtraction.html&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-Power2002&#34;&gt;
+&lt;p&gt;Power, P. Wayne, and Johann A. Schoonees. 2002. &lt;em&gt;Understanding Background Mixture Models for Foreground Segmentation&lt;/em&gt;. &lt;em&gt;Proceedings Image and Vision Computing New Zealand&lt;/em&gt;. &lt;a href=&#34;http://www.cse.psu.edu/~rtc12/CSE586Spring2010/papers/emBGsubtractAboutSandG.pdf&#34; class=&#34;uri&#34;&gt;http://www.cse.psu.edu/~rtc12/CSE586Spring2010/papers/emBGsubtractAboutSandG.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div id=&#34;ref-ADPclust&#34;&gt;
+&lt;p&gt;Xu, Yifan (Ethan), and Xiao-Feng Wang. 2016. &lt;em&gt;ADPclust: Fast Clustering Using Adaptive Density Peak Detection&lt;/em&gt; (version 0.7). &lt;a href=&#34;https://cran.r-project.org/web/packages/ADPclust/ADPclust.pdf&#34; class=&#34;uri&#34;&gt;https://cran.r-project.org/web/packages/ADPclust/ADPclust.pdf&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+</description>
+    </item>
+    
+    <item>
       <title>Ultimate Captioning Part 4</title>
       <link>https://karledwards.github.io/post/ultimate-captioning-detector/</link>
       <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>

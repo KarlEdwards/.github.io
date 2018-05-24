@@ -1,0 +1,152 @@
+---
+title: Fixed Camera Surveillance
+author: ~
+date: '2018-05-08'
+slug: fixed-camera-surveillance
+categories: ["projects", "posts"]
+tags: ["image processing"]
+draft: yes
+summary: "Saving time by presenting personnel with an abbreviated video, the static images having been removed"
+bookdown::html_document2: default
+bibliography: ["fc-bibliography.bib"]
+biblio-style: "apalike"
+link-citations: true
+header:
+  caption: ''
+  image: ''
+  preview: no
+no-cite: |
+  @Bouttefroy2010, @ADPclust, @Power2002
+---
+
+```{r setup_chunk_opts, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+# Abstract
+
+Fixed-camera surveillance has many practical applications, including, for example: theft prevention, vehicle tolling,  robot localization, personnel authentication, construction monitoring and environmental monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next. By removing the portions of the image that do not change (the __background__), we can focus on the more interesting parts that *do* change (the __foreground__). This post introduces a methodology for abbreviating and highlighting surveillance footage in order to reduce the amount of time needed to document the captured events .
+
+***
+
+# 1. Introduction
+Fixed cameras provide a way to capture a scene without requiring a person to be present. But capturing the imagery is the easy part. The challenge is to efficiently identify the interesting images so we can spend our time interpreting the events, rather than spending our time looking for events to interpret. By removing uninteresting images and presenting reviewers with only those images depicting events of interest, we can facilitate the process of documentating the time, date, and description of each event. 
+
+ The major steps to accomplish this are:
+
+1. Reduce the number of images by sampling the video, perhaps twice per second
+1. Subtract the background from each image in the reduced set
+1. Obtain the outline of each object remaining after background subtraction
+1. Superimpose the refined outlines onto the images to highlight the objects
+1. Present the highlighted images to personnel for evaluation
+
+# 2. Related Work
+
+## Image Processing
+
+There are many ways to subtract the background from an image. Two are described briefly, below.
+
+### Fingerprints
+
+@mlampros describes *Perceptual Hashing* as a way to produce a fingerprint of an image. A simplified description of one hashing algorithm is as follows:
+
+1. Convert the input image to grayscale
+2. Severely reduce the size of the image, for example to 8x8 pixels
+3. Calculate the mean value of the resulting colors
+4. Compare each bit of the reduced image with the mean value and set the corresponding hash bit if the color value is greater than the mean; otherwise clear the corresponding hash bit.
+5. Return the hash as a hexadecimal hash string or as a set of binary features
+
+### Shadows
+
+@Kaewtrakulpong_and_Bowden present a more refined method that models each background pixel as a mixture of Gaussians, the weights of which represent the color stability over time, with the idea that the background will be more stable; the foreground, transient.
+
+OpenCV.org has published an example implementation of this more refined method in @OpenCV.
+
+
+***
+
+# 3. Approach
+
+Evaluate Perceptual Hashing using a K-nearest neighbors classifier on a few test videos to establish a baseline measurement for separation of foreground from background. When the number of camera installations is relatively small, the fastest way to establish a starting point for the background would be to manually select a representative image from each camera. If the number of installations makes this approach too time-consuming, or if the background conditions are not stable for each installation, then it will be necessary to develop one of the more sophisticated methods for automatically selecting a background and updating it as conditions change.
+
+# 4. Experimental Setup
+
+Example code illustrates the methodology for a short video clip.
+
+> Video clips $\implies$  $\fbox{ Box1 }$ $\implies$ $\fbox{ Box2 }$  $\implies$ $\fbox{ Box3 }$ $\implies$ Hash Clusters
+
+* Box1 Sample video at two frames per second
+
+* Box2 Calculate hash for each image
+
+* Box3 Cluster the hashes
+
+36:21 to 36:41
+
+
+## 4.1 Sample video at two frames per second
+
+To accomplish this manually using the command-line interface for VLC:
+
+```{bash, eval = FALSE, echo=TRUE}
+vlc box1/clip542.mp4 --sout '#transcode{ vfilter = scene{ ratio = 3, prefix = frame_, path = box2, out=dummy }, vcodec = theo, vb = 2000,scale = 1.0, acodec = none }:standard{ access = file, mux = ogg, dst = "dummy.ogg" }' vlc://quit
+
+```
+
+Since many of the parameters don't change from one video file to the next, we can use a script,  *excerpt.sh*, to create the VLC commands: 
+
+```{bash, eval = FALSE, echo=TRUE}
+
+#    +--- the script
+#    |             +--- input file
+#    |             |            +--- put results here
+#    |             |            |  +--- start_time_seconds (0 starts at beginning)
+#    |             |            |  | +--- run_time_seconds (0 to use entire length)
+#    |             |            |  | |    +--- 'fine' or 'coarse'
+#    |             |            |  | |    |      +--- 'clip' or 'frames'
+#    |             |            |  | |    |      |
+# __________ ________________ ____ _ _ ______ ______
+./excerpt.sh box1/clip542.mp4 box2 0 0 coarse frames
+```
+
+The example video is 342 seconds long, so this should produce about 684 images.
+
+```{ bash, eval = FALSE, echo = TRUE }
+# How many images did we make?
+$ ls box2 | grep -c .
+$ 689
+```
+
+## 4.2 Calculate hash for each image
+
+Get the latest version of the repository
+
+```{ r, eval = FALSE, echo = TRUE }
+devtools::githubinstall( "fixed-camera-surveillance" )
+```
+
+```{ r, eval = FALSE, echo = TRUE }
+# saveRDS( hashes, '36hashes.RDS' )
+# readRDS( '36hashes.RDS' )
+```
+
+
+# 5. Results and Discussion
+
+## Criteria for Success
+
+Each of the following will be no worse, and one or more will be better:
+ 
+* Labor hours per 100 hours of raw video
+
+* Quality of resulting annotation
+
+
+
+# 6. Conclusion
+
+# Bibliography
+
+
+
+
