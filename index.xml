@@ -2,7 +2,7 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Unqualified Success on Unqualified Success</title>
-    <link>/</link>
+    <link>https://karledwards.github.io/</link>
     <description>Recent content in Unqualified Success on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
@@ -12,10 +12,10 @@
     
     <item>
       <title>Fixed Camera Surveillance</title>
-      <link>/post/fixed-camera-surveillance/</link>
-      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
+      <link>https://karledwards.github.io/post/fixed-camera-surveillance/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/fixed-camera-surveillance/</guid>
+      <guid>https://karledwards.github.io/post/fixed-camera-surveillance/</guid>
       <description>&lt;div id=&#34;abstract&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;Abstract&lt;/h1&gt;
 &lt;p&gt;Fixed-camera surveillance has many practical applications, including, for example: inventory protection, vehicle tolling, robot localization, personnel authentication, and construction site monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next. By removing the portions of the image that do not change (the &lt;strong&gt;background&lt;/strong&gt;), we can focus on the more interesting parts that &lt;em&gt;do&lt;/em&gt; change (the &lt;strong&gt;foreground&lt;/strong&gt;). This post introduces a methodology for condensing surveillance video in order to reduce the amount of time needed to find and describe events captured by fixed cameras.&lt;/p&gt;
@@ -202,285 +202,11 @@ readRDS( &amp;#39;hashes.RDS&amp;#39; )&lt;/code&gt;&lt;/pre&gt;
     </item>
     
     <item>
-      <title>Ultimate Captioning Posts</title>
-      <link>/post/ultimate-captioning-list-of-posts/</link>
-      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/ultimate-captioning-list-of-posts/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Ultimate Captioning Part 5</title>
-      <link>/post/ultimate-captioning-detection-failures/</link>
-      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/post/ultimate-captioning-detection-failures/</guid>
-      <description>&lt;p&gt;Many of the code excerpts shown here are for illustration only – they aren’t evaluated; they don’t produce the results shown. In order to make the examples most meaninful and portable, I define key constants like these:&lt;/p&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Create a few aliases to make the intent more clear in the scripts that follow.
-alias PROJECTPATH=&amp;#39;echo &amp;quot;/path/to/Projects/Video-Captioning/&amp;quot;&amp;#39;
-alias CLASS_LABELS=&amp;#39;echo &amp;quot;labeled_3471.txt&amp;quot;&amp;#39;
-alias KEYWORD=&amp;#39;echo &amp;quot;disc&amp;quot;&amp;#39;
-alias IMAGE=&amp;#39;echo &amp;quot;frame_02881.png&amp;quot;&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;hr /&gt;
-&lt;div id=&#34;which-models-were-tested&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Which Models Were Tested?&lt;/h2&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Start at the base path for the project
-cd `PROJECTPATH`&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Make a list of models
-for i in `ls -d $keyword[0-9][0-9]/*/`; do
-  for j in `ls -d $i* | grep $datafile`; do
-    basename $i
-  done
-done &amp;gt; models.tmp&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Show the number of models
-sed -n $= models.tmp | sed &amp;#39;s/.*/There are &amp;amp; models in all:/&amp;#39;&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Display a numbered list of models
-awk &amp;#39;{print NR, $0;}&amp;#39; models.tmp&lt;/code&gt;&lt;/pre&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;div id=&#34;how-did-each-model-perform-on-the-most-challenging-images&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;How did each model perform on the most challenging images?&lt;/h2&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th align=&#34;right&#34;&gt;Model Id&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;Image Id&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;Result&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;x&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;NOT Detected when depicted&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;x&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Detected when NOT depicted&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;x&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Detected when depicted&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;x&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Not Detected when not depicted&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;/div&gt;
-&lt;div id=&#34;which-images-generate-the-most-not-detected-errors&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Which images generate the most &lt;em&gt;Not Detected&lt;/em&gt; errors?&lt;/h2&gt;
-&lt;div id=&#34;collage-of-the-top-10&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Collage of the top 10…&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th align=&#34;right&#34;&gt;Rank&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;Image Id&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;3&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;…&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;N&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;which-images-generate-the-most-false-detection-errors&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Which images generate the most &lt;em&gt;False Detection&lt;/em&gt; errors?&lt;/h2&gt;
-&lt;div id=&#34;collage-of-the-top-10-1&#34; class=&#34;section level3&#34;&gt;
-&lt;h3&gt;Collage of the top 10…&lt;/h3&gt;
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr class=&#34;header&#34;&gt;
-&lt;th align=&#34;right&#34;&gt;Rank&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;Image Id&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
-&lt;tbody&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;3&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;even&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;…&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;&lt;/td&gt;
-&lt;/tr&gt;
-&lt;tr class=&#34;odd&#34;&gt;
-&lt;td align=&#34;right&#34;&gt;N&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;frame_xxxxx&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
-&lt;hr /&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id=&#34;calculations&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Calculations&lt;/h2&gt;
-&lt;ul&gt;
-&lt;li&gt;For each image depicting a disc
-&lt;ul&gt;
-&lt;li&gt;for each test-pos dataset including this image
-&lt;ul&gt;
-&lt;li&gt;count number of models where disc is &lt;em&gt;not&lt;/em&gt; found&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;li&gt;For each image &lt;strong&gt;not&lt;/strong&gt; depicting a disc
-&lt;ul&gt;
-&lt;li&gt;for each &lt;strong&gt;test-neg&lt;/strong&gt; dataset including this image
-&lt;ul&gt;
-&lt;li&gt;count number of models where disc &lt;strong&gt;is&lt;/strong&gt; found&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# Create a few aliases to make the intent more clear in the scripts that follow.
-projectpath=/Users/Karl/Dropbox/Projects/Video-Captioning
-CLASS_LABELS=labeled_3471.txt
-keyword=disc
-
-# Make a list of all images depicting a disc
-grep $keyword $projectpath/$CLASS_LABELS | awk &amp;#39;{print $1;}&amp;#39; &amp;gt; images_positive.tmp
-sed -n $= images_positive.tmp | sed &amp;#39;s/.*/&amp;amp; images:/&amp;#39;
-head -n 3 images_positive.tmp
-echo ...
-
-# Make a list of test-pos datasets including this image
-cd $projectpath
-for i in `ls -d $keyword[0-9][0-9]/*/test_pos.csv`; do   echo $i; done | sed -n $= | sed &amp;#39;s/.*/&amp;amp; datasets/&amp;#39;
-
-# Make a list of not-detected datasets including this image
-cd $projectpath
-for i in `ls -d $keyword[0-9][0-9]/*/false*.csv`; do   echo $i; done | sed -n $= | sed &amp;#39;s/.*/&amp;amp; datasets/&amp;#39;
-&lt;/code&gt;&lt;/pre&gt;
-&lt;pre&gt;&lt;code&gt;## 531 images:
-## frame_02431.png
-## frame_02881.png
-## frame_02941.png
-## ...
-## ls: disc[0-9][0-9]/*/test_pos.csv: No such file or directory
-## 129 datasets&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;count-occurrences-for-this-image&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;Count occurrences for THIS image&lt;/h2&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;for i in `ls -d $keyword[0-9][0-9]/*/`; do
-  for j in `ls -d $i*.csv`; do
-    grep -c $image $j /dev/null | sed &amp;#39;s/\/dev\/null:0//g&amp;#39; | grep :1 &amp;gt;&amp;gt; results.pos
-  done
-done
-cat results.pos&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;$ head results.pos
-
-disc30/cells10_bins9/not_detected.csv:1
-disc30/cells10_bins9/test_pos.csv:1
-disc30/cells4_bins15/not_detected.csv:1
-disc30/cells4_bins15/test_pos.csv:1
-disc30/cells4_bins7/not_detected.csv:1
-disc30/cells4_bins7/test_pos.csv:1
-disc30/cells4_bins9/not_detected.csv:1
-disc30/cells4_bins9/test_pos.csv:1
-disc30/cells5_bins15/not_detected.csv:1&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;$ ./test.sh disc `IMAGE`
-Counting...
-Found this image in 33 POSitive test sets.
-NOT DETECTED in 33 test sets.
-FALSE DETECTION in 0 test sets.&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;grep test_pos results.neg | grep -c .
-7&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;grep test_pos results.neg
-disc50/cells10_bins9/test_pos.csv:0
-disc50/cells4_bins9/test_pos.csv:0
-disc50/cells5_bins9/test_pos.csv:0
-disc50/cells6_bins9/test_pos.csv:0
-disc50/cells7_bins9/test_pos.csv:0
-disc50/cells8_bins9/test_pos.csv:0
-disc50/cells9_bins9/test_pos.csv:0&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;a-slow-way-to-find-out-how-well-the-models-performed-on-a-given-image-is&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;A slow way to find out how well the models performed on a given image is:&lt;/h2&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;./test.sh disc `IMAGE` `CLASS_LABELS`&lt;/code&gt;&lt;/pre&gt;
-&lt;hr /&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;Counting...
-frame_02881.png is a POSITIVE example
-It was CORRECTLY DETETECTED 7 times
-out of 40, and
-it was NOT DETECTED 33 times.&lt;/code&gt;&lt;/pre&gt;
-&lt;hr /&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;./test.sh disc frame_46531.png `CLASS_LABELS`&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;Counting...
-frame_46531.png is a POSITIVE example
-It was CORRECTLY DETETECTED 40 times
-out of 40, and
-it was NOT DETECTED 0 times.&lt;/code&gt;&lt;/pre&gt;
-&lt;hr /&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;./test.sh disc frame_07831.png `CLASS_LABELS`&lt;/code&gt;&lt;/pre&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;Counting...
-frame_07831.png is a POSITIVE example
-It was CORRECTLY DETETECTED 21 times
-out of 40, and
-it was NOT DETECTED 17 times.
-
-******* What about the last one? 21 + 17 is 39, yet there are 40 models...&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-&lt;div id=&#34;a-way-to-evalate-all-images-would-be&#34; class=&#34;section level2&#34;&gt;
-&lt;h2&gt;A way to evalate &lt;em&gt;all&lt;/em&gt; images would be…&lt;/h2&gt;
-&lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;# --- Find all partitions on keyword
-for i in `ls -d $keyword[0-9][0-9]/*/`; do
-  for j in `ls -d $i* | grep $datafile`; do
-    echo Batch=&amp;#39;&amp;quot;&amp;#39;$i&amp;#39;&amp;quot;&amp;#39;
-    cat $j   &amp;lt;---------- HERE, instead of catching the contents of each $datafile, get 4 files: false_detection, not_detected, test_pos, and test_neg
-  done
-done &amp;gt; tmp_scores
-
-# --- Create a Header
-echo &amp;#39;Batch | TP | FP | TN | FN | AUC | Sec&amp;#39; &amp;gt; scores.txt
-
-# --- Append each row of scores
-cat tmp_scores | sed -e &amp;#39;s/,/=/g&amp;#39; -e &amp;#39;s/=/ /2&amp;#39; -e &amp;#39;s/^Time-to-optimize= seconds /Seconds=/g&amp;#39; | sed &amp;#39;s/^.*=/|/g&amp;#39; | sed -e :a -e &amp;#39;$!N;s/\n|/ |/;ta&amp;#39; -e &amp;#39;P;D&amp;#39; | sed &amp;#39;s/|\&amp;quot;/\&amp;#39;$&amp;#39;\n/g&amp;#39; | sed &amp;#39;s/\&amp;quot;//g&amp;#39; &amp;gt;&amp;gt; scores.txt
-
-# --- Show the results
-grep . scores.txt&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
-</description>
-    </item>
-    
-    <item>
       <title>Ultimate Captioning Part 4</title>
-      <link>/post/ultimate-captioning-detector/</link>
+      <link>https://karledwards.github.io/post/ultimate-captioning-detector/</link>
       <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/ultimate-captioning-detector/</guid>
+      <guid>https://karledwards.github.io/post/ultimate-captioning-detector/</guid>
       <description>&lt;div id=&#34;the-task-create-a-baseline-disc-classifier.&#34; class=&#34;section level4&#34;&gt;
 &lt;h4&gt;The task: Create a baseline disc classifier.&lt;/h4&gt;
 &lt;p&gt;The basic idea is to classify the images into two buckets: those that depict a disc (positive examples), and those that do not (negative examples).&lt;/p&gt;
@@ -677,7 +403,7 @@ done&lt;/code&gt;&lt;/pre&gt;
 &lt;pre class=&#34;bash&#34;&gt;&lt;code&gt;./library/Recursive-score-collection.sh disc &amp;gt; scores.txt
 ./show_scores.R&lt;/code&gt;&lt;/pre&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/uc4-fig1.png&#34; alt=&#34;Overall performance by cells and bins.&#34; /&gt;
+&lt;img src=&#34;https://karledwards.github.io/img/uc4-fig1.png&#34; alt=&#34;Overall performance by cells and bins.&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;Overall performance by cells and bins.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div id=&#34;which-images-are-mis-classified&#34; class=&#34;section level3&#34;&gt;
@@ -686,11 +412,11 @@ done&lt;/code&gt;&lt;/pre&gt;
 &lt;div id=&#34;why-are-images-mis-classified&#34; class=&#34;section level3&#34;&gt;
 &lt;h3&gt;Why are images mis-classified?&lt;/h3&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/uc4-fig2.png&#34; alt=&#34;False Positives by cells and bins.&#34; /&gt;
+&lt;img src=&#34;https://karledwards.github.io/img/uc4-fig2.png&#34; alt=&#34;False Positives by cells and bins.&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;False Positives by cells and bins.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&#34;figure&#34;&gt;
-&lt;img src=&#34;/img/uc4-fig3.png&#34; alt=&#34;True Negatives by cells and bins.&#34; /&gt;
+&lt;img src=&#34;https://karledwards.github.io/img/uc4-fig3.png&#34; alt=&#34;True Negatives by cells and bins.&#34; /&gt;
 &lt;p class=&#34;caption&#34;&gt;True Negatives by cells and bins.&lt;/p&gt;
 &lt;/div&gt;
 &lt;hr /&gt;
@@ -710,10 +436,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Ultimate Captioning Part 3</title>
-      <link>/post/ultimate-captioning-scorecard/</link>
+      <link>https://karledwards.github.io/post/ultimate-captioning-scorecard/</link>
       <pubDate>Sat, 31 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/ultimate-captioning-scorecard/</guid>
+      <guid>https://karledwards.github.io/post/ultimate-captioning-scorecard/</guid>
       <description>
 
 &lt;h1 id=&#34;scorecard&#34;&gt;Scorecard&lt;/h1&gt;
@@ -1015,10 +741,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Ultimate Captioning Part 2</title>
-      <link>/post/ultimate-captioning-approaches/</link>
+      <link>https://karledwards.github.io/post/ultimate-captioning-approaches/</link>
       <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/ultimate-captioning-approaches/</guid>
+      <guid>https://karledwards.github.io/post/ultimate-captioning-approaches/</guid>
       <description>
 
 &lt;p&gt;The sport of &lt;em&gt;ultimate&lt;/em&gt; resembles soccer in some ways. For example, both sports revolve around groups of similarly-clad individuals running around a mostly green environment, focused on a small, fast-moving object. Efforts to understand Soccer present many promising ideas for understanding ultimate.&lt;/p&gt;
@@ -1244,10 +970,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Ultimate Captioning Part 1</title>
-      <link>/post/ultimate-captioning-problem-rmd/</link>
+      <link>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</link>
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/ultimate-captioning-problem-rmd/</guid>
+      <guid>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</guid>
       <description>
 
 &lt;p&gt;How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes various sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.&lt;/p&gt;
@@ -1477,10 +1203,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>About the Blog...</title>
-      <link>/post/about-the-blog-rmd/</link>
+      <link>https://karledwards.github.io/post/about-the-blog-rmd/</link>
       <pubDate>Thu, 15 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/about-the-blog-rmd/</guid>
+      <guid>https://karledwards.github.io/post/about-the-blog-rmd/</guid>
       <description>
 
 &lt;h1 id=&#34;getting-started&#34;&gt;Getting Started&lt;/h1&gt;
@@ -1669,10 +1395,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Images Like This</title>
-      <link>/project/images-like-this/</link>
+      <link>https://karledwards.github.io/project/images-like-this/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/project/images-like-this/</guid>
+      <guid>https://karledwards.github.io/project/images-like-this/</guid>
       <description>
 
 &lt;h2 id=&#34;the-general-idea&#34;&gt;The General Idea&lt;/h2&gt;
@@ -1691,20 +1417,20 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Large Integer Multiplication</title>
-      <link>/project/large-integer-multiplication/</link>
+      <link>https://karledwards.github.io/project/large-integer-multiplication/</link>
       <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/project/large-integer-multiplication/</guid>
-      <description>&lt;p&gt;&lt;img src=&#34;/integer.png&#34; alt=&#34;integer&#34; /&gt;&lt;/p&gt;
+      <guid>https://karledwards.github.io/project/large-integer-multiplication/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://karledwards.github.io/integer.png&#34; alt=&#34;integer&#34; /&gt;&lt;/p&gt;
 </description>
     </item>
     
     <item>
       <title>Photogrammetric Potsherd Profile</title>
-      <link>/project/photogrammetric-potsherd/</link>
+      <link>https://karledwards.github.io/project/photogrammetric-potsherd/</link>
       <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/project/photogrammetric-potsherd/</guid>
+      <guid>https://karledwards.github.io/project/photogrammetric-potsherd/</guid>
       <description>
 
 &lt;h2 id=&#34;the-general-idea&#34;&gt;The General Idea&lt;/h2&gt;
@@ -1721,10 +1447,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>A Plain Markdown Project</title>
-      <link>/project/example-plain-markdown-project/</link>
+      <link>https://karledwards.github.io/project/example-plain-markdown-project/</link>
       <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
       
-      <guid>/project/example-plain-markdown-project/</guid>
+      <guid>https://karledwards.github.io/project/example-plain-markdown-project/</guid>
       <description>&lt;hr /&gt;
 
 &lt;p&gt;Summary&lt;/p&gt;
@@ -1777,10 +1503,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>Deep Learning</title>
-      <link>/project/deep-learning/</link>
+      <link>https://karledwards.github.io/project/deep-learning/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/project/deep-learning/</guid>
+      <guid>https://karledwards.github.io/project/deep-learning/</guid>
       <description>&lt;p&gt;Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis posuere tellus ac convallis placerat. Proin tincidunt magna sed ex sollicitudin condimentum. Sed ac faucibus dolor, scelerisque sollicitudin nisi. Cras purus urna, suscipit quis sapien eu, pulvinar tempor diam. Quisque risus orci, mollis id ante sit amet, gravida egestas nisl. Sed ac tempus magna. Proin in dui enim. Donec condimentum, sem id dapibus fringilla, tellus enim condimentum arcu, nec volutpat est felis vel metus. Vestibulum sit amet erat at nulla eleifend gravida.&lt;/p&gt;
 
 &lt;p&gt;Nullam vel molestie justo. Curabitur vitae efficitur leo. In hac habitasse platea dictumst. Sed pulvinar mauris dui, eget varius purus congue ac. Nulla euismod, lorem vel elementum dapibus, nunc justo porta mi, sed tempus est est vel tellus. Nam et enim eleifend, laoreet sem sit amet, elementum sem. Morbi ut leo congue, maximus velit ut, finibus arcu. In et libero cursus, rutrum risus non, molestie leo. Nullam congue quam et volutpat malesuada. Sed risus tortor, pulvinar et dictum nec, sodales non mi. Phasellus lacinia commodo laoreet. Nam mollis, erat in feugiat consectetur, purus eros egestas tellus, in auctor urna odio at nibh. Mauris imperdiet nisi ac magna convallis, at rhoncus ligula cursus.&lt;/p&gt;
@@ -1795,10 +1521,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title>R Example</title>
-      <link>/post/2015-07-23-r-rmarkdown/</link>
+      <link>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/post/2015-07-23-r-rmarkdown/</guid>
+      <guid>https://karledwards.github.io/post/2015-07-23-r-rmarkdown/</guid>
       <description>&lt;div id=&#34;r-markdown&#34; class=&#34;section level1&#34;&gt;
 &lt;h1&gt;R Markdown&lt;/h1&gt;
 &lt;/div&gt;
@@ -1807,10 +1533,10 @@ done&lt;/code&gt;&lt;/pre&gt;
     
     <item>
       <title></title>
-      <link>/project/2017-09-09-example-plain-markdown/</link>
+      <link>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</link>
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
-      <guid>/project/2017-09-09-example-plain-markdown/</guid>
+      <guid>https://karledwards.github.io/project/2017-09-09-example-plain-markdown/</guid>
       <description>&lt;!DOCTYPE html&gt;
 
 &lt;html xmlns=&#34;http://www.w3.org/1999/xhtml&#34;&gt;
