@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Problem statement on Unqualified Success</title>
-    <link>/tags/problem-statement/</link>
+    <link>https://karledwards.github.io/tags/problem-statement/</link>
     <description>Recent content in Problem statement on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Sat, 17 Mar 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/problem-statement/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://karledwards.github.io/tags/problem-statement/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Ultimate Captioning Part 1</title>
-      <link>/post/ultimate-captioning-problem-rmd/</link>
+      <link>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</link>
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/ultimate-captioning-problem-rmd/</guid>
+      <guid>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</guid>
       <description>How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes various sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</description>
     </item>
     

@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Reproducible research on Unqualified Success</title>
-    <link>/tags/reproducible-research/</link>
+    <link>https://karledwards.github.io/tags/reproducible-research/</link>
     <description>Recent content in Reproducible research on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Tue, 31 Oct 2017 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/reproducible-research/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://karledwards.github.io/tags/reproducible-research/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Photogrammetric Potsherd Profile</title>
-      <link>/project/photogrammetric-potsherd/</link>
+      <link>https://karledwards.github.io/project/photogrammetric-potsherd/</link>
       <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/project/photogrammetric-potsherd/</guid>
+      <guid>https://karledwards.github.io/project/photogrammetric-potsherd/</guid>
       <description>The General Idea Make photogrammetry readily accessible to archaeologists through open source computational archaeology.
 More Specifically This project describes in some detail the steps to photograph a potsherd and generate a mathematical model from the resulting images, and, in much less detail, suggests how to automatically measure the object represented by the model. The R source code is available on github and an R package will be available soon. A number of simplifying assumptions accelerated this initial draft.</description>
     </item>

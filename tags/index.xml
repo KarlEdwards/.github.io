@@ -2,139 +2,139 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Unqualified Success</title>
-    <link>/tags/</link>
+    <link>https://karledwards.github.io/tags/</link>
     <description>Recent content in Tags on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Wed, 27 Apr 2016 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://karledwards.github.io/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Deep-learning</title>
-      <link>/tags/deep-learning/</link>
+      <link>https://karledwards.github.io/tags/deep-learning/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/deep-learning/</guid>
+      <guid>https://karledwards.github.io/tags/deep-learning/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Image processing</title>
-      <link>/tags/image-processing/</link>
+      <link>https://karledwards.github.io/tags/image-processing/</link>
       <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/image-processing/</guid>
+      <guid>https://karledwards.github.io/tags/image-processing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Image-processing</title>
-      <link>/tags/image-processing/</link>
+      <link>https://karledwards.github.io/tags/image-processing/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/image-processing/</guid>
+      <guid>https://karledwards.github.io/tags/image-processing/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Large Integer Multiplication</title>
-      <link>/tags/large-integer-multiplication/</link>
+      <link>https://karledwards.github.io/tags/large-integer-multiplication/</link>
       <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/large-integer-multiplication/</guid>
+      <guid>https://karledwards.github.io/tags/large-integer-multiplication/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Photogrammetry</title>
-      <link>/tags/photogrammetry/</link>
+      <link>https://karledwards.github.io/tags/photogrammetry/</link>
       <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/photogrammetry/</guid>
+      <guid>https://karledwards.github.io/tags/photogrammetry/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Plain Markdown</title>
-      <link>/tags/plain-markdown/</link>
+      <link>https://karledwards.github.io/tags/plain-markdown/</link>
       <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
       
-      <guid>/tags/plain-markdown/</guid>
+      <guid>https://karledwards.github.io/tags/plain-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Problem statement</title>
-      <link>/tags/problem-statement/</link>
+      <link>https://karledwards.github.io/tags/problem-statement/</link>
       <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/problem-statement/</guid>
+      <guid>https://karledwards.github.io/tags/problem-statement/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Project</title>
-      <link>/tags/project/</link>
+      <link>https://karledwards.github.io/tags/project/</link>
       <pubDate>Wed, 27 Apr 2016 00:00:00 +0000</pubDate>
       
-      <guid>/tags/project/</guid>
+      <guid>https://karledwards.github.io/tags/project/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Python</title>
-      <link>/tags/python/</link>
+      <link>https://karledwards.github.io/tags/python/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/python/</guid>
+      <guid>https://karledwards.github.io/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>/tags/r/</link>
+      <link>https://karledwards.github.io/tags/r/</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/r/</guid>
+      <guid>https://karledwards.github.io/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R Markdown</title>
-      <link>/tags/r-markdown/</link>
+      <link>https://karledwards.github.io/tags/r-markdown/</link>
       <pubDate>Thu, 23 Jul 2015 21:13:14 -0500</pubDate>
       
-      <guid>/tags/r-markdown/</guid>
+      <guid>https://karledwards.github.io/tags/r-markdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>RMarkdown</title>
-      <link>/tags/rmarkdown/</link>
+      <link>https://karledwards.github.io/tags/rmarkdown/</link>
       <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/rmarkdown/</guid>
+      <guid>https://karledwards.github.io/tags/rmarkdown/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Reproducible research</title>
-      <link>/tags/reproducible-research/</link>
+      <link>https://karledwards.github.io/tags/reproducible-research/</link>
       <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
       
-      <guid>/tags/reproducible-research/</guid>
+      <guid>https://karledwards.github.io/tags/reproducible-research/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Scheduler</title>
-      <link>/tags/scheduler/</link>
+      <link>https://karledwards.github.io/tags/scheduler/</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/tags/scheduler/</guid>
+      <guid>https://karledwards.github.io/tags/scheduler/</guid>
       <description></description>
     </item>
     

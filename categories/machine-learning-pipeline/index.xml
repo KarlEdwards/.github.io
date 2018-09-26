@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Machine Learning Pipeline on Unqualified Success</title>
-    <link>/categories/machine-learning-pipeline/</link>
+    <link>https://karledwards.github.io/categories/machine-learning-pipeline/</link>
     <description>Recent content in Machine Learning Pipeline on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Wed, 26 Sep 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/categories/machine-learning-pipeline/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://karledwards.github.io/categories/machine-learning-pipeline/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>An ML Pipeline in R</title>
-      <link>/post/an-ml-pipeline-in-r/</link>
+      <link>https://karledwards.github.io/post/an-ml-pipeline-in-r/</link>
       <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
       
-      <guid>/post/an-ml-pipeline-in-r/</guid>
+      <guid>https://karledwards.github.io/post/an-ml-pipeline-in-r/</guid>
       <description>Introduction What is a machine learning pipeline? An oil pipeline transports petroleum from one location to another. A machine learning pipeline is similar only in the sense that we put stuff into one end and it emerges at the other end. There are also some refineries along the way, that transform the product as it passes through. In the example that follows, we put one or more video files into the inlet, and the same number of videos emerge at the outlet, each having been transformed.</description>
     </item>
     

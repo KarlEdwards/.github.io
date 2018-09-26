@@ -2,22 +2,22 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on Unqualified Success</title>
-    <link>/tags/python/</link>
+    <link>https://karledwards.github.io/tags/python/</link>
     <description>Recent content in Python on Unqualified Success</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
     <lastBuildDate>Sun, 14 Jan 2018 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://karledwards.github.io/tags/python/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Images Like This</title>
-      <link>/project/images-like-this/</link>
+      <link>https://karledwards.github.io/project/images-like-this/</link>
       <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
       
-      <guid>/project/images-like-this/</guid>
+      <guid>https://karledwards.github.io/project/images-like-this/</guid>
       <description>The General Idea Given a set of images, find the ones that are most similar to a set of examples.
 More Specifically Given a dataset, comprising image features extracted using a pre-trained model, and given also the row identifiers for a subset of the data, representing the kind of images to find, create a TRAINING set of the specified rows and a TEST set of all remaining rows, then train a binary SVM classifier to identify images in the TEST set, which are similar to those in the TRAINING set.</description>
     </item>
