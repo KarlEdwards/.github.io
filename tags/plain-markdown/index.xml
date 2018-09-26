@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Plain Markdown on Unqualified Success</title>
+    <link>/tags/plain-markdown/</link>
+    <description>Recent content in Plain Markdown on Unqualified Success</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sat, 09 Sep 2017 21:49:57 -0700</lastBuildDate>
+    
+	<atom:link href="/tags/plain-markdown/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>A Plain Markdown Project</title>
+      <link>/project/example-plain-markdown-project/</link>
+      <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
+      
+      <guid>/project/example-plain-markdown-project/</guid>
+      <description>Summary
+Example of a Plain Markdown project and how Plain Markdown differs from R Markdown
+ one two three four five six  This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
+ You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
+    </item>
+    
+  </channel>
+</rss>

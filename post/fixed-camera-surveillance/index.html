@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="theme" content="hugo-academic">
-  <meta name="generator" content="Hugo 0.37" />
+  <meta name="generator" content="Hugo 0.40.3" />
   <meta name="author" content="Karl Edwards">
 
   
@@ -20,7 +20,7 @@
   <meta name="description" content="Abstract Fixed-camera surveillance has many practical applications, including, for example: inventory protection, vehicle tolling, robot localization, personnel authentication, and construction site monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next.">
 
   
-  <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/fixed-camera-surveillance/">
+  <link rel="alternate" hreflang="en-us" href="/post/fixed-camera-surveillance/">
 
   
 
@@ -61,20 +61,20 @@
   
 
   
-  <link rel="alternate" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
-  <link rel="feed" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="https://karledwards.github.io/post/fixed-camera-surveillance/">
+  <link rel="canonical" href="/post/fixed-camera-surveillance/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Unqualified Success">
-  <meta property="og:url" content="https://karledwards.github.io/post/fixed-camera-surveillance/">
+  <meta property="og:url" content="/post/fixed-camera-surveillance/">
   <meta property="og:title" content="Fixed Camera Surveillance | Unqualified Success">
   <meta property="og:description" content="Abstract Fixed-camera surveillance has many practical applications, including, for example: inventory protection, vehicle tolling, robot localization, personnel authentication, and construction site monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next.">
   <meta property="og:locale" content="en-us">
@@ -358,13 +358,34 @@ ls box2 | grep -c .
 <h2>4.2 Subtract the background</h2>
 <div id="calculate-hash-for-each-image" class="section level3">
 <h3>4.2.1 Calculate hash for each image</h3>
-<pre class="r"><code>hashes &lt;- hash_batch(&#39;/path/to/images/&#39;)
+<pre class="r"><code>require( FCS )
+## Loading required package: FCS
+hashes &lt;- hash_batch( DATAPATH )
+## 
+## time to complete : 47.65541 secs 
+## 
+## 
+## time to complete : 22.66066 secs
+
+# Hashes created:
+hashes$names
+## NULL
 
 # Save the hashes for later
-saveRDS( hashes, &#39;hashes.RDS&#39; )
-
+#saveRDS( hashes, paste0( DATAPATH, &#39;hashes.RDS&#39; ))
+#saveRDS( hashes$names, paste0( DATAPATH, &#39;hash_names.RDS&#39; ))</code></pre>
+<pre class="r"><code>
 # Retrieve the saved hashes:
-readRDS( &#39;hashes.RDS&#39; )</code></pre>
+#hashes &lt;- readRDS( &#39;~/Dropbox/Rlibs/hashes.RDS&#39; )
+#image_filenames &lt;- hashes$values[[1]]$files
+
+f &lt;- function( i ) hashes$values[[i]]$hash
+g &lt;- function( i ) hashes$names[[i]]
+
+# Use Adaptive Density Peak Detection clustering
+clusters &lt;- FCS::get_clusters( data = f(2), filenames = image_filenames )
+attr(clusters$IDs,&#39;nclust&#39;)
+</code></pre>
 </div>
 <div id="opencv-backgroundsubtractor" class="section level3">
 <h3>4.2.2 OpenCV BackgroundSubtractor</h3>
@@ -458,13 +479,15 @@ readRDS( &#39;hashes.RDS&#39; )</code></pre>
       <h3>Related</h3>
       <ul>
         
+        <li><a href="/post/ultimate-captioning-list-of-posts/">Ultimate Captioning Posts</a></li>
+        
+        <li><a href="/post/ultimate-captioning-detection-failures/">Ultimate Captioning Part 5</a></li>
+        
         <li><a href="/post/ultimate-captioning-detector/">Ultimate Captioning Part 4</a></li>
         
         <li><a href="/post/ultimate-captioning-scorecard/">Ultimate Captioning Part 3</a></li>
         
         <li><a href="/post/ultimate-captioning-approaches/">Ultimate Captioning Part 2</a></li>
-        
-        <li><a href="/post/ultimate-captioning-problem-rmd/">Ultimate Captioning Part 1</a></li>
         
       </ul>
     </div>
@@ -474,10 +497,15 @@ readRDS( &#39;hashes.RDS&#39; )</code></pre>
     <div class="article-widget">
       <div class="post-nav">
   
+  <div class="post-nav-item">
+    <div class="meta-nav">Next</div>
+    <a href="/post/an-ml-pipeline-in-r/" rel="next">An ML Pipeline in R</a>
+  </div>
+  
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="https://karledwards.github.io/post/ultimate-captioning-detector/" rel="prev">Ultimate Captioning Part 4</a>
+    <a href="/post/ultimate-captioning-list-of-posts/" rel="prev">Ultimate Captioning Posts</a>
   </div>
   
 </div>

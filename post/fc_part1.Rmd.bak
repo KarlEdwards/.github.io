@@ -1,0 +1,225 @@
+---
+title: Fixed Camera Surveillance
+author: ~
+date: '2018-05-24'
+slug: fixed-camera-surveillance
+categories: ["projects", "posts"]
+tags: ["image processing"]
+draft: no
+summary: "Saving time by presenting personnel with an abbreviated video, the static images having been removed"
+bookdown::html_document2: default
+bibliography: ["fc-bibliography.bib"]
+biblio-style: "apalike"
+link-citations: true
+header:
+  caption: ''
+  image: ''
+  preview: no
+no-cite: |
+  @Bouttefroy2010, @ADPclust, @Power2002
+---
+
+```{r setup_chunk_opts, include=FALSE}
+knitr::opts_chunk$set(collapse = TRUE)
+```
+
+# Abstract
+
+Fixed-camera surveillance has many practical applications, including, for example: inventory protection, vehicle tolling,  robot localization, personnel authentication, and construction site monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next. By removing the portions of the image that do not change (the __background__), we can focus on the more interesting parts that *do* change (the __foreground__). This post introduces a methodology for condensing surveillance video in order to reduce the amount of time needed to find and describe events captured by fixed cameras.
+
+***
+
+Get the latest version of the repository
+
+```{r, eval = FALSE, echo = TRUE }
+# ( An R Package )
+devtools::githubinstall( "fixed-camera-surveillance" )
+```
+
+***
+
+# 1. Introduction
+Fixed cameras provide a way to capture a scene without requiring a person to be present. But capturing the imagery is the easy part. The challenge is to efficiently identify the interesting images so we can spend our time interpreting the events, rather than spending our time looking for events to interpret. By removing uninteresting images and presenting reviewers with only those images depicting events of interest, we can facilitate the process of documentating the time, date, and description of each event. 
+
+ The major steps to accomplish this are:
+
+1. Reduce the number of images by sampling the video, perhaps twice per second
+1. Subtract the background from each image in the reduced set
+1. Obtain the outline of each object remaining after background subtraction
+1. Superimpose the refined outlines onto the images to highlight the objects
+1. Present the highlighted images for evaluation by a person
+
+# 2. Related Work
+
+## Image Processing
+
+There are many ways to subtract the background from an image. Two common methods are summarized here.
+
+### Fingerprints
+
+@mlampros describes *Perceptual Hashing* as a way to produce a fingerprint of an image. A simplified description of one hashing algorithm is as follows:
+
+1. Convert the input image to grayscale
+2. Severely reduce the size of the image, for example to 8x8 pixels
+3. Calculate the mean value of the resulting colors
+4. Compare each bit of the reduced image with the mean value and set the corresponding hash bit if the color value is greater than the mean; otherwise clear the corresponding hash bit.
+5. Return the hash as a hexadecimal hash string or as a set of binary features
+
+### Shadows
+
+@Kaewtrakulpong_and_Bowden present a more refined method that models each background pixel as a mixture of Gaussians, the weights of which represent the color stability over time, with the idea that the background will be more stable; the foreground, transient.
+
+OpenCV.org has published an example implementation of this more refined method in @OpenCV.
+
+
+***
+
+# 3. Approach
+
+## 3.1 Subsample the video
+
+Write a bash script that accepts one or more mp4 files and produces VLC commands to subsample the videos at an appropriate rate, resulting in approximately 120 frames per minute of input.
+
+## 3.2 Subtract the background
+
+Evaluate Perceptual Hashing using a K-nearest neighbors classifier on a few test videos to establish a baseline measurement for separation of foreground from background. When the number of camera installations is relatively small, the fastest way to establish a starting point for the background would be to manually select a representative image from each camera. If the number of installations makes this approach too time-consuming, or if the background conditions are not stable for each installation, then it will be necessary to develop one of the more sophisticated methods for automatically selecting a background and updating it as conditions change.
+
+Consider also OpenCV background subtraction ( BackgroundSubtractor and BackgroundSubtractorMOG2 ). 
+
+## 3.3 Refine the foreground
+
+Utilize OpenCV image processing functions, such as erosion, dilation, thresholding, and smoothing to convert the predicted foreground pixels into contiguous regions representing objects.
+
+## 3.4 Highlight interesting objects and Present the results
+
+Evaluate the OpenCV integrated annotation tool for presenting predictions and soliciting feedback from humans.
+
+# 4. Experimental Setup
+
+## 4.1 Sample video at two frames per second
+
+The command-line interface for VLC has the following general format:
+
+```{bash, eval=FALSE}
+#  +--- invoke the VLC utility
+#  |       +--- file to process
+#  |       |        +--- flag to indicate that output specification follows
+#  |       |        |            +--- detailed processing instructions
+#  |       |        |            |               +--- pass control back to the shell
+#  |       |        |            |               |
+# ___ __________ ______ ___________________ __________
+  vlc input_file --sout '#transcode{ ... }' vlc://quit
+```
+
+For our test video clip, it looks like this:
+
+```{bash, eval = FALSE, echo=TRUE}
+vlc box1/clip542.mp4 --sout '#transcode{ vfilter = scene{ ratio = 3, prefix = frame_, path = box2, out=dummy }, vcodec = theo, vb = 2000,scale = 1.0, acodec = none }:standard{ access = file, mux = ogg, dst = "dummy.ogg" }' vlc://quit
+
+```
+
+Since many of the parameters don't change from one video file to the next, we can use a script,  *excerpt.sh*, to create the VLC commands: 
+
+```{bash, eval = FALSE, echo=TRUE}
+
+#    +--- the script
+#    |             +--- input file
+#    |             |            +--- put results here
+#    |             |            |  +--- start_time_seconds (0 starts at beginning)
+#    |             |            |  | +--- run_time_seconds (0 to use entire length)
+#    |             |            |  | |    +--- 'fine' or 'coarse'
+#    |             |            |  | |    |      +--- 'clip' or 'frames'
+#    |             |            |  | |    |      |
+# __________ ________________ ____ _ _ ______ ______
+./excerpt.sh box1/clip542.mp4 box2 0 0 coarse frames
+
+```
+
+The example video is 342 seconds long, so this should produce about 684 images.
+
+```{bash, eval = FALSE, echo = TRUE }
+# How many images did we make?
+ls box2 | grep -c .
+## 689
+```
+
+***
+
+## 4.2 Subtract the background
+### 4.2.1 Calculate hash for each image
+
+```{r, eval = TRUE, echo = FALSE }
+DATAPATH <- '/Users/Karl/Dropbox/Projects/Video-Captioning/pipelines/box2/'
+```
+
+```{r, eval = TRUE, echo = TRUE, cache = TRUE }
+require( FCS )
+hashes <- hash_batch( DATAPATH )
+
+# Hashes created:
+hashes$names
+
+# Save the hashes for later
+#saveRDS( hashes, paste0( DATAPATH, 'hashes.RDS' ))
+#saveRDS( hashes$names, paste0( DATAPATH, 'hash_names.RDS' ))
+
+```
+
+```{r, eval = TRUE, echo = TRUE }
+
+# Retrieve the saved hashes:
+#hashes <- readRDS( '~/Dropbox/Rlibs/hashes.RDS' )
+#image_filenames <- hashes$values[[1]]$files
+
+f <- function( i ) hashes$values[[i]]$hash
+g <- function( i ) hashes$names[[i]]
+
+# Use Adaptive Density Peak Detection clustering
+clusters <- FCS::get_clusters( data = f(2), filenames = image_filenames )
+attr(clusters$IDs,'nclust')
+
+```
+
+### 4.2.2 OpenCV BackgroundSubtractor
+### 4.2.3 OpenCV BackgroundSubtractorMOG2
+
+.
+
+***
+
+## 4.3 Refine the foreground
+
+### 4.3.1 Erosion
+### 4.3.2 Dilation
+### 4.3.3 Thresholding
+### 4.3.4 Smoothing
+
+***
+
+## 4.4 Highlight interesting objects and Present the results
+
+Evaluate the OpenCV integrated annotation tool for presenting predictions and soliciting feedback from humans.
+
+# 5. Results and Discussion
+
+## Criteria for Success
+
+In order to be successful, the new approach must save time *and* produce a summary of events that is at least as good as the current approach.
+
+# 6. Conclusion
+
+* What worked best?
+
+* How to go about setting up an operational system for processing video
+
+* How much time can be saved per hour of raw video input?
+
+* Technical Support
+
+* Next Steps
+
+# Bibliography
+
+
+
+

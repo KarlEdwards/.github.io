@@ -1,0 +1,68 @@
+# Preview unless otherwise specified
+
+readonly PROGRAM_NAME=$0
+
+function usage()
+{
+	cat <<- EOF
+	usage: ./$PROGRAM_NAME options
+	
+	Preview or publish blog.
+
+	OPTIONS:
+	
+	  -n | --dry-run           Don\'t do anything; just see what would be done
+	  -v | --view              Show the blog locally only
+	  -p | --publish           Show the blog to the entire world
+	  -h | --help              Show this information
+	
+	Examples:
+	   ./$PROGRAM_NAME         Show the blog locally only
+	   ./$PROGRAM_NAME -v      Show the blog locally only
+	   
+	   ./$PROGRAM_NAME -p      Show the blog to the entire world
+	
+	EOF
+}
+
+# -----------------------------------------------
+# -----------------------------------------------
+
+# --- Initialize
+DRY_RUN=false;
+PUBLISH=false;
+HELP=false;
+
+# --- Get command-line
+  while true; do
+    case "$1" in
+
+      -n | --dry-run           ) DRY_RUN=true;     shift        ;;
+      -v | --view              ) PUBLISH=false;    shift        ;;
+      -p | --publish           ) PUBLISH=true;     shift        ;;
+      -h | --help              ) HELP=true;        shift        ;;
+
+      --                       )                   shift; break ;;
+      *                        )                          break ;;
+
+    esac
+  done
+  
+#[ "$1" == "-h" ] || [ "$1" == "--help" ] && ( echo HELP !; exit )
+
+# --- Show help, if warranted
+if [ "$HELP" == "true" ]; then  usage; exit; fi
+
+# --- Select function for Rscript
+[ "$PUBLISH" == "true" ] && fun=publish || fun=preview
+
+if [ "$DRY_RUN" == "true" ]; then echo "DRY RUN: $fun"; exit; fi
+
+# --- Call the Rscript
+Rscript -e 'args <- commandArgs( TRUE ); f = args[ 1 ]; if( f == "publish" ) blogdown::build_site() else blogdown::serve_site();' $fun
+
+echo "To upload results to blog:"
+echo "cd ~/Dropbox/GitHub/blog-contents/karledwards.github.io"
+echo "git add *"
+echo "git commit -m 'Updated'"
+echo "git push"

@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Projects on Unqualified Success</title>
+    <link>/categories/projects/</link>
+    <description>Recent content in Projects on Unqualified Success</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Thu, 24 May 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/projects/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Fixed Camera Surveillance</title>
+      <link>/post/fixed-camera-surveillance/</link>
+      <pubDate>Thu, 24 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/fixed-camera-surveillance/</guid>
+      <description>Abstract Fixed-camera surveillance has many practical applications, including, for example: inventory protection, vehicle tolling, robot localization, personnel authentication, and construction site monitoring. Each situation has its own ideosyncracies, however, a common pre-processing task is background subtraction. Although lighting conditions may vary, and smoke, fog, or mist might obscure the view, a significant portion of the picture does not change from one frame to the next, or even from one minute to the next.</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Posts</title>
+      <link>/post/ultimate-captioning-list-of-posts/</link>
+      <pubDate>Tue, 08 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-list-of-posts/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 5</title>
+      <link>/post/ultimate-captioning-detection-failures/</link>
+      <pubDate>Wed, 02 May 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-detection-failures/</guid>
+      <description>Many of the code excerpts shown here are for illustration only – they aren’t evaluated; they don’t produce the results shown. In order to make the examples most meaninful and portable, I define key constants like these:
+# Create a few aliases to make the intent more clear in the scripts that follow. alias PROJECTPATH=&amp;#39;echo &amp;quot;/path/to/Projects/Video-Captioning/&amp;quot;&amp;#39; alias CLASS_LABELS=&amp;#39;echo &amp;quot;labeled_3471.txt&amp;quot;&amp;#39; alias KEYWORD=&amp;#39;echo &amp;quot;disc&amp;quot;&amp;#39; alias IMAGE=&amp;#39;echo &amp;quot;frame_02881.png&amp;quot;&amp;#39; Which Models Were Tested? # Start at the base path for the project cd `PROJECTPATH` # Make a list of models for i in `ls -d $keyword[0-9][0-9]/*/`; do for j in `ls -d $i* | grep $datafile`; do basename $i done done &amp;gt; models.</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 4</title>
+      <link>/post/ultimate-captioning-detector/</link>
+      <pubDate>Thu, 26 Apr 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-detector/</guid>
+      <description>The task: Create a baseline disc classifier. The basic idea is to classify the images into two buckets: those that depict a disc (positive examples), and those that do not (negative examples).
+We will need:  Data Features Classifier  The Classifier will separate the data into positive and negative bins, based on Features extracted from the (labeled) Data.
+ Data \(\implies\) \(\fbox{ Extractor }\) \(\implies\) Features
+Features \(\implies\) \(\fbox{ Classifier }\) \(\implies\) Predictions</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 3</title>
+      <link>/post/ultimate-captioning-scorecard/</link>
+      <pubDate>Sat, 31 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-scorecard/</guid>
+      <description>Scorecard What are the individual tasks involved in solving the whole problem, and how effective are various approaches to these tasks?
+General Tasks    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See Practical VLC   G2 Partition a set of labeled images Shell script to randomly select training and testing examples, based on a list of files and class labels See Partitioning Data    Image Classification Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.</description>
+    </item>
+    
+    <item>
+      <title>Ultimate Captioning Part 2</title>
+      <link>/post/ultimate-captioning-approaches/</link>
+      <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/ultimate-captioning-approaches/</guid>
+      <description>The sport of ultimate resembles soccer in some ways. For example, both sports revolve around groups of similarly-clad individuals running around a mostly green environment, focused on a small, fast-moving object. Efforts to understand Soccer present many promising ideas for understanding ultimate.
+The single image at the top of this post illustrates an action by itself: A player leaps into the air, attempting to catch the disc. Many times, motion from subsequent frames will be required in order to discern the action.</description>
+    </item>
+    
+    <item>
+      <title>Images Like This</title>
+      <link>/project/images-like-this/</link>
+      <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/project/images-like-this/</guid>
+      <description>The General Idea Given a set of images, find the ones that are most similar to a set of examples.
+More Specifically Given a dataset, comprising image features extracted using a pre-trained model, and given also the row identifiers for a subset of the data, representing the kind of images to find, create a TRAINING set of the specified rows and a TEST set of all remaining rows, then train a binary SVM classifier to identify images in the TEST set, which are similar to those in the TRAINING set.</description>
+    </item>
+    
+    <item>
+      <title>Large Integer Multiplication</title>
+      <link>/project/large-integer-multiplication/</link>
+      <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/large-integer-multiplication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photogrammetric Potsherd Profile</title>
+      <link>/project/photogrammetric-potsherd/</link>
+      <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/photogrammetric-potsherd/</guid>
+      <description>The General Idea Make photogrammetry readily accessible to archaeologists through open source computational archaeology.
+More Specifically This project describes in some detail the steps to photograph a potsherd and generate a mathematical model from the resulting images, and, in much less detail, suggests how to automatically measure the object represented by the model. The R source code is available on github and an R package will be available soon. A number of simplifying assumptions accelerated this initial draft.</description>
+    </item>
+    
+    <item>
+      <title>A Plain Markdown Project</title>
+      <link>/project/example-plain-markdown-project/</link>
+      <pubDate>Sat, 09 Sep 2017 21:49:57 -0700</pubDate>
+      
+      <guid>/project/example-plain-markdown-project/</guid>
+      <description>Summary
+Example of a Plain Markdown project and how Plain Markdown differs from R Markdown
+ one two three four five six  This is a post written in plain Markdown (*.md) instead of R Markdown (*.Rmd). The major differences are:
+ You cannot run any R code in a plain Markdown document, whereas in an R Markdown document, you can embed R code chunks (```{r}); A plain Markdown post is rendered through Blackfriday, and an R Markdown document is compiled by rmarkdown and Pandoc.</description>
+    </item>
+    
+  </channel>
+</rss>

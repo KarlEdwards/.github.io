@@ -1,0 +1,11 @@
+dir <- tempfile()
+     dir.create(dir)
+     pkg <- download.packages("testthat", dir, type = "source")
+     install_local(pkg[, 2])
+     
+     
+install_url("file:///path/to/TNC_0.0.0.9000.tar.gz")
+
+install_url("file:///Users/Karl/Dropbox/Rlibs/TNC_0.0.0.9000.tar.gz")
+
+install_url("file:///Users//Karl//Dropbox//Rlibs//TNC_0.0.0.9000.tar.gz")

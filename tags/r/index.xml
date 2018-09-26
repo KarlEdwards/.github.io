@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Unqualified Success</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on Unqualified Success</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Wed, 26 Sep 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>An ML Pipeline in R</title>
+      <link>/post/an-ml-pipeline-in-r/</link>
+      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/an-ml-pipeline-in-r/</guid>
+      <description>Introduction What is a machine learning pipeline? An oil pipeline transports petroleum from one location to another. A machine learning pipeline is similar only in the sense that we put stuff into one end and it emerges at the other end. There are also some refineries along the way, that transform the product as it passes through. In the example that follows, we put one or more video files into the inlet, and the same number of videos emerge at the outlet, each having been transformed.</description>
+    </item>
+    
+    <item>
+      <title>Large Integer Multiplication</title>
+      <link>/project/large-integer-multiplication/</link>
+      <pubDate>Mon, 27 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/large-integer-multiplication/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Photogrammetric Potsherd Profile</title>
+      <link>/project/photogrammetric-potsherd/</link>
+      <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/photogrammetric-potsherd/</guid>
+      <description>The General Idea Make photogrammetry readily accessible to archaeologists through open source computational archaeology.
+More Specifically This project describes in some detail the steps to photograph a potsherd and generate a mathematical model from the resulting images, and, in much less detail, suggests how to automatically measure the object represented by the model. The R source code is available on github and an R package will be available soon. A number of simplifying assumptions accelerated this initial draft.</description>
+    </item>
+    
+  </channel>
+</rss>

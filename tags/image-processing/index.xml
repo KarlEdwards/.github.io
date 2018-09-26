@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Image-processing on Unqualified Success</title>
+    <link>/tags/image-processing/</link>
+    <description>Recent content in Image-processing on Unqualified Success</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>&amp;copy; 2018</copyright>
+    <lastBuildDate>Sun, 14 Jan 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/image-processing/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Images Like This</title>
+      <link>/project/images-like-this/</link>
+      <pubDate>Sun, 14 Jan 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/project/images-like-this/</guid>
+      <description>The General Idea Given a set of images, find the ones that are most similar to a set of examples.
+More Specifically Given a dataset, comprising image features extracted using a pre-trained model, and given also the row identifiers for a subset of the data, representing the kind of images to find, create a TRAINING set of the specified rows and a TEST set of all remaining rows, then train a binary SVM classifier to identify images in the TEST set, which are similar to those in the TRAINING set.</description>
+    </item>
+    
+    <item>
+      <title>Photogrammetric Potsherd Profile</title>
+      <link>/project/photogrammetric-potsherd/</link>
+      <pubDate>Tue, 31 Oct 2017 00:00:00 +0000</pubDate>
+      
+      <guid>/project/photogrammetric-potsherd/</guid>
+      <description>The General Idea Make photogrammetry readily accessible to archaeologists through open source computational archaeology.
+More Specifically This project describes in some detail the steps to photograph a potsherd and generate a mathematical model from the resulting images, and, in much less detail, suggests how to automatically measure the object represented by the model. The R source code is available on github and an R package will be available soon. A number of simplifying assumptions accelerated this initial draft.</description>
+    </item>
+    
+  </channel>
+</rss>
