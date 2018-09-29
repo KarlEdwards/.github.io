@@ -1,0 +1,8 @@
+id	status	fun	args
+1	Pending	extract_images	list( from_video = video_file_name, to_path = IMAGE_PATH )
+2	Pending	do_adj	list( source = 'box2/', process = 'adjust_for_brighter_top', destination = 'box3/', more_args = ' -a k=0.25 # -t FALSE' )
+3	Pending	do_equ	list( source = 'box3/', process = 'equalize_colors', destination = 'box4/', more_args = ' -a k=1 # -t FALSE' )
+4	Pending	do_cc1	list( source = 'box4/', process = 'detect_color_change', destination = 'box5/', more_args = ' -a N=15 # -t FALSE' )
+5	Pending	do_cc2	list( source = 'box5/', process = 'detect_color_change', destination = 'box6/', more_args = ' -a N=1 # -t FALSE' )
+6	Pending	do_fib	list( source = 'box6/', process = 'fish_in_a_box', destination = 'box7/', more_args = ' -a background=box3 # -t FALSE' )
+7	Pending	hog_batch	list( IMAGE_PATH = '/Users/Karl/Dropbox/Projects/TNC7/pipeline/box3/', cfg_cells = c( 4, 9 ), cfg_bins = c( 7, 15 ) )

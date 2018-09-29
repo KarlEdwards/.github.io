@@ -13,155 +13,178 @@
     <item>
       <title>An ML Pipeline in R</title>
       <link>https://karledwards.github.io/post/an-ml-pipeline-in-r/</link>
-      <pubDate>Wed, 26 Sep 2018 00:00:00 +0000</pubDate>
+      <pubDate>Tue, 26 Jun 2018 00:00:00 +0000</pubDate>
       
       <guid>https://karledwards.github.io/post/an-ml-pipeline-in-r/</guid>
       <description>
 
-&lt;h1 id=&#34;introduction&#34;&gt;Introduction&lt;/h1&gt;
+&lt;p&gt;At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.&lt;/p&gt;
 
-&lt;p&gt;What is a machine learning pipeline? An oil pipeline transports petroleum from one location to another. A machine learning pipeline is similar only in the sense that we put stuff into one end and it emerges at the other end. There are also some refineries along the way, that transform the product as it passes through. In the example that follows, we put one or more video files into the inlet, and the same number of videos emerge at the outlet, each having been transformed.&lt;/p&gt;
+&lt;p&gt;The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. What if there were a simple scheduling mechanism one could use to create a plan, or &lt;em&gt;computation graph&lt;/em&gt;, that would describe the steps from start to finish, indicate which steps have been completed, and which step is next?&lt;/p&gt;
 
-&lt;p&gt;Imagine how the pipeline will be used. We stuff &#39;PATH/to/Video/Files/&#39; into the inlet. The pipeline needs to do two things, represented below as a simple schedule:&lt;/p&gt;
+&lt;p&gt;The &lt;strong&gt;R&lt;/strong&gt; code, below, defines a Schedule Reference Class:&lt;/p&gt;
 
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;right&#34;&gt;id&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;task&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;status&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
+&lt;p&gt;&lt;strong&gt;Schedule_Reference_Class.R&lt;/strong&gt;&lt;/p&gt;
 
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;list video files&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+&lt;pre&gt;&lt;code&gt;Schedule &amp;lt;- setRefClass(
+    &amp;quot;Schedule&amp;quot;
+  , fields = list( 
+        id = &#39;vector&#39;
+      , fun = &#39;vector&#39;
+      , args = &#39;vector&#39;
+      , status = &#39;vector&#39;
+    )
+  , methods = list(
+      initialize = function( ..., id = 1, fun = &#39;a function&#39;, args = NULL, status = &#39;Pending&#39; ){
+        callSuper(...)
+        .self$id &amp;lt;- as.numeric( id )
+        .self$fun &amp;lt;- as.character( fun )
+        .self$args &amp;lt;- as.character( args )
+        .self$status &amp;lt;- as.character( status )
+        .self
+      }
+    ) # methods
+) # setRefClass
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;build recipe for each&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+# A method to show the schedule
+Schedule$methods(
+  show = function(){
+    &#39;Method for showing scheduled items&#39;
+    cat( sprintf(
+        &amp;quot;Reference object of class, %s, having %d items\n&amp;quot;
+      , classLabel( class( .self ))
+      , max( .self$id )
+    ))
+    methods::show( tibble::tibble( id=id, fun=fun, args=args, status=status ))
+  }
+)
 
-&lt;p&gt;Let&#39;s say the recipe we wish to apply to each video looks something like this:&lt;/p&gt;
+# A method to add a task
+Schedule$methods(
+  add_task = function( x, y = NULL ){
+    &#39;Add a task to a schedule.&#39;
+    cat( sprintf( &#39;new item %s\n&#39;, x ))
+    idx &amp;lt;- 1 + max( .self$id )
+    cat( sprintf( &#39;Now %d items\n&#39;, idx ))
+    id[ idx ] &amp;lt;&amp;lt;- idx
+    fun[ idx ] &amp;lt;&amp;lt;- x
+    args[ idx ] &amp;lt;&amp;lt;- y
+    status[ idx ] &amp;lt;&amp;lt;- &#39;Pending&#39;
+  }
+)
 
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;right&#34;&gt;id&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;task&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;status&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
+# A method to return scheduled tasks
+Schedule$methods(
+  get_items = function(){
+    &#39;Method for getting a tibble of scheduled tasks&#39;
+    tibble::tibble( id=id, fun=fun, args=args, status=status )
+  }
+)
 
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;extract images&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+# A method to return the next pending tasks
+require( purrr )
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;make HoGs&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+Schedule$methods(
+  get_next = function(){
+    &#39;Method for getting the next scheduled task&#39;
+    is_pending &amp;lt;- function( x ) x == &#39;Pending&#39;
+    n &amp;lt;- status %&amp;gt;% detect_index( is_pending )
+    tibble::tibble( id=id[ n ], fun=fun[ n ], args=args[ n ], status=status[ n ] )
+  }
+)
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;3&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;cluster the HoGs&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+# A method to perform the next pending tasks
+Schedule$methods(
+  do_next = function(){
+    &#39;Method for performing the next scheduled task&#39;
+    is_pending &amp;lt;- function( x ) x == &#39;Pending&#39;
+    n &amp;lt;- status %&amp;gt;% detect_index( is_pending )
+    if( !exists( fun[ n ] )){
+      cat( sprintf( &#39;Unable to find function %s\n&#39;, fun[ n ] ))
+    } else {
+      eval( parse( text = fun[ n ] ))
+      status[ n ] &amp;lt;&amp;lt;- &#39;Done&#39;
+    }
+  }
+)
 
-&lt;ol&gt;
-&lt;li&gt;After building the recipes, the schedule looks like this:&lt;/li&gt;
-&lt;/ol&gt;
 
-&lt;table&gt;
-&lt;thead&gt;
-&lt;tr&gt;
-&lt;th align=&#34;right&#34;&gt;id&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;task&lt;/th&gt;
-&lt;th align=&#34;left&#34;&gt;status&lt;/th&gt;
-&lt;/tr&gt;
-&lt;/thead&gt;
+# A method to save a schedule
+#Schedule$methods(
+#  save_as_text = function( file ){
+#    &#39;Save the current schedule in a file.&#39;
+#        x         = data.frame( id=id, fun=fun, args=args , status=status )
+#    write.table(
+#        x         = x
+#      , file      = file
+#      , quote     = FALSE
+#      , sep       = &#39;\t&#39;
+#      , row.names = FALSE
+#    )
+#  }
+#)
 
-&lt;tbody&gt;
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;list video files&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Done&lt;/td&gt;
-&lt;/tr&gt;
+# A method to read a schedule
+Schedule$methods(
+  read_as_text = function( file ){
+    &#39;Read the current schedule from a file.&#39;
+    data &amp;lt;&amp;lt;- read.table(
+        file             = file
+      , header           = TRUE
+      , sep              = &#39;\t&#39;
+      , stringsAsFactors = FALSE
+    )
+  }
+)
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;build recipe for each&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Done&lt;/td&gt;
-&lt;/tr&gt;
+# A method to report schedule length
+Schedule$methods(
+  get_length = function(){
+    &#39;Report the number of items in the schedule.&#39;
+    length( .self$id )
+  }
+)
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;3&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;extract images   VIDEO1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+&lt;h1 id=&#34;example-usage&#34;&gt;Example Usage:&lt;/h1&gt;
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;4&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;make HoGs        VIDEO1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+&lt;p&gt;Create a Schedule with a single task&lt;/p&gt;
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;5&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;cluster the HoGs VIDEO1&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+&lt;pre&gt;&lt;code&gt;s &amp;lt;- Schedule$new( fun=&#39;foo&#39;, args=&amp;quot;list( &#39;a&#39; , &#39;b&#39; , &#39;c&#39; )&amp;quot; )
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;6&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;extract images   VIDEO2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+# Another way to do the same thing
+s &amp;lt;- do.call( Schedule$new, list( fun=&#39;foo&#39;, args=&amp;quot;list( &#39;a&#39; , &#39;b&#39; , &#39;c&#39; )&amp;quot; ))
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;7&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;make HoGs        VIDEO2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+&lt;p&gt;Show the schedule:&lt;/p&gt;
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;8&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;cluster the HoGs VIDEO2&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
+&lt;pre&gt;&lt;code&gt;s$show()
 
-&lt;tr&gt;
-&lt;td align=&#34;right&#34;&gt;...&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;...&lt;/td&gt;
-&lt;td align=&#34;left&#34;&gt;Pending&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/tbody&gt;
-&lt;/table&gt;
+##   Reference object of class, &amp;quot;Schedule&amp;quot;, having 1 items
+##   # A tibble: 1 x 4
+##        id fun   args       status 
+##     &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;list&amp;gt;     &amp;lt;chr&amp;gt;  
+##   1     1 foo   &amp;lt;list [3]&amp;gt; Pending
 
-&lt;p&gt;To keep track of the transformations and transportation the pipeline will accomplish, we will need some kind of scheduling mechanism that can do the following things:&lt;/p&gt;
+&lt;/code&gt;&lt;/pre&gt;
 
-&lt;ul&gt;
-&lt;li&gt;Add a task&lt;/li&gt;
-&lt;li&gt;Perform the next task&lt;/li&gt;
-&lt;li&gt;Update the status of the current task&lt;/li&gt;
-&lt;li&gt;Show the current schedule&lt;/li&gt;
-&lt;li&gt;Save the current schedule to a text file&lt;/li&gt;
-&lt;li&gt;Read a schedule from a text file&lt;/li&gt;
-&lt;/ul&gt;
+&lt;p&gt;Add two more tasks:&lt;/p&gt;
 
-&lt;p&gt;In order to &lt;em&gt;Perform the next task&lt;/em&gt;, the mechanism must know where to find the detailed steps for each task it will encounter.&lt;/p&gt;
+&lt;pre&gt;&lt;code&gt;
+s$add_task( fun=&#39;bar&#39;, args=NULL )
+s$add_task( fun=&#39;baz&#39;, args=&amp;quot;list( &#39;x&#39;)&amp;quot; )
+s$show()
+
+##   Reference object of class, &amp;quot;Schedule&amp;quot;, having 3 items
+##   # A tibble: 3 x 4
+##        id fun   args       status 
+##     &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;list&amp;gt;     &amp;lt;chr&amp;gt;  
+##   1     1 foo   &amp;lt;list [2]&amp;gt; Pending
+##   2     2 bar   &amp;lt;list [2]&amp;gt; Pending
+##   3     3 baz   &amp;lt;list [2]&amp;gt; Pending
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;hr /&gt;
 </description>
     </item>
     

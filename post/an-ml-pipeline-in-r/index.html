@@ -17,7 +17,7 @@
       
     
   
-  <meta name="description" content="Introduction What is a machine learning pipeline? An oil pipeline transports petroleum from one location to another. A machine learning pipeline is similar only in the sense that we put stuff into one end and it emerges at the other end. There are also some refineries along the way, that transform the product as it passes through. In the example that follows, we put one or more video files into the inlet, and the same number of videos emerge at the outlet, each having been transformed.">
+  <meta name="description" content="At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/an-ml-pipeline-in-r/">
@@ -76,12 +76,12 @@
   <meta property="og:site_name" content="Unqualified Success">
   <meta property="og:url" content="https://karledwards.github.io/post/an-ml-pipeline-in-r/">
   <meta property="og:title" content="An ML Pipeline in R | Unqualified Success">
-  <meta property="og:description" content="Introduction What is a machine learning pipeline? An oil pipeline transports petroleum from one location to another. A machine learning pipeline is similar only in the sense that we put stuff into one end and it emerges at the other end. There are also some refineries along the way, that transform the product as it passes through. In the example that follows, we put one or more video files into the inlet, and the same number of videos emerge at the outlet, each having been transformed.">
+  <meta property="og:description" content="At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.">
   <meta property="og:locale" content="en-us">
   
-  <meta property="article:published_time" content="2018-09-26T00:00:00&#43;00:00">
+  <meta property="article:published_time" content="2018-06-26T00:00:00&#43;00:00">
   
-  <meta property="article:modified_time" content="2018-09-26T00:00:00&#43;00:00">
+  <meta property="article:modified_time" content="2018-06-26T00:00:00&#43;00:00">
   
 
   
@@ -215,8 +215,8 @@
 
   <span class="article-date">
     
-    <time datetime="2018-09-26 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
-      2018-09-26
+    <time datetime="2018-06-26 00:00:00 &#43;0000 UTC" itemprop="datePublished dateModified">
+      2018-06-26
     </time>
   </span>
   <span itemscope itemprop="author publisher" itemtype="http://schema.org/Person">
@@ -256,150 +256,173 @@
     <div class="article-style" itemprop="articleBody">
       
 
-<h1 id="introduction">Introduction</h1>
+<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.</p>
 
-<p>What is a machine learning pipeline? An oil pipeline transports petroleum from one location to another. A machine learning pipeline is similar only in the sense that we put stuff into one end and it emerges at the other end. There are also some refineries along the way, that transform the product as it passes through. In the example that follows, we put one or more video files into the inlet, and the same number of videos emerge at the outlet, each having been transformed.</p>
+<p>The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. What if there were a simple scheduling mechanism one could use to create a plan, or <em>computation graph</em>, that would describe the steps from start to finish, indicate which steps have been completed, and which step is next?</p>
 
-<p>Imagine how the pipeline will be used. We stuff 'PATH/to/Video/Files/' into the inlet. The pipeline needs to do two things, represented below as a simple schedule:</p>
+<p>The <strong>R</strong> code, below, defines a Schedule Reference Class:</p>
 
-<table>
-<thead>
-<tr>
-<th align="right">id</th>
-<th align="left">task</th>
-<th align="left">status</th>
-</tr>
-</thead>
+<p><strong>Schedule_Reference_Class.R</strong></p>
 
-<tbody>
-<tr>
-<td align="right">1</td>
-<td align="left">list video files</td>
-<td align="left">Pending</td>
-</tr>
+<pre><code>Schedule &lt;- setRefClass(
+    &quot;Schedule&quot;
+  , fields = list( 
+        id = 'vector'
+      , fun = 'vector'
+      , args = 'vector'
+      , status = 'vector'
+    )
+  , methods = list(
+      initialize = function( ..., id = 1, fun = 'a function', args = NULL, status = 'Pending' ){
+        callSuper(...)
+        .self$id &lt;- as.numeric( id )
+        .self$fun &lt;- as.character( fun )
+        .self$args &lt;- as.character( args )
+        .self$status &lt;- as.character( status )
+        .self
+      }
+    ) # methods
+) # setRefClass
 
-<tr>
-<td align="right">2</td>
-<td align="left">build recipe for each</td>
-<td align="left">Pending</td>
-</tr>
-</tbody>
-</table>
+# A method to show the schedule
+Schedule$methods(
+  show = function(){
+    'Method for showing scheduled items'
+    cat( sprintf(
+        &quot;Reference object of class, %s, having %d items\n&quot;
+      , classLabel( class( .self ))
+      , max( .self$id )
+    ))
+    methods::show( tibble::tibble( id=id, fun=fun, args=args, status=status ))
+  }
+)
 
-<p>Let's say the recipe we wish to apply to each video looks something like this:</p>
+# A method to add a task
+Schedule$methods(
+  add_task = function( x, y = NULL ){
+    'Add a task to a schedule.'
+    cat( sprintf( 'new item %s\n', x ))
+    idx &lt;- 1 + max( .self$id )
+    cat( sprintf( 'Now %d items\n', idx ))
+    id[ idx ] &lt;&lt;- idx
+    fun[ idx ] &lt;&lt;- x
+    args[ idx ] &lt;&lt;- y
+    status[ idx ] &lt;&lt;- 'Pending'
+  }
+)
 
-<table>
-<thead>
-<tr>
-<th align="right">id</th>
-<th align="left">task</th>
-<th align="left">status</th>
-</tr>
-</thead>
+# A method to return scheduled tasks
+Schedule$methods(
+  get_items = function(){
+    'Method for getting a tibble of scheduled tasks'
+    tibble::tibble( id=id, fun=fun, args=args, status=status )
+  }
+)
 
-<tbody>
-<tr>
-<td align="right">1</td>
-<td align="left">extract images</td>
-<td align="left">Pending</td>
-</tr>
+# A method to return the next pending tasks
+require( purrr )
 
-<tr>
-<td align="right">2</td>
-<td align="left">make HoGs</td>
-<td align="left">Pending</td>
-</tr>
+Schedule$methods(
+  get_next = function(){
+    'Method for getting the next scheduled task'
+    is_pending &lt;- function( x ) x == 'Pending'
+    n &lt;- status %&gt;% detect_index( is_pending )
+    tibble::tibble( id=id[ n ], fun=fun[ n ], args=args[ n ], status=status[ n ] )
+  }
+)
 
-<tr>
-<td align="right">3</td>
-<td align="left">cluster the HoGs</td>
-<td align="left">Pending</td>
-</tr>
-</tbody>
-</table>
+# A method to perform the next pending tasks
+Schedule$methods(
+  do_next = function(){
+    'Method for performing the next scheduled task'
+    is_pending &lt;- function( x ) x == 'Pending'
+    n &lt;- status %&gt;% detect_index( is_pending )
+    if( !exists( fun[ n ] )){
+      cat( sprintf( 'Unable to find function %s\n', fun[ n ] ))
+    } else {
+      eval( parse( text = fun[ n ] ))
+      status[ n ] &lt;&lt;- 'Done'
+    }
+  }
+)
 
-<ol>
-<li>After building the recipes, the schedule looks like this:</li>
-</ol>
 
-<table>
-<thead>
-<tr>
-<th align="right">id</th>
-<th align="left">task</th>
-<th align="left">status</th>
-</tr>
-</thead>
+# A method to save a schedule
+#Schedule$methods(
+#  save_as_text = function( file ){
+#    'Save the current schedule in a file.'
+#        x         = data.frame( id=id, fun=fun, args=args , status=status )
+#    write.table(
+#        x         = x
+#      , file      = file
+#      , quote     = FALSE
+#      , sep       = '\t'
+#      , row.names = FALSE
+#    )
+#  }
+#)
 
-<tbody>
-<tr>
-<td align="right">1</td>
-<td align="left">list video files</td>
-<td align="left">Done</td>
-</tr>
+# A method to read a schedule
+Schedule$methods(
+  read_as_text = function( file ){
+    'Read the current schedule from a file.'
+    data &lt;&lt;- read.table(
+        file             = file
+      , header           = TRUE
+      , sep              = '\t'
+      , stringsAsFactors = FALSE
+    )
+  }
+)
 
-<tr>
-<td align="right">2</td>
-<td align="left">build recipe for each</td>
-<td align="left">Done</td>
-</tr>
+# A method to report schedule length
+Schedule$methods(
+  get_length = function(){
+    'Report the number of items in the schedule.'
+    length( .self$id )
+  }
+)
+</code></pre>
 
-<tr>
-<td align="right">3</td>
-<td align="left">extract images   VIDEO1</td>
-<td align="left">Pending</td>
-</tr>
+<h1 id="example-usage">Example Usage:</h1>
 
-<tr>
-<td align="right">4</td>
-<td align="left">make HoGs        VIDEO1</td>
-<td align="left">Pending</td>
-</tr>
+<p>Create a Schedule with a single task</p>
 
-<tr>
-<td align="right">5</td>
-<td align="left">cluster the HoGs VIDEO1</td>
-<td align="left">Pending</td>
-</tr>
+<pre><code>s &lt;- Schedule$new( fun='foo', args=&quot;list( 'a' , 'b' , 'c' )&quot; )
 
-<tr>
-<td align="right">6</td>
-<td align="left">extract images   VIDEO2</td>
-<td align="left">Pending</td>
-</tr>
+# Another way to do the same thing
+s &lt;- do.call( Schedule$new, list( fun='foo', args=&quot;list( 'a' , 'b' , 'c' )&quot; ))
+</code></pre>
 
-<tr>
-<td align="right">7</td>
-<td align="left">make HoGs        VIDEO2</td>
-<td align="left">Pending</td>
-</tr>
+<p>Show the schedule:</p>
 
-<tr>
-<td align="right">8</td>
-<td align="left">cluster the HoGs VIDEO2</td>
-<td align="left">Pending</td>
-</tr>
+<pre><code>s$show()
 
-<tr>
-<td align="right">...</td>
-<td align="left">...</td>
-<td align="left">Pending</td>
-</tr>
-</tbody>
-</table>
+##   Reference object of class, &quot;Schedule&quot;, having 1 items
+##   # A tibble: 1 x 4
+##        id fun   args       status 
+##     &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;     &lt;chr&gt;  
+##   1     1 foo   &lt;list [3]&gt; Pending
 
-<p>To keep track of the transformations and transportation the pipeline will accomplish, we will need some kind of scheduling mechanism that can do the following things:</p>
+</code></pre>
 
-<ul>
-<li>Add a task</li>
-<li>Perform the next task</li>
-<li>Update the status of the current task</li>
-<li>Show the current schedule</li>
-<li>Save the current schedule to a text file</li>
-<li>Read a schedule from a text file</li>
-</ul>
+<p>Add two more tasks:</p>
 
-<p>In order to <em>Perform the next task</em>, the mechanism must know where to find the detailed steps for each task it will encounter.</p>
+<pre><code>
+s$add_task( fun='bar', args=NULL )
+s$add_task( fun='baz', args=&quot;list( 'x')&quot; )
+s$show()
+
+##   Reference object of class, &quot;Schedule&quot;, having 3 items
+##   # A tibble: 3 x 4
+##        id fun   args       status 
+##     &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;     &lt;chr&gt;  
+##   1     1 foo   &lt;list [2]&gt; Pending
+##   2     2 bar   &lt;list [2]&gt; Pending
+##   3     3 baz   &lt;list [2]&gt; Pending
+</code></pre>
+
+<hr />
 
     </div>
 
