@@ -201,45 +201,34 @@ s$show()
 
 &lt;pre&gt;&lt;code&gt;e &amp;lt;- do.call( Schedule$new, list())
 e$show()
+
+##   Reference object of class, &amp;quot;Schedule&amp;quot;, having 0 items
+##   # A tibble: 0 x 4
+##   # ... with 4 variables: id &amp;lt;dbl&amp;gt;, fun &amp;lt;chr&amp;gt;, args &amp;lt;chr&amp;gt;, status &amp;lt;chr&amp;gt;
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;reference-object-of-class-schedule-having-0-items&#34;&gt;Reference object of class, &amp;quot;Schedule&amp;quot;, having 0 items&lt;/h2&gt;
-
-&lt;h2 id=&#34;a-tibble-0-x-4&#34;&gt;# A tibble: 0 x 4&lt;/h2&gt;
-
-&lt;h2 id=&#34;with-4-variables-id-dbl-fun-chr-args-chr-status-chr&#34;&gt;# ... with 4 variables: id &lt;dbl&gt;, fun &lt;chr&gt;, args &lt;chr&gt;, status &lt;chr&gt;&lt;/h2&gt;
 
 &lt;pre&gt;&lt;code&gt;e$read_as_text( &#39;test_schedule.txt&#39; )
 e$show()
+
+##   Reference object of class, &amp;quot;Schedule&amp;quot;, having 3 items
+##   # A tibble: 3 x 4
+##        id fun   args                    status 
+##     &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;                   &amp;lt;chr&amp;gt;  
+##   1     1 foo   list( &#39;a&#39; , &#39;b&#39; , &#39;c&#39; ) Pending
+##   2     2 bar   &amp;quot;&amp;quot;                      Pending
+##   3     3 baz   list( &#39;x&#39;)              Pending
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;reference-object-of-class-schedule-having-3-items&#34;&gt;Reference object of class, &amp;quot;Schedule&amp;quot;, having 3 items&lt;/h2&gt;
-
-&lt;h2 id=&#34;a-tibble-3-x-4&#34;&gt;# A tibble: 3 x 4&lt;/h2&gt;
-
-&lt;h2 id=&#34;id-fun-args-status&#34;&gt;id fun   args                    status&lt;/h2&gt;
-
-&lt;h2 id=&#34;dbl-chr-chr-chr&#34;&gt;&lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;chr&gt;&lt;/h2&gt;
-
-&lt;h2 id=&#34;1-1-foo-list-a-b-c-pending&#34;&gt;1     1 foo   list( &#39;a&#39; , &#39;b&#39; , &#39;c&#39; ) Pending&lt;/h2&gt;
-
-&lt;h2 id=&#34;2-2-bar-pending&#34;&gt;2     2 bar   &amp;quot;&amp;quot;                      Pending&lt;/h2&gt;
-
-&lt;h2 id=&#34;3-3-baz-list-x-pending&#34;&gt;3     3 baz   list( &#39;x&#39;)              Pending&lt;/h2&gt;
 
 &lt;p&gt;Get the next task&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;e$get_next()
 
+##   # A tibble: 1 x 4
+##        id fun   args              status 
+##     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;  
+##   1     1 foo   list( a , b , c ) Pending
+
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;a-tibble-1-x-4&#34;&gt;# A tibble: 1 x 4&lt;/h2&gt;
-
-&lt;h2 id=&#34;id-fun-args-status-1&#34;&gt;id fun   args              status&lt;/h2&gt;
-
-&lt;h2 id=&#34;int-chr-chr-chr&#34;&gt;&lt;int&gt; &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;&lt;/h2&gt;
-
-&lt;h2 id=&#34;1-1-foo-list-a-b-c-pending-1&#34;&gt;1     1 foo   list( a , b , c ) Pending&lt;/h2&gt;
 
 &lt;p&gt;Perform the next task ( and update its status )&lt;/p&gt;
 
@@ -254,32 +243,26 @@ e$show()
 &lt;pre&gt;&lt;code&gt;foo &amp;lt;- function() cat( sprintf( &#39;This is foo.&#39; ))
 e$do_next()
 e$show()
+
+##   Reference object of class, &amp;quot;Schedule&amp;quot;, having 3 items
+##   # A tibble: 3 x 4
+##        id fun   args              status 
+##     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;             &amp;lt;chr&amp;gt;  
+##   1     1 foo   list( a , b , c ) Done   
+##   2     2 bar   &amp;quot;&amp;quot;                Pending
+##   3     3 baz   list( x)          Pending
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;h2 id=&#34;reference-object-of-class-schedule-having-3-items-1&#34;&gt;Reference object of class, &amp;quot;Schedule&amp;quot;, having 3 items&lt;/h2&gt;
-
-&lt;h2 id=&#34;a-tibble-3-x-4-1&#34;&gt;# A tibble: 3 x 4&lt;/h2&gt;
-
-&lt;h2 id=&#34;id-fun-args-status-2&#34;&gt;id fun   args              status&lt;/h2&gt;
-
-&lt;h2 id=&#34;int-chr-chr-chr-1&#34;&gt;&lt;int&gt; &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;&lt;/h2&gt;
-
-&lt;h2 id=&#34;1-1-foo-list-a-b-c-done&#34;&gt;1     1 foo   list( a , b , c ) Done&lt;/h2&gt;
-
-&lt;h2 id=&#34;2-2-bar-pending-1&#34;&gt;2     2 bar   &amp;quot;&amp;quot;                Pending&lt;/h2&gt;
-
-&lt;h2 id=&#34;3-3-baz-list-x-pending-1&#34;&gt;3     3 baz   list( x)          Pending&lt;/h2&gt;
+&lt;p&gt;Get the next task:&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;e$get_next()
+
+##   # A tibble: 1 x 4
+##        id fun   args  status 
+##     &amp;lt;int&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt;  
+##   1     2 bar   &amp;quot;&amp;quot;    Pending
+
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;a-tibble-1-x-4-1&#34;&gt;# A tibble: 1 x 4&lt;/h2&gt;
-
-&lt;h2 id=&#34;id-fun-args-status-3&#34;&gt;id fun   args  status&lt;/h2&gt;
-
-&lt;h2 id=&#34;int-chr-chr-chr-2&#34;&gt;&lt;int&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;&lt;/h2&gt;
-
-&lt;h2 id=&#34;1-2-bar-pending&#34;&gt;1     2 bar   &amp;quot;&amp;quot;    Pending&lt;/h2&gt;
 
 &lt;hr /&gt;
 </description>
