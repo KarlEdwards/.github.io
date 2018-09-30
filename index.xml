@@ -18,9 +18,7 @@
       <guid>https://karledwards.github.io/post/an-ml-pipeline-in-r/</guid>
       <description>
 
-&lt;p&gt;At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.&lt;/p&gt;
-
-&lt;p&gt;The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. What if there were a simple scheduling mechanism one could use to create a plan, or &lt;em&gt;computation graph&lt;/em&gt;, that would describe the steps from start to finish, indicate which steps have been completed, and which step is next?&lt;/p&gt;
+&lt;p&gt;At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output. The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. This post explores a simple scheduling mechanism for creating a plan that would describe the steps from start to finish, indicate which steps have been completed, and which step is next.&lt;/p&gt;
 
 &lt;p&gt;The &lt;strong&gt;R&lt;/strong&gt; code, below, defines a Schedule Reference Class:&lt;/p&gt;
 
@@ -233,10 +231,9 @@ e$show()
 &lt;p&gt;Perform the next task ( and update its status )&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;e$do_next()
+##   Unable to find function foo
 
 &lt;/code&gt;&lt;/pre&gt;
-
-&lt;h2 id=&#34;unable-to-find-function-foo&#34;&gt;Unable to find function foo&lt;/h2&gt;
 
 &lt;p&gt;Define &lt;code&gt;foo&lt;/code&gt;&lt;/p&gt;
 

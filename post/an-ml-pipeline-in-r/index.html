@@ -256,9 +256,7 @@
     <div class="article-style" itemprop="articleBody">
       
 
-<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.</p>
-
-<p>The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. What if there were a simple scheduling mechanism one could use to create a plan, or <em>computation graph</em>, that would describe the steps from start to finish, indicate which steps have been completed, and which step is next?</p>
+<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output. The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. This post explores a simple scheduling mechanism for creating a plan that would describe the steps from start to finish, indicate which steps have been completed, and which step is next.</p>
 
 <p>The <strong>R</strong> code, below, defines a Schedule Reference Class:</p>
 
@@ -471,10 +469,9 @@ e$show()
 <p>Perform the next task ( and update its status )</p>
 
 <pre><code>e$do_next()
+##   Unable to find function foo
 
 </code></pre>
-
-<h2 id="unable-to-find-function-foo">Unable to find function foo</h2>
 
 <p>Define <code>foo</code></p>
 
