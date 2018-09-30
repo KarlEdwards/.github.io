@@ -264,7 +264,8 @@
 
 <p><strong>Schedule_Reference_Class.R</strong></p>
 
-<pre><code>Schedule &lt;- setRefClass(
+<pre><code># Create a Reference Class
+Schedule &lt;- setRefClass(
     &quot;Schedule&quot;
   , fields = list( 
         id = 'vector'
@@ -284,6 +285,23 @@
     ) # methods
 ) # setRefClass
 
+
+# A method to return scheduled tasks
+Schedule$methods(
+  get_items = function(){
+    'Method for getting a tibble of scheduled tasks'
+    tibble::tibble( id=id, fun=fun, args=args, status=status )
+  }
+)
+
+# A method to report schedule length
+Schedule$methods(
+  get_length = function(){
+    'Report the number of items in the schedule.'
+    nrow( .self$get_items() )
+  }
+)
+
 # A method to show the schedule
 Schedule$methods(
   show = function(){
@@ -291,7 +309,7 @@ Schedule$methods(
     cat( sprintf(
         &quot;Reference object of class, %s, having %d items\n&quot;
       , classLabel( class( .self ))
-      , max( .self$id )
+      , .self$get_length()
     ))
     methods::show( tibble::tibble( id=id, fun=fun, args=args, status=status ))
   }
@@ -299,23 +317,15 @@ Schedule$methods(
 
 # A method to add a task
 Schedule$methods(
-  add_task = function( x, y = NULL ){
+  add_task = function( fun, args = &quot;&quot; ){
     'Add a task to a schedule.'
-    cat( sprintf( 'new item %s\n', x ))
+    cat( sprintf( 'new item %s with args %s\n', fun, args ))
     idx &lt;- 1 + max( .self$id )
     cat( sprintf( 'Now %d items\n', idx ))
     id[ idx ] &lt;&lt;- idx
-    fun[ idx ] &lt;&lt;- x
-    args[ idx ] &lt;&lt;- y
+    fun[ idx ] &lt;&lt;- fun
+    args[ idx ] &lt;&lt;- args
     status[ idx ] &lt;&lt;- 'Pending'
-  }
-)
-
-# A method to return scheduled tasks
-Schedule$methods(
-  get_items = function(){
-    'Method for getting a tibble of scheduled tasks'
-    tibble::tibble( id=id, fun=fun, args=args, status=status )
   }
 )
 
@@ -348,40 +358,37 @@ Schedule$methods(
 
 
 # A method to save a schedule
-#Schedule$methods(
-#  save_as_text = function( file ){
-#    'Save the current schedule in a file.'
-#        x         = data.frame( id=id, fun=fun, args=args , status=status )
-#    write.table(
-#        x         = x
-#      , file      = file
-#      , quote     = FALSE
-#      , sep       = '\t'
-#      , row.names = FALSE
-#    )
-#  }
-#)
+Schedule$methods(
+  save_as_text = function( file ){
+    'Save the current schedule in a file.'
+        x         = data.frame( id=id, fun=fun, args=args , status=status )
+    write.table(
+        x         = x
+      , file      = file
+      , quote     = FALSE
+      , sep       = '\t'
+      , row.names = FALSE
+    )
+  }
+)
 
 # A method to read a schedule
 Schedule$methods(
   read_as_text = function( file ){
     'Read the current schedule from a file.'
-    data &lt;&lt;- read.table(
+    data &lt;- read.table(
         file             = file
       , header           = TRUE
       , sep              = '\t'
       , stringsAsFactors = FALSE
     )
+    id &lt;&lt;- data$id
+    fun &lt;&lt;- data$fun
+    args &lt;&lt;- data$args
+    status &lt;&lt;- data$status
   }
 )
 
-# A method to report schedule length
-Schedule$methods(
-  get_length = function(){
-    'Report the number of items in the schedule.'
-    length( .self$id )
-  }
-)
 </code></pre>
 
 <h1 id="example-usage">Example Usage:</h1>
@@ -400,27 +407,117 @@ s &lt;- do.call( Schedule$new, list( fun='foo', args=&quot;list( 'a' , 'b' , 'c'
 
 ##   Reference object of class, &quot;Schedule&quot;, having 1 items
 ##   # A tibble: 1 x 4
-##        id fun   args       status 
-##     &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;     &lt;chr&gt;  
-##   1     1 foo   &lt;list [3]&gt; Pending
+##        id fun   args                    status 
+##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;chr&gt;  
+##   1     1 foo   list( 'a' , 'b' , 'c' ) Pending
 
 </code></pre>
 
 <p>Add two more tasks:</p>
 
 <pre><code>
-s$add_task( fun='bar', args=NULL )
+s$add_task( fun='bar', args=&quot;&quot; )
 s$add_task( fun='baz', args=&quot;list( 'x')&quot; )
 s$show()
 
 ##   Reference object of class, &quot;Schedule&quot;, having 3 items
 ##   # A tibble: 3 x 4
-##        id fun   args       status 
-##     &lt;dbl&gt; &lt;chr&gt; &lt;list&gt;     &lt;chr&gt;  
-##   1     1 foo   &lt;list [2]&gt; Pending
-##   2     2 bar   &lt;list [2]&gt; Pending
-##   3     3 baz   &lt;list [2]&gt; Pending
+##        id fun   args                    status 
+##     &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt;                   &lt;chr&gt;  
+##   1     1 foo   list( 'a' , 'b' , 'c' ) Pending
+##   2     2 bar   &quot;&quot;                      Pending
+##   3     3 baz   list( 'x')              Pending
+
 </code></pre>
+
+<p>Save the schedule:</p>
+
+<pre><code>s$save_as_text('test_schedule.txt')
+</code></pre>
+
+<p>Create an empty schedule and populate it from the previously-saved file:</p>
+
+<pre><code>e &lt;- do.call( Schedule$new, list())
+e$show()
+</code></pre>
+
+<h2 id="reference-object-of-class-schedule-having-0-items">Reference object of class, &quot;Schedule&quot;, having 0 items</h2>
+
+<h2 id="a-tibble-0-x-4"># A tibble: 0 x 4</h2>
+
+<h2 id="with-4-variables-id-dbl-fun-chr-args-chr-status-chr"># ... with 4 variables: id <dbl>, fun <chr>, args <chr>, status <chr></h2>
+
+<pre><code>e$read_as_text( 'test_schedule.txt' )
+e$show()
+</code></pre>
+
+<h2 id="reference-object-of-class-schedule-having-3-items">Reference object of class, &quot;Schedule&quot;, having 3 items</h2>
+
+<h2 id="a-tibble-3-x-4"># A tibble: 3 x 4</h2>
+
+<h2 id="id-fun-args-status">id fun   args                    status</h2>
+
+<h2 id="dbl-chr-chr-chr"><dbl> <chr> <chr>                   <chr></h2>
+
+<h2 id="1-1-foo-list-a-b-c-pending">1     1 foo   list( 'a' , 'b' , 'c' ) Pending</h2>
+
+<h2 id="2-2-bar-pending">2     2 bar   &quot;&quot;                      Pending</h2>
+
+<h2 id="3-3-baz-list-x-pending">3     3 baz   list( 'x')              Pending</h2>
+
+<p>Get the next task</p>
+
+<pre><code>e$get_next()
+
+</code></pre>
+
+<h2 id="a-tibble-1-x-4"># A tibble: 1 x 4</h2>
+
+<h2 id="id-fun-args-status-1">id fun   args              status</h2>
+
+<h2 id="int-chr-chr-chr"><int> <chr> <chr>             <chr></h2>
+
+<h2 id="1-1-foo-list-a-b-c-pending-1">1     1 foo   list( a , b , c ) Pending</h2>
+
+<p>Perform the next task ( and update its status )</p>
+
+<pre><code>e$do_next()
+
+</code></pre>
+
+<h2 id="unable-to-find-function-foo">Unable to find function foo</h2>
+
+<p>Define <code>foo</code></p>
+
+<pre><code>foo &lt;- function() cat( sprintf( 'This is foo.' ))
+e$do_next()
+e$show()
+</code></pre>
+
+<h2 id="reference-object-of-class-schedule-having-3-items-1">Reference object of class, &quot;Schedule&quot;, having 3 items</h2>
+
+<h2 id="a-tibble-3-x-4-1"># A tibble: 3 x 4</h2>
+
+<h2 id="id-fun-args-status-2">id fun   args              status</h2>
+
+<h2 id="int-chr-chr-chr-1"><int> <chr> <chr>             <chr></h2>
+
+<h2 id="1-1-foo-list-a-b-c-done">1     1 foo   list( a , b , c ) Done</h2>
+
+<h2 id="2-2-bar-pending-1">2     2 bar   &quot;&quot;                Pending</h2>
+
+<h2 id="3-3-baz-list-x-pending-1">3     3 baz   list( x)          Pending</h2>
+
+<pre><code>e$get_next()
+</code></pre>
+
+<h2 id="a-tibble-1-x-4-1"># A tibble: 1 x 4</h2>
+
+<h2 id="id-fun-args-status-3">id fun   args  status</h2>
+
+<h2 id="int-chr-chr-chr-2"><int> <chr> <chr> <chr></h2>
+
+<h2 id="1-2-bar-pending">1     2 bar   &quot;&quot;    Pending</h2>
 
 <hr />
 

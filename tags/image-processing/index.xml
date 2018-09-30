@@ -33,34 +33,4 @@ More Specifically This project describes in some detail the steps to photograph 
     </item>
     
   </channel>
-</rss>m>
-      <title>Ultimate Captioning Part 3</title>
-      <link>https://karledwards.github.io/post/ultimate-captioning-scorecard/</link>
-      <pubDate>Sat, 31 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://karledwards.github.io/post/ultimate-captioning-scorecard/</guid>
-      <description>Scorecard What are the individual tasks involved in solving the whole problem, and how effective are various approaches to these tasks?
-General Tasks    Id Task Approach Details     G1 Extract images from video Shell script to drive command-line VLC See Practical VLC   G2 Partition a set of labeled images Shell script to randomly select training and testing examples, based on a list of files and class labels See Partitioning Data    Image Classification Since the field, the disc, and the players are the key ingredients for a game, tools focused on detecting these items would be a reasonable place to start.</description>
-    </item>
-    
-    <item>
-      <title>Ultimate Captioning Part 2</title>
-      <link>https://karledwards.github.io/post/ultimate-captioning-approaches/</link>
-      <pubDate>Sat, 24 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://karledwards.github.io/post/ultimate-captioning-approaches/</guid>
-      <description>The sport of ultimate resembles soccer in some ways. For example, both sports revolve around groups of similarly-clad individuals running around a mostly green environment, focused on a small, fast-moving object. Efforts to understand Soccer present many promising ideas for understanding ultimate.
-The single image at the top of this post illustrates an action by itself: A player leaps into the air, attempting to catch the disc. Many times, motion from subsequent frames will be required in order to discern the action.</description>
-    </item>
-    
-    <item>
-      <title>Ultimate Captioning Part 1</title>
-      <link>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</link>
-      <pubDate>Sat, 17 Mar 2018 00:00:00 +0000</pubDate>
-      
-      <guid>https://karledwards.github.io/post/ultimate-captioning-problem-rmd/</guid>
-      <description>How can we choose the best 150 two-second plays from 10 or more hours of raw video? Preparing a highlights video from raw footage is an intensely time-consuming endeavor. This post begins with a brief introduction to the sport of Ultimate, followed by an overview of the temporal structure of a game and temporal structure of scoring a single point. The data inventory describes various sources of information about the game and the post concludes with a glossary and a short list of simplifying assumptions.</description>
-    </item>
-    
-  </channel>
 </rss>
