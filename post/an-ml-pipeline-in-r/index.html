@@ -256,7 +256,9 @@
     <div class="article-style" itemprop="articleBody">
       
 
-<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output. The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data. This post explores a simple scheduling mechanism for creating a plan that would describe the steps from start to finish, indicate which steps have been completed, and which step is next.</p>
+<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output. The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data.</p>
+
+<p>This post explores a simple scheduling mechanism for creating a plan that would describe the steps from start to finish, indicate which steps have been completed, and which step is next.</p>
 
 <p>The <strong>R</strong> code, below, defines a Schedule Reference Class:</p>
 
@@ -334,7 +336,7 @@ Schedule$methods(
   get_next = function(){
     'Method for getting the next scheduled task'
     is_pending &lt;- function( x ) x == 'Pending'
-    n &lt;- status %&gt;% detect_index( is_pending )
+    n &lt;- purrr::detect_index( status, is_pending )
     tibble::tibble( id=id[ n ], fun=fun[ n ], args=args[ n ], status=status[ n ] )
   }
 )
@@ -344,7 +346,7 @@ Schedule$methods(
   do_next = function(){
     'Method for performing the next scheduled task'
     is_pending &lt;- function( x ) x == 'Pending'
-    n &lt;- status %&gt;% detect_index( is_pending )
+    n &lt;- purrr::detect_index( status, is_pending )
     if( !exists( fun[ n ] )){
       cat( sprintf( 'Unable to find function %s\n', fun[ n ] ))
     } else {
