@@ -17,7 +17,7 @@
       
     
   
-  <meta name="description" content="At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.">
+  <meta name="description" content="At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. Over the lifetime of a project, data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/an-ml-pipeline-in-r/">
@@ -76,7 +76,7 @@
   <meta property="og:site_name" content="Unqualified Success">
   <meta property="og:url" content="https://karledwards.github.io/post/an-ml-pipeline-in-r/">
   <meta property="og:title" content="An ML Pipeline in R | Unqualified Success">
-  <meta property="og:description" content="At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.">
+  <meta property="og:description" content="At the beginning of a new machine learning project, it&#39;s a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. Over the lifetime of a project, data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output.">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2018-06-26T00:00:00&#43;00:00">
@@ -256,7 +256,7 @@
     <div class="article-style" itemprop="articleBody">
       
 
-<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. What remains constant, over the lifetime of such a project, is that data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output. The parts that change, over the lifetime of the project, are the recipe and the particular files containing input data.</p>
+<p>At the beginning of a new machine learning project, it's a good idea to create a baseline model that functions end-to-end, even if the performance is not very good. Soon enough, you will think of ideas for better models, and want to try them, evaluate their performance, and maybe keep them for future use in a production environment. Over the lifetime of a project, data presented to the pipeline inlet are processed according to a particular recipe, which generates some useful output. The parts that <em>change</em> are the recipe and the particular files containing input data.</p>
 
 <p>This post explores a simple scheduling mechanism for creating a plan that would describe the steps from start to finish, indicate which steps have been completed, and which step is next.</p>
 
