@@ -17,9 +17,12 @@
       
     
   
-  <meta name="description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation. First, we create a schedule with a single task – to apply a recipe to all the video files in the in-box. Second, we perform the task and view the resulting schedule. Then we perform the steps of the recipe, following along as each task finishes.
-Create a Schedule with a task to apply a recipe to a bunch of files.
-s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )` | Error: &lt;text&gt;:1:87: unexpected INCOMPLETE_STRING | 1: s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )` | ^ Show the schedule:">
+  <meta name="description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation.
+Create a schedule with a single task – to apply a recipe to all the video files in the in-box.
+ Perform the task and view the resulting schedule.
+ Perform the steps of the recipe, following along as each task finishes.
+  Create a Schedule with a task to apply a recipe to a bunch of files.
+s &lt;- Schedule( fun=&#39;build_recipes&#39; , args=&quot;list( applied_recipes , the_schedule = s )&quot; ) Show the schedule:">
 
   
   <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/a-simple-scheduler/">
@@ -78,9 +81,12 @@ s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes,
   <meta property="og:site_name" content="Unqualified Success">
   <meta property="og:url" content="https://karledwards.github.io/post/a-simple-scheduler/">
   <meta property="og:title" content="Add a Task to Add Some Tasks | Unqualified Success">
-  <meta property="og:description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation. First, we create a schedule with a single task – to apply a recipe to all the video files in the in-box. Second, we perform the task and view the resulting schedule. Then we perform the steps of the recipe, following along as each task finishes.
-Create a Schedule with a task to apply a recipe to a bunch of files.
-s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )` | Error: &lt;text&gt;:1:87: unexpected INCOMPLETE_STRING | 1: s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )` | ^ Show the schedule:">
+  <meta property="og:description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation.
+Create a schedule with a single task – to apply a recipe to all the video files in the in-box.
+ Perform the task and view the resulting schedule.
+ Perform the steps of the recipe, following along as each task finishes.
+  Create a Schedule with a task to apply a recipe to a bunch of files.
+s &lt;- Schedule( fun=&#39;build_recipes&#39; , args=&quot;list( applied_recipes , the_schedule = s )&quot; ) Show the schedule:">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2018-07-26T00:00:00&#43;00:00">
@@ -258,16 +264,25 @@ s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes,
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>Now let’s use <strong>Schedule_Reference_Class.R</strong> in a real-world situation. First, we create a schedule with a single task – to apply a recipe to all the video files in the in-box. Second, we perform the task and view the resulting schedule. Then we perform the steps of the recipe, following along as each task finishes.</p>
+      <p>Now let’s use <strong>Schedule_Reference_Class.R</strong> in a real-world situation.</p>
+<ol style="list-style-type: decimal">
+<li><p>Create a schedule with a single task – to apply a recipe to all the video files in the in-box.</p></li>
+<li><p>Perform the task and view the resulting schedule.</p></li>
+<li><p>Perform the steps of the recipe, following along as each task finishes.</p></li>
+</ol>
 <hr />
 <p>Create a Schedule with a task to apply a recipe to a bunch of files.</p>
-<pre class="r"><code>s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )`
-|   Error: &lt;text&gt;:1:87: unexpected INCOMPLETE_STRING
-|   1: s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )`
-|                                                                                             ^</code></pre>
+<pre class="r"><code>s &lt;- Schedule(
+    fun=&#39;build_recipes&#39;
+  , args=&quot;list( applied_recipes , the_schedule = s )&quot;
+)</code></pre>
 <p>Show the schedule:</p>
 <pre class="r"><code>s
-|   Error in eval(expr, envir, enclos): object &#39;s&#39; not found</code></pre>
+    Reference object of class, &quot;Schedule&quot;, having 1 items
+    # A tibble: 1 x 4
+         id fun           args                                       status 
+      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                                      &lt;chr&gt;  
+    1     1 build_recipes list( applied_recipes , the_schedule = s ) Pending</code></pre>
 <p>Get the [video] files:</p>
 <pre class="r"><code>video_files &lt;- fishface::asdf(
     path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet )

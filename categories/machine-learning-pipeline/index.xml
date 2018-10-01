@@ -18,9 +18,12 @@
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
-      <description>Now let’s use Schedule_Reference_Class.R in a real-world situation. First, we create a schedule with a single task – to apply a recipe to all the video files in the in-box. Second, we perform the task and view the resulting schedule. Then we perform the steps of the recipe, following along as each task finishes.
-Create a Schedule with a task to apply a recipe to a bunch of files.
-s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; )` | Error: &amp;lt;text&amp;gt;:1:87: unexpected INCOMPLETE_STRING | 1: s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; )` | ^ Show the schedule:</description>
+      <description>Now let’s use Schedule_Reference_Class.R in a real-world situation.
+Create a schedule with a single task – to apply a recipe to all the video files in the in-box.
+ Perform the task and view the resulting schedule.
+ Perform the steps of the recipe, following along as each task finishes.
+  Create a Schedule with a task to apply a recipe to a bunch of files.
+s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39; , args=&amp;quot;list( applied_recipes , the_schedule = s )&amp;quot; ) Show the schedule:</description>
     </item>
     
     <item>
