@@ -16,30 +16,26 @@
       <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
-      <description>&lt;p&gt;Now let’s use &lt;strong&gt;Schedule_Reference_Class.R&lt;/strong&gt; in a real-world situation.&lt;/p&gt;
+      <description>&lt;p&gt;Now let’s use &lt;strong&gt;Schedule_Reference_Class.R&lt;/strong&gt; in a real-world situation. First, we create a schedule with a single task – to apply a recipe to all the video files in the in-box. Second, we perform the task and view the resulting schedule. Then we perform the steps of the recipe, following along as each task finishes.&lt;/p&gt;
 &lt;hr /&gt;
-&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create a Schedule with an initialization task
-s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; )
-
-# Show the schedule:
-s
-|   Reference object of class, &amp;quot;Schedule&amp;quot;, having 1 items
-|   # A tibble: 1 x 4
-|        id fun           args                                      status 
-|     &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;                                     &amp;lt;chr&amp;gt;  
-|   1     1 build_recipes list( applied_recipes, the_schedule = s ) Pending
-
-# Get the [video] files:
-video_files &amp;lt;- fishface::asdf(
+&lt;p&gt;Create a Schedule with a task to apply a recipe to a bunch of files.&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; )`
+|   Error: &amp;lt;text&amp;gt;:1:87: unexpected INCOMPLETE_STRING
+|   1: s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; )`
+|                                                                                             ^&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Show the schedule:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;s
+|   Error in eval(expr, envir, enclos): object &amp;#39;s&amp;#39; not found&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Get the [video] files:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_files &amp;lt;- fishface::asdf(
     path = gsub( &amp;#39;([\\/]*)$&amp;#39;, &amp;#39;&amp;#39;, inlet )
   , pattern = &amp;#39;^.*.MP4$&amp;#39;, product = &amp;#39;list&amp;#39;
 )
 
 # For each file, apply the recipe:
 stopifnot( is.function( the_recipe ))
-|   Error in is.function(the_recipe): object &amp;#39;the_recipe&amp;#39; not found
 applied_recipes &amp;lt;- video_files %&amp;gt;% purrr::map( the_recipe )
-|   Error in as_mapper(.f, ...): object &amp;#39;the_recipe&amp;#39; not found&lt;/code&gt;&lt;/pre&gt;
+&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     
