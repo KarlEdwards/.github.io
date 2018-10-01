@@ -259,7 +259,7 @@
   <div class="article-style" itemprop="articleBody">
     
     Now let’s use Schedule_Reference_Class.R in a real-world situation.
- R&gt; Loading required package: fishface # Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s R&gt; Reference object of class, &quot;Schedule&quot;, having 1 items R&gt; # A tibble: 1 x 4 R&gt; id fun args status R&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; R&gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.
+# Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s | Reference object of class, &quot;Schedule&quot;, having 1 items | # A tibble: 1 x 4 | id fun args status | &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; | 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">

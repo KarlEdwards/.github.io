@@ -18,7 +18,7 @@
     
   
   <meta name="description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation.
- R&gt; Loading required package: fishface # Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s R&gt; Reference object of class, &quot;Schedule&quot;, having 1 items R&gt; # A tibble: 1 x 4 R&gt; id fun args status R&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; R&gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.">
+# Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s | Reference object of class, &quot;Schedule&quot;, having 1 items | # A tibble: 1 x 4 | id fun args status | &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; | 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.">
 
   
   <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/a-simple-scheduler/">
@@ -78,7 +78,7 @@
   <meta property="og:url" content="https://karledwards.github.io/post/a-simple-scheduler/">
   <meta property="og:title" content="Add a Task to Add Some Tasks | Unqualified Success">
   <meta property="og:description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation.
- R&gt; Loading required package: fishface # Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s R&gt; Reference object of class, &quot;Schedule&quot;, having 1 items R&gt; # A tibble: 1 x 4 R&gt; id fun args status R&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; R&gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.">
+# Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s | Reference object of class, &quot;Schedule&quot;, having 1 items | # A tibble: 1 x 4 | id fun args status | &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; | 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2018-07-26T00:00:00&#43;00:00">
@@ -258,17 +258,16 @@
     <div class="article-style" itemprop="articleBody">
       <p>Now let’s use <strong>Schedule_Reference_Class.R</strong> in a real-world situation.</p>
 <hr />
-<pre><code> R&gt;   Loading required package: fishface</code></pre>
 <pre class="r"><code># Create a Schedule with an initialization task
 s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )
 
 # Show the schedule:
 s
- R&gt;   Reference object of class, &quot;Schedule&quot;, having 1 items
- R&gt;   # A tibble: 1 x 4
- R&gt;        id fun           args                                      status 
- R&gt;     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                                     &lt;chr&gt;  
- R&gt;   1     1 build_recipes list( applied_recipes, the_schedule = s ) Pending
+|   Reference object of class, &quot;Schedule&quot;, having 1 items
+|   # A tibble: 1 x 4
+|        id fun           args                                      status 
+|     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                                     &lt;chr&gt;  
+|   1     1 build_recipes list( applied_recipes, the_schedule = s ) Pending
 
 # Get the [video] files:
 video_files &lt;- fishface::asdf(
@@ -278,9 +277,9 @@ video_files &lt;- fishface::asdf(
 
 # For each file, apply the recipe:
 stopifnot( is.function( the_recipe ))
- R&gt;   Error in is.function(the_recipe): object &#39;the_recipe&#39; not found
-applied_recipes &lt;- video_files %&gt;% map( the_recipe )
- R&gt;   Error in map(., the_recipe): could not find function &quot;map&quot;</code></pre>
+|   Error in is.function(the_recipe): object &#39;the_recipe&#39; not found
+applied_recipes &lt;- video_files %&gt;% purrr::map( the_recipe )
+|   Error in as_mapper(.f, ...): object &#39;the_recipe&#39; not found</code></pre>
 
     </div>
 

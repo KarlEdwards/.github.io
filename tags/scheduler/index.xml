@@ -19,7 +19,7 @@
       
       <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
       <description>Now let’s use Schedule_Reference_Class.R in a real-world situation.
- R&amp;gt; Loading required package: fishface # Create a Schedule with an initialization task s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; ) # Show the schedule: s R&amp;gt; Reference object of class, &amp;quot;Schedule&amp;quot;, having 1 items R&amp;gt; # A tibble: 1 x 4 R&amp;gt; id fun args status R&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; R&amp;gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &amp;lt;- fishface::asdf( path = gsub( &amp;#39;([\\/]*)$&amp;#39;, &amp;#39;&amp;#39;, inlet ) , pattern = &amp;#39;^.</description>
+# Create a Schedule with an initialization task s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; ) # Show the schedule: s | Reference object of class, &amp;quot;Schedule&amp;quot;, having 1 items | # A tibble: 1 x 4 | id fun args status | &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; | 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &amp;lt;- fishface::asdf( path = gsub( &amp;#39;([\\/]*)$&amp;#39;, &amp;#39;&amp;#39;, inlet ) , pattern = &amp;#39;^.</description>
     </item>
     
     <item>
