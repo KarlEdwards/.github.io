@@ -17,12 +17,25 @@
       
       <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
       <description>&lt;p&gt;Now let’s use &lt;strong&gt;Schedule_Reference_Class.R&lt;/strong&gt; in a real-world situation.&lt;/p&gt;
-&lt;ol style=&#34;list-style-type: decimal&#34;&gt;
-&lt;li&gt;&lt;p&gt;Create a schedule with a single task – to apply a recipe to all the video files in the in-box.&lt;/p&gt;&lt;/li&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;Define a recipe&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Create a schedule&lt;/p&gt;&lt;/li&gt;
+&lt;li&gt;&lt;p&gt;Add a task to apply a recipe to all the video files in the in-box.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Perform the task and view the resulting schedule.&lt;/p&gt;&lt;/li&gt;
 &lt;li&gt;&lt;p&gt;Perform the steps of the recipe, following along as each task finishes.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/ul&gt;
 &lt;hr /&gt;
+&lt;p&gt;Define a Recipe&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Define a recipe to apply to each video file
+the_recipe &amp;lt;- function( vid_file ) tibble::tribble(
+    ~fun            , ~args
+  , &amp;quot;extract_images&amp;quot;, list( from_video = vid_file, to_path = paste0( DATA_PATH, &amp;#39;box2/&amp;#39; ))
+  , &amp;quot;do&amp;quot;            , list( source = &amp;#39;box2/&amp;#39;, process = &amp;#39;adjust_for_brighter_top&amp;#39;, destination = &amp;#39;box3/&amp;#39;, more_args = &amp;#39; -a k=0.25 # -t FALSE&amp;#39; )
+  , &amp;quot;do&amp;quot;            , list( source = &amp;#39;box3/&amp;#39;, process = &amp;#39;equalize_colors&amp;#39;, destination = &amp;#39;box4/&amp;#39;, more_args   = &amp;#39; -a k=1 # -t FALSE&amp;#39; )
+  , &amp;quot;do&amp;quot;            , list( source = &amp;#39;box4/&amp;#39;, process = &amp;#39;detect_color_change&amp;#39;, destination = &amp;#39;box5/&amp;#39;, more_args = &amp;#39; -a N=15 # -t FALSE&amp;#39; )
+  , &amp;quot;do&amp;quot;            , list( source = &amp;#39;box5/&amp;#39;, process = &amp;#39;detect_color_change&amp;#39;, destination = &amp;#39;box6/&amp;#39;, more_args = &amp;#39; -a N=1 # -t FALSE&amp;#39; )
+  , &amp;quot;do_hogs&amp;quot;       , list( IMAGE_PATH = paste0( DATA_PATH, &amp;#39;box4/&amp;#39; ), cfg_cells=&amp;#39;8:9&amp;#39;, cfg_bins=&amp;#39;c(10,15)&amp;#39; )
+)&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Create a Schedule with a task to apply a recipe to a bunch of files.&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;s &amp;lt;- Schedule(
     fun=&amp;#39;build_recipes&amp;#39;
@@ -35,16 +48,16 @@
          id fun           args                                       status 
       &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;                                      &amp;lt;chr&amp;gt;  
     1     1 build_recipes list( applied_recipes , the_schedule = s ) Pending&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Save the schedule to a text file:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;s$save_as_text( paste0( DATA_PATH, &amp;#39;schedule.txt&amp;#39; ))&lt;/code&gt;&lt;/pre&gt;
 &lt;p&gt;Get the [video] files:&lt;/p&gt;
 &lt;pre class=&#34;r&#34;&gt;&lt;code&gt;video_files &amp;lt;- fishface::asdf(
     path = gsub( &amp;#39;([\\/]*)$&amp;#39;, &amp;#39;&amp;#39;, inlet )
   , pattern = &amp;#39;^.*.MP4$&amp;#39;, product = &amp;#39;list&amp;#39;
-)
-
-# For each file, apply the recipe:
-stopifnot( is.function( the_recipe ))
-applied_recipes &amp;lt;- video_files %&amp;gt;% purrr::map( the_recipe )
-&lt;/code&gt;&lt;/pre&gt;
+)&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;Apply the recipe to each file:&lt;/p&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;stopifnot( is.function( the_recipe ))
+applied_recipes &amp;lt;- video_files %&amp;gt;% purrr::map( the_recipe )&lt;/code&gt;&lt;/pre&gt;
 </description>
     </item>
     

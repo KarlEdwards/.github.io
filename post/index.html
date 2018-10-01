@@ -259,11 +259,13 @@
   <div class="article-style" itemprop="articleBody">
     
     Now let’s use Schedule_Reference_Class.R in a real-world situation.
-Create a schedule with a single task – to apply a recipe to all the video files in the in-box.
+ Define a recipe
+ Create a schedule
+ Add a task to apply a recipe to all the video files in the in-box.
  Perform the task and view the resulting schedule.
  Perform the steps of the recipe, following along as each task finishes.
-  Create a Schedule with a task to apply a recipe to a bunch of files.
-s &lt;- Schedule( fun=&#39;build_recipes&#39; , args=&quot;list( applied_recipes , the_schedule = s )&quot; ) Show the schedule:
+  Define a Recipe
+# Define a recipe to apply to each video file the_recipe &lt;- function( vid_file ) tibble::tribble( ~fun , ~args , &quot;extract_images&quot;, list( from_video = vid_file, to_path = paste0( DATA_PATH, &#39;box2/&#39; )) , &quot;do&quot; , list( source = &#39;box2/&#39;, process = &#39;adjust_for_brighter_top&#39;, destination = &#39;box3/&#39;, more_args = &#39; -a k=0.
     
   </div>
   <p class="read-more" itemprop="mainEntityOfPage">

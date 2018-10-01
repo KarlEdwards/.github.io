@@ -19,11 +19,13 @@
       
       <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
       <description>Now let’s use Schedule_Reference_Class.R in a real-world situation.
-Create a schedule with a single task – to apply a recipe to all the video files in the in-box.
+ Define a recipe
+ Create a schedule
+ Add a task to apply a recipe to all the video files in the in-box.
  Perform the task and view the resulting schedule.
  Perform the steps of the recipe, following along as each task finishes.
-  Create a Schedule with a task to apply a recipe to a bunch of files.
-s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39; , args=&amp;quot;list( applied_recipes , the_schedule = s )&amp;quot; ) Show the schedule:</description>
+  Define a Recipe
+# Define a recipe to apply to each video file the_recipe &amp;lt;- function( vid_file ) tibble::tribble( ~fun , ~args , &amp;quot;extract_images&amp;quot;, list( from_video = vid_file, to_path = paste0( DATA_PATH, &amp;#39;box2/&amp;#39; )) , &amp;quot;do&amp;quot; , list( source = &amp;#39;box2/&amp;#39;, process = &amp;#39;adjust_for_brighter_top&amp;#39;, destination = &amp;#39;box3/&amp;#39;, more_args = &amp;#39; -a k=0.</description>
     </item>
     
     <item>
