@@ -7,10 +7,20 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>&amp;copy; 2018</copyright>
-    <lastBuildDate>Tue, 26 Jun 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Thu, 26 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://karledwards.github.io/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Add a Task to Add Some Tasks</title>
+      <link>https://karledwards.github.io/post/a-simple-scheduler/</link>
+      <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
+      <description>Now let’s use Schedule_Reference_Class.R in a real-world situation.
+ R&amp;gt; Loading required package: fishface # Create a Schedule with an initialization task s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; ) # Show the schedule: s R&amp;gt; Reference object of class, &amp;quot;Schedule&amp;quot;, having 1 items R&amp;gt; # A tibble: 1 x 4 R&amp;gt; id fun args status R&amp;gt; &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; &amp;lt;chr&amp;gt; R&amp;gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &amp;lt;- fishface::asdf( path = gsub( &amp;#39;([\\/]*)$&amp;#39;, &amp;#39;&amp;#39;, inlet ) , pattern = &amp;#39;^.</description>
+    </item>
     
     <item>
       <title>An ML Pipeline in R</title>

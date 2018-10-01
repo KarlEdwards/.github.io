@@ -11,6 +11,40 @@
     <atom:link href="/" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Add a Task to Add Some Tasks</title>
+      <link>https://karledwards.github.io/post/a-simple-scheduler/</link>
+      <pubDate>Thu, 26 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>https://karledwards.github.io/post/a-simple-scheduler/</guid>
+      <description>&lt;p&gt;Now let’s use &lt;strong&gt;Schedule_Reference_Class.R&lt;/strong&gt; in a real-world situation.&lt;/p&gt;
+&lt;hr /&gt;
+&lt;pre&gt;&lt;code&gt; R&amp;gt;   Loading required package: fishface&lt;/code&gt;&lt;/pre&gt;
+&lt;pre class=&#34;r&#34;&gt;&lt;code&gt;# Create a Schedule with an initialization task
+s &amp;lt;- Schedule( fun=&amp;#39;build_recipes&amp;#39;, args=&amp;quot;list( applied_recipes, the_schedule = s )&amp;quot; )
+
+# Show the schedule:
+s
+ R&amp;gt;   Reference object of class, &amp;quot;Schedule&amp;quot;, having 1 items
+ R&amp;gt;   # A tibble: 1 x 4
+ R&amp;gt;        id fun           args                                      status 
+ R&amp;gt;     &amp;lt;dbl&amp;gt; &amp;lt;chr&amp;gt;         &amp;lt;chr&amp;gt;                                     &amp;lt;chr&amp;gt;  
+ R&amp;gt;   1     1 build_recipes list( applied_recipes, the_schedule = s ) Pending
+
+# Get the [video] files:
+video_files &amp;lt;- fishface::asdf(
+    path = gsub( &amp;#39;([\\/]*)$&amp;#39;, &amp;#39;&amp;#39;, inlet )
+  , pattern = &amp;#39;^.*.MP4$&amp;#39;, product = &amp;#39;list&amp;#39;
+)
+
+# For each file, apply the recipe:
+stopifnot( is.function( the_recipe ))
+ R&amp;gt;   Error in is.function(the_recipe): object &amp;#39;the_recipe&amp;#39; not found
+applied_recipes &amp;lt;- video_files %&amp;gt;% map( the_recipe )
+ R&amp;gt;   Error in map(., the_recipe): could not find function &amp;quot;map&amp;quot;&lt;/code&gt;&lt;/pre&gt;
+</description>
+    </item>
+    
+    <item>
       <title>An ML Pipeline in R</title>
       <link>https://karledwards.github.io/post/an-ml-pipeline-in-r/</link>
       <pubDate>Tue, 26 Jun 2018 00:00:00 +0000</pubDate>

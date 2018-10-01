@@ -17,11 +17,11 @@
       
     
   
-  <meta name="description" content="The following example illustrates a simple object-oriented scheduler built using R Reference Classes.
- # Create a Reference Class Schedule &lt;- setRefClass( &quot;Schedule&quot;, fields = list( data = &quot;data.frame&quot; )) # A method to show the schedule Schedule$methods( show = function(){ &#39;Method for showing scheduled items&#39; cat( &quot;Reference object of class&quot;, classLabel( class( .self )), &quot;\n&quot; ) cat( &quot;Data: \n&quot; ) methods::show( data ) cat( sprintf( &quot;Schedule has %d items\n&quot;, nrow( data ) )) } ) Create a Schedule with an initialization task">
+  <meta name="description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation.
+ R&gt; Loading required package: fishface # Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s R&gt; Reference object of class, &quot;Schedule&quot;, having 1 items R&gt; # A tibble: 1 x 4 R&gt; id fun args status R&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; R&gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.">
 
   
-  <link rel="alternate" hreflang="en-us" href="/post/a-simple-scheduler/">
+  <link rel="alternate" hreflang="en-us" href="https://karledwards.github.io/post/a-simple-scheduler/">
 
   
 
@@ -62,23 +62,23 @@
   
 
   
-  <link rel="alternate" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
-  <link rel="feed" href="/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="alternate" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
+  <link rel="feed" href="https://karledwards.github.io/index.xml" type="application/rss+xml" title="Unqualified Success">
   
 
   <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" type="image/png" href="/img/icon.png">
   <link rel="apple-touch-icon" type="image/png" href="/img/icon-192.png">
 
-  <link rel="canonical" href="/post/a-simple-scheduler/">
+  <link rel="canonical" href="https://karledwards.github.io/post/a-simple-scheduler/">
 
   <meta property="twitter:card" content="summary_large_image">
   
   <meta property="og:site_name" content="Unqualified Success">
-  <meta property="og:url" content="/post/a-simple-scheduler/">
-  <meta property="og:title" content="A Simple Scheduler | Unqualified Success">
-  <meta property="og:description" content="The following example illustrates a simple object-oriented scheduler built using R Reference Classes.
- # Create a Reference Class Schedule &lt;- setRefClass( &quot;Schedule&quot;, fields = list( data = &quot;data.frame&quot; )) # A method to show the schedule Schedule$methods( show = function(){ &#39;Method for showing scheduled items&#39; cat( &quot;Reference object of class&quot;, classLabel( class( .self )), &quot;\n&quot; ) cat( &quot;Data: \n&quot; ) methods::show( data ) cat( sprintf( &quot;Schedule has %d items\n&quot;, nrow( data ) )) } ) Create a Schedule with an initialization task">
+  <meta property="og:url" content="https://karledwards.github.io/post/a-simple-scheduler/">
+  <meta property="og:title" content="Add a Task to Add Some Tasks | Unqualified Success">
+  <meta property="og:description" content="Now let’s use Schedule_Reference_Class.R in a real-world situation.
+ R&gt; Loading required package: fishface # Create a Schedule with an initialization task s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; ) # Show the schedule: s R&gt; Reference object of class, &quot;Schedule&quot;, having 1 items R&gt; # A tibble: 1 x 4 R&gt; id fun args status R&gt; &lt;dbl&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; R&gt; 1 1 build_recipes list( applied_recipes, the_schedule = s ) Pending # Get the [video] files: video_files &lt;- fishface::asdf( path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet ) , pattern = &#39;^.">
   <meta property="og:locale" content="en-us">
   
   <meta property="article:published_time" content="2018-07-26T00:00:00&#43;00:00">
@@ -88,7 +88,7 @@
 
   
 
-  <title>A Simple Scheduler | Unqualified Success</title>
+  <title>Add a Task to Add Some Tasks | Unqualified Success</title>
 
 </head>
 <body id="top" data-spy="scroll" data-target="#toc" data-offset="71" class="dark">
@@ -209,7 +209,7 @@
 
 
   <div class="article-container">
-    <h1 itemprop="name">A Simple Scheduler</h1>
+    <h1 itemprop="name">Add a Task to Add Some Tasks</h1>
 
     
 
@@ -256,117 +256,31 @@
 
 
     <div class="article-style" itemprop="articleBody">
-      <p>The following example illustrates a simple object-oriented scheduler built using <strong>R</strong> Reference Classes.</p>
+      <p>Now let’s use <strong>Schedule_Reference_Class.R</strong> in a real-world situation.</p>
 <hr />
-<pre class="r"><code>
-# Create a Reference Class
-Schedule &lt;- setRefClass( &quot;Schedule&quot;, fields = list( data = &quot;data.frame&quot; ))
-
-# A method to show the schedule
-Schedule$methods(
-  show = function(){
-    &#39;Method for showing scheduled items&#39;
-    cat( &quot;Reference object of class&quot;, classLabel( class( .self )), &quot;\n&quot; )
-    cat( &quot;Data: \n&quot; )
-    methods::show( data )
-    cat( sprintf( &quot;Schedule has %d items\n&quot;, nrow( data ) ))
-  }
-)</code></pre>
-<p>Create a Schedule with an initialization task</p>
-<pre class="r"><code>a_task &lt;- data.frame(
-    id               = 1
-  , fun              = &#39;initialize&#39;
-  , status           = &#39;Done&#39;
-  , stringsAsFactors = FALSE
-)
-s &lt;- Schedule( data = a_task )
+<pre><code> R&gt;   Loading required package: fishface</code></pre>
+<pre class="r"><code># Create a Schedule with an initialization task
+s &lt;- Schedule( fun=&#39;build_recipes&#39;, args=&quot;list( applied_recipes, the_schedule = s )&quot; )
 
 # Show the schedule:
 s
- R&gt;   Reference object of class &quot;Schedule&quot; 
- R&gt;   Data: 
- R&gt;     id        fun status
- R&gt;   1  1 initialize   Done
- R&gt;   Schedule has 1 items</code></pre>
-<p>Sometimes it is better to get just the data</p>
-<pre class="r"><code># A method to return scheduled tasks
-Schedule$methods(
-  get_items = function(){
-    &#39;Method for getting a data.frame of scheduled tasks&#39;
-    as.data.frame( data )
-  }
-)</code></pre>
-<p>Which task is next?</p>
-<pre class="r"><code># A method to return the next pending tasks
-Schedule$methods(
-  get_next = function(){
-    &#39;Method for getting the next scheduled task&#39;
-    is_pending &lt;- function( x ) x == &#39;Pending&#39;
-    n &lt;- data$status %&gt;%
-    detect_index( is_pending )
-    data$fun[n]
-  }
-)</code></pre>
-<p>Perform the next task, and mark it as done.</p>
-<pre class="r"><code>
-# A method to perform the next pending tasks
-Schedule$methods(
-  do_next = function(){
-    &#39;Method for performing the next scheduled task&#39;
-    is_pending &lt;- function( x ) x == &#39;Pending&#39;
-    n &lt;- data$status %&gt;% detect_index( is_pending )
-    eval( parse( text = data$fun[n] ))
-    data$status[n] &lt;&lt;- &#39;Done&#39;
-  }
-)</code></pre>
-<p>Add some more tasks</p>
-<pre class="r"><code># A method to add a task
-Schedule$methods(
-  add_task = function( x ){
-    &#39;Add a task to a schedule.&#39;
-    cat( sprintf( &#39;new item %s\n&#39;, x ))
-    idx &lt;- 1 + nrow( data )
-    data[ idx, 1 ] &lt;&lt;- idx
-    data[ idx, 2 ] &lt;&lt;- x
-    data[ idx, 3 ] &lt;&lt;- &#39;Pending&#39;
-  }
-)</code></pre>
-<p>Save the schedule to a text file</p>
-<pre class="r"><code># A method to save a schedule
-Schedule$methods(
-  save_as_text = function( file ){
-    &#39;Save the current schedule in a file.&#39;
-    write.table(
-        x         = data
-      , file      = file
-      , quote     = FALSE
-      , sep       = &#39;\t&#39;
-      , row.names = FALSE
-    )
-  }
-)</code></pre>
-<p>Read a schedule from a text file</p>
-<pre class="r"><code># A method to read a schedule
-Schedule$methods(
-  read_as_text = function( file ){
-    &#39;Read the current schedule from a file.&#39;
-    data &lt;&lt;- read.table(
-        file             = file
-      , header           = TRUE
-      , sep              = &#39;\t&#39;
-      , stringsAsFactors = FALSE
-    )
-  }
+ R&gt;   Reference object of class, &quot;Schedule&quot;, having 1 items
+ R&gt;   # A tibble: 1 x 4
+ R&gt;        id fun           args                                      status 
+ R&gt;     &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                                     &lt;chr&gt;  
+ R&gt;   1     1 build_recipes list( applied_recipes, the_schedule = s ) Pending
+
+# Get the [video] files:
+video_files &lt;- fishface::asdf(
+    path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet )
+  , pattern = &#39;^.*.MP4$&#39;, product = &#39;list&#39;
 )
 
-# A method to report schedule length
-Schedule$methods(
-  get_length = function(){
-    &#39;Report the number of items in the schedule.&#39;
-    nrow( data )
-  }
-)
-  </code></pre>
+# For each file, apply the recipe:
+stopifnot( is.function( the_recipe ))
+ R&gt;   Error in is.function(the_recipe): object &#39;the_recipe&#39; not found
+applied_recipes &lt;- video_files %&gt;% map( the_recipe )
+ R&gt;   Error in map(., the_recipe): could not find function &quot;map&quot;</code></pre>
 
     </div>
 
@@ -408,7 +322,7 @@ Schedule$methods(
   
   <div class="post-nav-item">
     <div class="meta-nav">Previous</div>
-    <a href="/post/an-ml-pipeline-in-r/" rel="prev">An ML Pipeline in R</a>
+    <a href="https://karledwards.github.io/post/an-ml-pipeline-in-r/" rel="prev">An ML Pipeline in R</a>
   </div>
   
 </div>
