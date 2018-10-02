@@ -293,16 +293,7 @@ the_recipe &lt;- function( vid_file ) tibble::tribble(
     fun=&#39;build_recipes&#39;
   , args=&quot;list( applied_recipes , the_schedule = s )&quot;
 )</code></pre>
-<p>Show the schedule:</p>
-<pre class="r"><code>s
-    Reference object of class, &quot;Schedule&quot;, having 1 items
-    # A tibble: 1 x 4
-         id fun           args                                       status 
-      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                                      &lt;chr&gt;  
-    1     1 build_recipes list( applied_recipes , the_schedule = s ) Pending</code></pre>
-<p>Save the schedule to a text file:</p>
-<pre class="r"><code>s$save_as_text( paste0( DATA_PATH, &#39;schedule.txt&#39; ))</code></pre>
-<p>Get the [video] files:</p>
+<p>Before we can apply the recipe, we need some files, so Get the [video] files:</p>
 <pre class="r"><code>video_files &lt;- fishface::asdf(
     path = gsub( &#39;([\\/]*)$&#39;, &#39;&#39;, inlet )
   , pattern = &#39;^.*.MP4$&#39;, product = &#39;list&#39;
@@ -310,6 +301,30 @@ the_recipe &lt;- function( vid_file ) tibble::tribble(
 <p>Apply the recipe to each file:</p>
 <pre class="r"><code>stopifnot( is.function( the_recipe ))
 applied_recipes &lt;- video_files %&gt;% purrr::map( the_recipe )</code></pre>
+<p>Show the schedule:</p>
+<pre class="r"><code>s
+    Reference object of class, &quot;Schedule&quot;, having 1 items
+    # A tibble: 1 x 4
+         id fun           args                                       status 
+      &lt;dbl&gt; &lt;chr&gt;         &lt;chr&gt;                                      &lt;chr&gt;  
+    1     1 build_recipes list( applied_recipes , the_schedule = s ) Pending</code></pre>
+<p>Perform the task, generating more tasks</p>
+<pre class="r"><code>s$do_next()
+    Attempting to evaluate: build_recipes 
+    with arguments: list( applied_recipes , the_schedule = s )
+    i.e., do.call( &#39;build_recipes&#39;, list( applied_recipes , the_schedule = s ) )
+    Error in map(for_each_batch, .get_steps): could not find function &quot;map&quot;</code></pre>
+<p>Save the schedule to a text file:</p>
+<pre class="r"><code>s$save_as_text( paste0( DATA_PATH, &#39;schedule.txt&#39; ))</code></pre>
+<p>Show schedules in the data directory</p>
+<pre class="r"><code>dir( path = DATA_PATH, pattern = &#39;sched.*\\.txt&#39; )
+    [1] &quot;schedule.txt&quot;</code></pre>
+<p>Perform the first task of the recipe, applied to the first file:</p>
+<pre class="r"><code>s$do_next()
+    Attempting to evaluate: build_recipes 
+    with arguments: list( applied_recipes , the_schedule = s )
+    i.e., do.call( &#39;build_recipes&#39;, list( applied_recipes , the_schedule = s ) )
+    Error in map(for_each_batch, .get_steps): could not find function &quot;map&quot;</code></pre>
 
     </div>
 
